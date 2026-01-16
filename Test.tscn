@@ -1,3 +1,41 @@
-[gd_scene format=3 uid="uid://cyipprkswmejv"]
+[gd_scene load_steps=8 format=3 uid="uid://cyipprkswmejv"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="Texture2D" uid="uid://cywk4ed85xmkm" path="res://kenney_space-shooter-redux/Backgrounds/darkPurple.png" id="1_myinc"]
+[ext_resource type="Script" uid="uid://cuud1isgaumx" path="res://player.gd" id="2_2au82"]
+[ext_resource type="Texture2D" uid="uid://bchkgp72gl73i" path="res://kenney_space-shooter-redux/PNG/playerShip2_orange.png" id="2_njov2"]
+[ext_resource type="PackedScene" uid="uid://dc35aq08f1e6k" path="res://laser.tscn" id="4_8tn2x"]
+[ext_resource type="Texture2D" uid="uid://da2x62jvkmpim" path="res://kenney_space-shooter-redux/PNG/Enemies/enemyBlack3.png" id="5_aq4fw"]
+[ext_resource type="Script" uid="uid://dg04trhnnvuwl" path="res://enemy.gd" id="5_ivycn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivycn"]
+
+[node name="Main" type="Node2D"]
+
+[node name="SpaceBackground" type="Sprite2D" parent="."]
+position = Vector2(264, 454)
+scale = Vector2(4.1640625, 4.1640625)
+texture = ExtResource("1_myinc")
+metadata/_edit_lock_ = true
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(282, 913)
+script = ExtResource("2_2au82")
+laser_tscn = ExtResource("4_8tn2x")
+metadata/_edit_group_ = true
+
+[node name="ShipGraphic" type="Sprite2D" parent="Player"]
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_njov2")
+
+[node name="Enemy" type="Area2D" parent="."]
+position = Vector2(255, 91)
+script = ExtResource("5_ivycn")
+metadata/_edit_group_ = true
+
+[node name="NmyShipGraphic" type="Sprite2D" parent="Enemy"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_aq4fw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+scale = Vector2(2.5, 2)
+shape = SubResource("RectangleShape2D_ivycn")
