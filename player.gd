@@ -14,3 +14,8 @@ func _process(_delta):
 		var new_laser = laser_tscn.instantiate()
 		add_sibling(new_laser) #We make a new child of the main node, instead of the lasers becoming children of the player.
 		new_laser.position = self.position #We make the laser-children spawn at the player-ship.
+
+
+func _on_area_entered(_enemyArea: Area2D) -> void:
+	if _enemyArea.is_in_group("enemyGroup"):
+		self.queue_free()
