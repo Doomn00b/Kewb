@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cyipprkswmejv"]
+[gd_scene load_steps=12 format=3 uid="uid://cyipprkswmejv"]
 
 [ext_resource type="Texture2D" uid="uid://cywk4ed85xmkm" path="res://kenney_space-shooter-redux/Backgrounds/darkPurple.png" id="1_myinc"]
 [ext_resource type="Script" uid="uid://cuud1isgaumx" path="res://player.gd" id="2_2au82"]
@@ -7,12 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://x6vcvfrs6qj1" path="res://enemy.tscn" id="5_aq4fw"]
 [ext_resource type="Script" uid="uid://csryygu8ef6y5" path="res://enemy_spawner.gd" id="6_ivycn"]
 [ext_resource type="Script" uid="uid://cwhaln7th3c22" path="res://score_label.gd" id="7_q1uvj"]
+[ext_resource type="Script" uid="uid://igjovyck8yfv" path="res://game_over_label.gd" id="8_qs82m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q1uvj"]
 radius = 12.019538
 
 [sub_resource type="LabelSettings" id="LabelSettings_ivycn"]
 font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_q1uvj"]
+font_size = 52
 
 [node name="Main" type="Node2D"]
 
@@ -55,6 +59,16 @@ offset_bottom = 78.0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_ivycn")
 script = ExtResource("7_q1uvj")
+
+[node name="GameOverLabel" type="Label" parent="."]
+visible = false
+offset_right = 539.0
+offset_bottom = 961.0
+text = "GAME OVER!"
+label_settings = SubResource("LabelSettings_q1uvj")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_qs82m")
 
 [connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="spawn_enemy_ship"]

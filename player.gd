@@ -16,6 +16,8 @@ func _process(_delta):
 		new_laser.position = self.position #We make the laser-children spawn at the player-ship.
 
 
-func _on_area_entered(_enemyArea: Area2D) -> void:
+func _on_area_entered(_enemyArea: Area2D) -> void: #If something tagged _enemyArea enters the plater-ships collider, then..
 	if _enemyArea.is_in_group("enemyGroup"):
-		self.queue_free()
+		self.queue_free() #...destroy the Player by removing from memory.
+		
+		GameState.is_game_over = true

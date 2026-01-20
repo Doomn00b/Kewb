@@ -13,5 +13,5 @@ func _process(_delta):
 func _on_area_entered(_enemyArea: Area2D) -> void:
 	print("Something connected with Laser!") # Message to make sure the laser-collision happens.
 	#If it hit an enemy.
-	if _enemyArea.is_in_group("enemyGroup"):
+	if _enemyArea.is_in_group("enemyGroup"): #If the object is tagged with _enemyArea and is a part of the tag-group enemyGroup, then...
 		self.queue_free() #We remove the laser from memory, we destroy it.
