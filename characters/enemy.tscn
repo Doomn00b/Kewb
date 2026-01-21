@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://x6vcvfrs6qj1"]
 
-[ext_resource type="Script" uid="uid://dg04trhnnvuwl" path="res://enemy.gd" id="1_4gyqm"]
+[ext_resource type="Script" uid="uid://dg04trhnnvuwl" path="res://characters/enemy.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://da2x62jvkmpim" path="res://kenney_space-shooter-redux/PNG/Enemies/enemyBlack3.png" id="2_qi2p4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivycn"]
