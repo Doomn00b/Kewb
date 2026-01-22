@@ -1,7 +1,49 @@
-[gd_scene load_steps=2 format=3 uid="uid://catv4gbu1rp2n"]
+[gd_scene load_steps=7 format=3 uid="uid://catv4gbu1rp2n"]
 
-[ext_resource type="PackedScene" uid="uid://ck072mpnnrudx" path="res://characters/player.tscn" id="1_34yvf"]
+[ext_resource type="PackedScene" uid="uid://ck072mpnnrudx" path="res://characters/Player/player.tscn" id="1_34yvf"]
+[ext_resource type="PackedScene" uid="uid://58a8niagh30m" path="res://characters/Player/fist.tscn" id="2_s1t1n"]
+[ext_resource type="Script" uid="uid://csryygu8ef6y5" path="res://enemy_spawner.gd" id="3_78frg"]
+[ext_resource type="PackedScene" uid="uid://x6vcvfrs6qj1" path="res://characters/Enemies/enemy.tscn" id="4_mg0xd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34yvf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mg0xd"]
+size = Vector2(66, 136)
 
 [node name="MainNode2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_34yvf")]
+position = Vector2(822, 925)
+disable_mode = 2
+fist_tscn = ExtResource("2_s1t1n")
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("3_78frg")
+enemy_tscn = ExtResource("4_mg0xd")
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(820, 984)
+scale = Vector2(35, 1)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Platform"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -9.942858
+offset_top = -10.0
+offset_right = 6.0571423
+offset_bottom = -9.0
+grow_horizontal = 2
+scale = Vector2(1.2502857, 18.920008)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+shape = SubResource("RectangleShape2D_34yvf")
+
+[node name="TestBlock_RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(554, 788)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock_RigidBody2D"]
+position = Vector2(23, 58)
+shape = SubResource("RectangleShape2D_mg0xd")
