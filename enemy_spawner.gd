@@ -4,7 +4,6 @@ extends Node2D
 
 #Pseudo-code: Spawn new enemy every 1 second.
 func spawn_enemy_ship(): #Our custom-function to spawn ships.
-	print("Enemy ship spawned!")
 	var new_enemy = enemy_tscn.instantiate() #We make a new variable out of the enemy-scene/prefab.
 	add_sibling(new_enemy) #We make a new child of the main node. (but not out of the spawner-node)
 	
@@ -14,3 +13,4 @@ func spawn_enemy_ship(): #Our custom-function to spawn ships.
 	var rand_x = randi_range(10, viewport_width) 
 	new_enemy.position.x = rand_x
 	new_enemy.position.y = -50
+	print_debug("Enemy ship spawned!")
