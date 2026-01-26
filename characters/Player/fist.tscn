@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://58a8niagh30m"]
 
-[ext_resource type="Script" uid="uid://bcliilpxl0vs3" path="res://characters/Player/fist.gd" id="1_1mvdj"]
+[ext_resource type="Script" uid="uid://bcliilpxl0vs3" path="res://characters/Player/Fist.gd" id="1_1mvdj"]
 [ext_resource type="Texture2D" uid="uid://cnw8e2jeoxe6p" path="res://characters/Player/kewb_fist.png" id="1_xnp1h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xnp1h"]

@@ -1,8 +1,9 @@
 extends Node
+
 #This is our Singleton that remembers our score and other things, in-between scenes.
 
 #var score: int = 0 #We have a variable for score, which of course starts at zero.
-var is_game_over = false #Boolean that controls if the game is over or not.
+var is_game_over : bool = false #Boolean that controls if the game is over or not.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

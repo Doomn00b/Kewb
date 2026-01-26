@@ -15,6 +15,7 @@ var move_dir : Vector2
 #var player_pos : Transform2D
 var is_grounded : bool = false #Boolean that tells if the player is grounded.
 var move_locked : bool = false #Boolean that says if the player can move.
+#var facing_right : bool = true #Condition that says the player usually starts facing right.
 
 var walking_speed: int = 150
 var running_speed: int = 300
@@ -30,10 +31,16 @@ enum MovementState {
 var current_state = MovementState.IDLE #We make a new var to describe the basic state...Idle.
 
 func _process(_delta: float) -> void: #Happens on every frame.
+	#Visual processing, stuff like animation updates.
+	update_animation() 
+
+func _input(event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
 	#input from our movement-actions.
-	move_dir = Input.get_vector("move_back", "move_forward", "move_up", "move_down") 
+	move_dir.x = Input.get_axis("move_back", "move_forward")
+	move_dir.y = Input.get_axis("move_up", "move_down")
 	
+	_flip()
 	if Input.is_action_pressed("charge"):
 		print_debug("player is holding charge")
 		#If we're holding charge while walking, and not running, then...
@@ -46,9 +53,6 @@ func _process(_delta: float) -> void: #Happens on every frame.
 	if Input.is_action_just_pressed("attack"): #If the player presses the shoot-action, then...
 		print_debug("Player attacked!")
 	
-	#Visual processing, stuff like animation updates.
-	update_animation() 
-
 #Physics Process Delta is a fixed Update, happens 60/1.
 func _physics_process(delta: float) -> void: #I picked physics, since this is movement.
 	
@@ -65,23 +69,22 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 		velocity.y = JUMP_VELOCITY
 		unground_player() #We make sure to say the player isn't grounded.
 		print_debug("Player jumped")
-
-
-	# Get the input direction and handle the movement/deceleration.
-	if move_dir :
-		#velocity = move_dir * SPEED
-		velocity.x = move_dir.x * SPEED
-		#velocity.y = move_dir.y * SPEED
-		print_debug("Player moved")
-	else:
-		#velocity = move_toward(0, 0, SPEED)
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		#velocity.y = move_toward(velocity.y, 0, SPEED)
 	
-	apply_movement() #We run the movement-state switch.
+	apply_movement(delta) #We run the movement-state switch.
 	move_and_slide()
 
 		
+#Code to flip the character when walking.
+func _flip():
+	#var current_scale = self.transform.scaled_local()
+	if sign(move_dir.x) == -1:
+		%Flip.scale.x = abs(scale.x) * -1.0
+	else:
+		%Flip.scale.x = abs(scale.x)
+	#if move_dir.x != 0:
+		#var new_scale : float = abs(scale.x) * sign(move_dir.x)
+		#scale.x = new_scale
+
 #These functions are called to turn on and off movement.
 func lock_movement():
 	move_locked = true #Turn off movement.
@@ -107,17 +110,30 @@ func _apply_gravity(delta : float):
 	else: #Otherwise, we...
 		return #...don't do anything. (no gravity-application)
 	
-func apply_movement(): #Let's do a switch, aka a match, instead of 10k if-statements.
+func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
+	
+		# Get the input direction and handle the movement/deceleration.
+	if move_dir :
+		#velocity = move_dir * SPEED
+		velocity.x = move_dir.x * SPEED
+		#velocity.y = move_dir.y * SPEED
+		print_debug("Player moved")
+	else:
+		#velocity = move_toward(0, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		#velocity.y = move_toward(velocity.y, 0, SPEED)
+	
 	match MovementState :
 		MovementState.IDLE: #This would be a "case" in Unity.
-			pass
+			velocity = Vector2.ZERO
+			_apply_gravity(delta)
 		MovementState.WALKING:
 			pass
 		MovementState.RUNNING:
 			pass
 		MovementState.AIRBORNE:
 			pass
-		MovementState.UNDERWATER:	
+		MovementState.UNDERWATER:
 			pass
 			
 func update_animation(): #This is where we change which anim we're in.

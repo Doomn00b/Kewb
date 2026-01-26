@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dc35aq08f1e6k"]
 
-[ext_resource type="Script" uid="uid://dkx13qpknsc31" path="res://interactables/laser.gd" id="1_2fj6h"]
-[ext_resource type="Texture2D" uid="uid://b10d37cx7ihme" path="res://kenney_space-shooter-redux/PNG/Lasers/laserBlue14.png" id="2_08pvl"]
+[ext_resource type="Script" uid="uid://dkx13qpknsc31" path="res://interactables/Laser.gd" id="1_2fj6h"]
+[ext_resource type="Texture2D" path="res://kenney_space-shooter-redux/PNG/Lasers/laserBlue14.png" id="2_08pvl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6vqwg"]
 radius = 3.0
