@@ -26,7 +26,7 @@ func _on_area_entered(_area: Area2D) -> void: #When something enters the Area2D,
 	#Increase score when enemy dies.
 	GameState.increase_score(10)
 	
-func setup_enemy(x, y): #A function that readies the enemy's properties in a level.
-	self.position = Vector2(x, y) #Sets up the position of the enemy.
+func setup_enemy(pos : Vector2 = Vector2.ZERO): #A function that readies the enemy's properties in a level.
+	self.global_position = pos #Sets up the position of the enemy.
 	#Add setting health?
 	#Add setting type of enemy??

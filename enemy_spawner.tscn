@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2kxrorooo8fd"]
+
+[ext_resource type="Script" uid="uid://csryygu8ef6y5" path="res://EnemySpawner.gd" id="1_00s5r"]
+[ext_resource type="PackedScene" uid="uid://x6vcvfrs6qj1" path="res://characters/Enemies/enemy.tscn" id="2_63vqd"]
+
+[node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("spawn_points")]
+script = ExtResource("1_00s5r")
+enemy_tscn = ExtResource("2_63vqd")
+spawn_points = [NodePath("Point")]
+
+[node name="SpawnCooldown" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Point" type="Marker2D" parent="."]
+
+[connection signal="timeout" from="SpawnCooldown" to="." method="spawn_enemies"]
