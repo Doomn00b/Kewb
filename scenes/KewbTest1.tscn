@@ -31,7 +31,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_34yvf")
 
 [node name="TestBlock_RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(13, 86)
+position = Vector2(-53, 107)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock_RigidBody2D"]

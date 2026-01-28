@@ -156,8 +156,9 @@ frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(80, -40)
+process_callback = 0
 position_smoothing_enabled = true
-position_smoothing_speed = 32.0
+position_smoothing_speed = 1.0
 
 [node name="CamAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
