@@ -22,19 +22,31 @@ enum AnimationState {
 	PASWIM,
 	PADEAD
 }
+
+enum CameraLimits {
+	RDCAMLIM, #Right-Direction Camera-Limits 
+	LDCAMLIM #Left-Direction Camera-Limits
+}
+
 const JUMP_VELOCITY: int = -400
 
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
 
 var SPEED: int = 0
 
-var move_dir : Vector2
+var move_dir : Vector2 :
+	set(new_dir):
+		move_dir = new_dir
 #var player_pos : Transform2D
 var is_grounded : bool = false #Boolean that tells if the player is grounded.
 var move_locked : bool = false #Boolean that says if the player can move.
 
 var walking_speed: int = 150
 var running_speed: int = 300
+
+var last_direction = 1 #Value that show the direction the player was moving in, last.
+var current_direction = 1 #Check for the player's current moving direction.
+var current_cam_limit = CameraLimits.RDCAMLIM #Right-facing player is default, so camera-limits Right is also default.
 
 var current_move_state = MovementState.IDLE #We make a new var to describe the basic state...Idle.
 var current_anim_state = AnimationState.PAIDLE
@@ -46,6 +58,8 @@ var anim : AnimationPlayer
 
 func _ready() -> void:
 	anim = %AnimationPlayer
+	#We set the direction the player is facing, at the start of the game (to be right).
+	current_direction = -1 
 
 func _input(event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
@@ -58,8 +72,8 @@ func _input(event: InputEvent) -> void:
 	else:
 		current_move_state = MovementState.IDLE
 		
-	_flip() #We run the flip-sprite function if we're moving.
-	
+	 #We run the flip-sprite function if we're moving.
+	_flip()
 	#If we're holding charge while walking, and moving, then...
 	if Input.is_action_pressed("charge") and move_dir.x:
 		print_debug("player is holding charge")
@@ -90,7 +104,10 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 		print_debug("Player jumped")
 	
 	apply_movement(delta) #We run the movement-state switch.
-	update_animation() 
+	update_animation() #We update the animation.
+	#camera_control() #We adjust the camera.
+	#Function to check direction, goes HERE.
+	
 	move_and_slide()
 
 func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
@@ -133,6 +150,7 @@ func update_animation(): #This is where we change which anim we're in.
 			anim.play("player_dead")
 	
 
+
 #These functions are called to turn on and off movement.
 func lock_movement():
 	move_locked = true #Turn off movement.
@@ -160,13 +178,34 @@ func _on_area_entered(_enemyArea: Area2D) -> void: #If something tagged _enemyAr
 		
 #Code to flip the character when walking.
 func _flip():
-	if sign(move_dir.x) == -1: #If we input movement to the left on the x-axis (negative), then...
-		%Flip.scale.x = abs(scale.x) * -1.0 #...we flip the player using absolute scale.
-	elif sign(move_dir.x) == +1 :
-		%Flip.scale.x = abs(scale.x) * +1.0
-	#if move_dir.x != 0:
-		#var new_scale : float = abs(scale.x) * sign(move_dir.x)
-		#scale.x = new_scale
+	if move_dir.x == 0:
+		return
+	var signed_x : float = sign(move_dir.x)
+	%Flip.scale.x = abs(scale.x) *  signed_x
+	current_direction = signed_x
+	var dir_string : String = "_left" if signed_x == -1 else "_right"
+	
+	if current_direction != last_direction:
+		$CamAnimationPlayer.play("cam_mov" + dir_string)
+		
+	#Update the last direction variable.
+	last_direction = current_direction
+	
+#func camera_control():
+	#match CameraLimits :
+		#CameraLimits.RDCAMLIM: #Right-Direction Camera-Limits 
+			#$Camera2D.limit_left = -90 #10 pixels more than camera-offset.
+			#$Camera2D.limit_bottom = 328 #40 pixels more than ref-rez Y.
+			#$Camera2D.limit_top = 30 #10 pixels less than camera-offset.
+			#$Camera2D.limit_right = 432 #80 pixels less than ref-rez X.
+			#print_debug("Set Right Camlimits")
+			#
+		#CameraLimits.LDCAMLIM: #Left-Direction Camera-Limits
+			#$Camera2D.limit_left = 70 #10 pixels LESS than camera-offset.
+			#$Camera2D.limit_bottom = 328 #40 pixels more than ref-rez Y.
+			#$Camera2D.limit_top = 30 
+			#$Camera2D.limit_right = 592 #80 pixels more than ref-rez X.
+			#print_debug("Set LEFT Camlimits")
 
 func _ground_player():
 	is_grounded = true

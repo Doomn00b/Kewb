@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://catv4gbu1rp2n"]
+[gd_scene load_steps=5 format=3 uid="uid://catv4gbu1rp2n"]
 
 [ext_resource type="PackedScene" uid="uid://ck072mpnnrudx" path="res://characters/Player/player.tscn" id="1_34yvf"]
-[ext_resource type="PackedScene" uid="uid://58a8niagh30m" path="res://characters/Player/fist.tscn" id="2_s1t1n"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://enemy_spawner.tscn" id="3_78frg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_34yvf"]
@@ -11,13 +10,8 @@ size = Vector2(66, 136)
 
 [node name="MainNode2D" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_34yvf")]
-position = Vector2(332, 243)
-disable_mode = 2
-fist_tscn = ExtResource("2_s1t1n")
-
 [node name="Platform" type="StaticBody2D" parent="."]
-position = Vector2(283, 274)
+position = Vector2(353, 223)
 scale = Vector2(35, 1)
 metadata/_edit_group_ = true
 
@@ -37,7 +31,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_34yvf")
 
 [node name="TestBlock_RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(64, 106)
+position = Vector2(13, 86)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock_RigidBody2D"]
@@ -48,9 +42,13 @@ shape = SubResource("RectangleShape2D_mg0xd")
 spawn_points = [NodePath("Point"), NodePath("Point2")]
 
 [node name="Point" parent="EnemySpawner2" index="1"]
-position = Vector2(442, 93)
+position = Vector2(459, 109)
 
 [node name="Point2" type="Marker2D" parent="EnemySpawner2"]
 position = Vector2(201, 129)
 
+[node name="Player" parent="." instance=ExtResource("1_34yvf")]
+position = Vector2(101, 196)
+
 [editable path="EnemySpawner2"]
+[editable path="Player"]
