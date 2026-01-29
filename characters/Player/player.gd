@@ -106,8 +106,6 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 	apply_movement(delta) #We run the movement-state switch.
 	update_animation() #We update the animation.
 	#camera_control() #We adjust the camera.
-	#Function to check direction, goes HERE.
-	
 	move_and_slide()
 
 func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
@@ -178,6 +176,7 @@ func _on_area_entered(_enemyArea: Area2D) -> void: #If something tagged _enemyAr
 		
 #Code to flip the character when walking.
 func _flip():
+	#Guard clause
 	if move_dir.x == 0:
 		return
 	var signed_x : float = sign(move_dir.x)
