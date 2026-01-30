@@ -1,5 +1,5 @@
 class_name Enemy
-extends Node2D
+extends CharacterBody2D
 
 @export var Nmyspeed: int = 200 #We make a new variable: Enemy Speed, which is an Int with 200 as standard value.
 @export var NmyArea2D: Area2D
@@ -25,10 +25,10 @@ func _process(delta: float) -> void:
 	#the enemy will attempt to attack?
 	if playerChr != null: #If there's a player-character...
 		#self.position.x -= playerChr.position.x * Nmyspeed * delta #Makes the enemy go towards player.
-		if self.RigidBody2D
+		
+		if is_on_floor(): #Put in a condition that says they can only move if they're touching ground?
 			var direction = (playerChr.position - self.position).normalized()
 			self.position.x += direction.x * Nmyspeed * delta
-		
 			print_debug("Found the player haha")
 	
 func _on_area_entered(_playerArea: Area2D) -> void: #When the player enters the Area2D, aka collider, then...

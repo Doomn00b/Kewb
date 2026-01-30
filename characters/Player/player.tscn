@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://cuud1isgaumx" path="res://characters/Player/Player.gd" id="1_vb825"]
 [ext_resource type="Texture2D" uid="uid://gwdoe46w1uw0" path="res://characters/Player/kewb_godot-Sheet.png" id="2_8gp0o"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8gp0o"]
+size = Vector2(32, 32)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7dd2"]
 size = Vector2(31, 32)
 
@@ -132,6 +135,11 @@ _data = {
 [node name="Player" type="CharacterBody2D" unique_id=1236161566 groups=["playerGroup"]]
 script = ExtResource("1_vb825")
 metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=263225864]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=331019338]
+shape = SubResource("RectangleShape2D_8gp0o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=64264918]
 modulate = Color(0.9831343, 0.25027704, 0.99999994, 1)
