@@ -29,9 +29,11 @@ enum CameraLimits {
 }
 
 const JUMP_VELOCITY: int = -400
+const PCMAX_HEALTH = 10 #We make a new constant that defines the enemy has health.
 
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
 
+var health = PCMAX_HEALTH #We make a new variable based on the Health-constant.
 var SPEED: int = 0
 
 var move_dir : Vector2 :
@@ -168,11 +170,15 @@ func _apply_gravity(delta : float):
 		return #...don't do anything. (no gravity-application)
 	
 #The below is for killing the player.
-func _on_area_entered(_enemyArea: Area2D) -> void: #If something tagged _enemyArea enters the plater-ships collider, then..
+func _on_detection_area_entered(_enemyArea: Area2D) -> void:
 	if _enemyArea.is_in_group("enemyGroup"):
-		self.queue_free() #...destroy the Player by removing from memory.
-		print_debug("Player died.")
-		GameState.is_game_over = true
+		health -= 5 #Player's health decreases by 5, per punch that connects.
+		print("Got punched by the Enemy!")
+		if health <= 0: #If you run out of health, or if it goes negative, then...
+			self.queue_free() #...destroy the Player by removing from memory.
+			print_debug("Player died.")
+			GM.is_game_over = true
+
 		
 #Code to flip the character when walking.
 func _flip():

@@ -58,11 +58,12 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
 sources/1 = SubResource("TileSetAtlasSource_j8rsw")
 
-[node name="MainNode2D" type="Node2D" unique_id=2143603366]
+[node name="Level2D" type="Node2D" unique_id=2143603366]
 
 [node name="Player" parent="." unique_id=1702685496 instance=ExtResource("1_34yvf")]
 z_index = 1
 position = Vector2(101, 196)
+collision_layer = 3
 
 [node name="TestBlock_RigidBody2D" type="RigidBody2D" parent="." unique_id=524871813]
 position = Vector2(16, 88)

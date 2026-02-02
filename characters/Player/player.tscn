@@ -7,7 +7,7 @@
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7dd2"]
-size = Vector2(31, 32)
+size = Vector2(32, 32)
 
 [sub_resource type="Animation" id="Animation_j7dd2"]
 length = 0.001
@@ -136,15 +136,15 @@ _data = {
 script = ExtResource("1_vb825")
 metadata/_edit_group_ = true
 
-[node name="Area2D" type="Area2D" parent="." unique_id=263225864]
+[node name="Detection" type="Area2D" parent="." unique_id=263225864]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=331019338]
+[node name="DetectionCollisionShape2D" type="CollisionShape2D" parent="Detection" unique_id=331019338]
 shape = SubResource("RectangleShape2D_8gp0o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=64264918]
 modulate = Color(0.9831343, 0.25027704, 0.99999994, 1)
 self_modulate = Color(1, 0.79607844, 1, 1)
-position = Vector2(0.5000005, 4.7683716e-07)
+position = Vector2(4.7683716e-07, 4.7683716e-07)
 shape = SubResource("RectangleShape2D_j7dd2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=794517114]
@@ -165,6 +165,9 @@ offset = Vector2(80, -40)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 1.0
+drag_horizontal_enabled = true
 
 [node name="CamAnimationPlayer" type="AnimationPlayer" parent="." unique_id=998103261]
 libraries/ = SubResource("AnimationLibrary_5nx12")
+
+[connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]

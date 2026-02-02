@@ -7,13 +7,13 @@
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7fn0"]
-size = Vector2(48, 48)
+size = Vector2(40, 40)
 
 [node name="EnemyCube" type="CharacterBody2D" unique_id=2049833632 node_paths=PackedStringArray("NmyArea2D") groups=["enemyGroup"]]
 z_index = 1
+collision_layer = 3
 script = ExtResource("1_fqm6r")
-Nmyspeed = null
-NmyArea2D = NodePath("CubeNmyArea2D")
+NmyArea2D = NodePath("NmyArea2D")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=168635995]
@@ -26,8 +26,8 @@ shape = SubResource("RectangleShape2D_78frg")
 [node name="Sprite2D" type="Sprite2D" parent="FlipNmy" unique_id=1626493624]
 texture = ExtResource("2_aoswd")
 
-[node name="CubeNmyArea2D" type="Area2D" parent="." unique_id=389465481]
+[node name="NmyArea2D" type="Area2D" parent="." unique_id=389465481 groups=["enemyGroup"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CubeNmyArea2D" unique_id=485172445]
+[node name="NmyDetectCollisionShape2D" type="CollisionShape2D" parent="NmyArea2D" unique_id=485172445 groups=["enemyGroup"]]
 shape = SubResource("RectangleShape2D_e7fn0")
 debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)
