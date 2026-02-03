@@ -15,13 +15,9 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Kewb"
-run/main_scene="uid://catv4gbu1rp2n"
+run/main_scene="uid://q0bh23avpg8e"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
-
-[autoload]
-
-Global="*uid://cvbbcswv1dnpe"
 
 [display]
 

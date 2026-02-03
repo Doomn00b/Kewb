@@ -13,13 +13,18 @@ var current_gui
 #var score: int = 0 #We have a variable for score, which of course starts at zero.
 var is_game_over : bool = false #Boolean that controls if the game is over or not.
 
+static var instance : GameManager
+
+func _init() -> void:
+	instance = self
 
 func _ready() -> void:
-	Global.GM = self
-
+	current_gui = SplashScreenManager.instance
+	current_level2d = level_2D
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept") and GM.is_game_over:
+	if Input.is_action_just_pressed("ui_accept") and is_game_over:# and GM.is_game_over:
 		print_debug("enter has been pressed")
 		#Reload the scene.
 		get_tree().reload_current_scene() #We get the whole tree, everything in every scene.
@@ -27,7 +32,7 @@ func _process(_delta: float) -> void:
 		reset_values() #And reset the values too.
 
 func change_level2D(new_level: String, delete: bool = true, 
-keep_running: bool = false ) -> void:
+	keep_running: bool = false ) -> void:
 	if current_level2d != null:
 		if delete:
 			current_level2d.queue_free() #Removes a node entirely.
@@ -42,7 +47,7 @@ keep_running: bool = false ) -> void:
 
 #This function manages GUI-scenes/prefabs
 func change_gui_scene(new_guiscene: String, delete: bool = true, 
-keep_running: bool = false) -> void:
+	keep_running: bool = false) -> void:
 	if current_gui != null:
 		if delete:
 			current_gui.queue_free() #Removes a node entirely.
@@ -58,4 +63,4 @@ keep_running: bool = false) -> void:
 func reset_values(): #Because you died, but you're restarting...
 	#score = 0
 	is_game_over = false
-	print_debug("Turned off movement.")
+	print_debug("Restarting game.")

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://d3rrxxne0sxya"]
+
+[ext_resource type="Script" uid="uid://cwd14gsquftyp" path="res://GUI/SplashScreenManager.gd" id="1_ddgav"]
+[ext_resource type="Texture2D" uid="uid://d4bak5ux4dto8" path="res://icon.svg" id="1_l8vrt"]
+[ext_resource type="Texture2D" uid="uid://vevcejhedk20" path="res://characters/Enemies/Test-enemy.png" id="2_n4pxi"]
+
+[node name="SplashScreenManager" type="Control" unique_id=1907148508]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ddgav")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=510771792]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SplashScreenContainer" type="CenterContainer" parent="." unique_id=382366903]
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 288.0
+
+[node name="Screen1" type="TextureRect" parent="SplashScreenContainer" unique_id=2141059519]
+layout_mode = 2
+texture = ExtResource("1_l8vrt")
+
+[node name="Screen2" type="TextureRect" parent="SplashScreenContainer" unique_id=1294809757]
+layout_mode = 2
+texture = ExtResource("2_n4pxi")
+
+[node name="Screen3" type="TextureRect" parent="SplashScreenContainer" unique_id=7338426]
+layout_mode = 2

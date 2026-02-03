@@ -1,5 +1,5 @@
 #BEST PRACTICES:
-#Get input in _process and save results to member variables.
+#Get input from 1. _input, and 2. _process_physics & save results to member variables.
 #→Detects input every frame for smooth controls.
 
 
@@ -177,7 +177,7 @@ func _on_detection_area_entered(_enemyArea: Area2D) -> void:
 		if health <= 0: #If you run out of health, or if it goes negative, then...
 			self.queue_free() #...destroy the Player by removing from memory.
 			print_debug("Player died.")
-			GM.is_game_over = true
+			GameManager.instance.is_game_over = true #Error if not run from Main, expected
 
 		
 #Code to flip the character when walking.
