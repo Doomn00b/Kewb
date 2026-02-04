@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="3_mg0xd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mg0xd"]
-size = Vector2(66, 136)
+size = Vector2(34, 136)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
 
@@ -58,26 +58,32 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
 sources/1 = SubResource("TileSetAtlasSource_j8rsw")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j8rsw"]
+size = Vector2(64, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3et8"]
+size = Vector2(32, 16)
+
 [node name="Level2D" type="Node2D" unique_id=2143603366]
+y_sort_enabled = true
 
 [node name="Player" parent="." unique_id=1702685496 instance=ExtResource("1_34yvf")]
 z_index = 1
 position = Vector2(101, 196)
-collision_layer = 3
 
-[node name="TestBlock_RigidBody2D" type="RigidBody2D" parent="." unique_id=524871813]
-position = Vector2(16, 88)
+[node name="TestBlock" type="StaticBody2D" parent="." unique_id=1762496683]
+position = Vector2(-16, 88)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock_RigidBody2D" unique_id=843593661]
-position = Vector2(23, 58)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock" unique_id=843593661]
+position = Vector2(7, 58)
 shape = SubResource("RectangleShape2D_mg0xd")
 
-[node name="TestBlock_RigidBody2D2" type="RigidBody2D" parent="." unique_id=1269309334]
-position = Vector2(368, 88)
+[node name="TestBlock3" type="StaticBody2D" parent="." unique_id=1829756627]
+position = Vector2(416, 88)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock_RigidBody2D2" unique_id=1064870560]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock3" unique_id=1064870560]
 position = Vector2(23, 58)
 shape = SubResource("RectangleShape2D_mg0xd")
 
@@ -86,13 +92,15 @@ enemy_tscn = ExtResource("2_j8rsw")
 spawn_points = [NodePath("Point"), NodePath("Point2")]
 
 [node name="Point" parent="EnemySpawner2" index="1" unique_id=251681297]
-position = Vector2(320, 120)
+position = Vector2(352, 120)
 
 [node name="Point2" type="Marker2D" parent="EnemySpawner2" unique_id=1148452854]
-position = Vector2(248, 192)
+position = Vector2(280, 152)
 
 [node name="BlueTilesTop" type="TileMapLayer" parent="." unique_id=1119523911]
-z_index = 2
+visibility_layer = 2
+z_index = -1
+y_sort_enabled = true
 position = Vector2(72, 232)
 tile_map_data = PackedByteArray("AAD8//7/AQAAAAEAAAD9//7/AQABAAEAAAD+//7/AQACAAEAAAD///7/AQADAAEAAAAAAP7/AQAEAAEAAAABAP7/AQAFAAEAAAACAP7/AQAGAAEAAAADAP7/AQAHAAEAAAAEAP7/AQAIAAEAAAAFAP7/AQABAAEAAAAMAP7/AQAIAAEAAAANAP7/AQABAAEAAAAOAP7/AQACAAEAAAAPAP7/AQADAAEAAAAQAP7/AQAEAAEAAAARAP7/AQAFAAEAAAASAP7/AQAGAAEAAAATAP7/AQAHAAEAAAAUAP7/AQAIAAEAAAAVAP7/AQAJAAEAAAAGAP7/AQACAAEAAAAHAP7/AQADAAEAAAAIAP7/AQAEAAEAAAAJAP7/AQAFAAEAAAAKAP7/AQAGAAEAAAALAP7/AQAHAAEAAAA=")
 tile_set = SubResource("TileSet_q3et8")
@@ -100,15 +108,27 @@ collision_enabled = false
 physics_quadrant_size = 8
 
 [node name="BlueTilesBot" type="TileMapLayer" parent="." unique_id=704312989]
-z_index = 2
+z_index = 1
 position = Vector2(72, 232)
 tile_map_data = PackedByteArray("AAD8/wAAAQAAAAMAAAD9/wAAAQABAAMAAAD+/wAAAQACAAMAAAD//wAAAQADAAMAAAAAAAAAAQAEAAMAAAABAAAAAQAFAAMAAAACAAAAAQAGAAMAAAADAAAAAQAHAAMAAAAEAAAAAQAIAAMAAAAFAAAAAQAJAAMAAAD8////AQAAAAIAAAD9////AQABAAIAAAD+////AQACAAIAAAD/////AQADAAIAAAAAAP//AQAEAAIAAAABAP//AQAFAAIAAAACAP//AQAGAAIAAAADAP//AQAHAAIAAAAEAP//AQAIAAIAAAAFAP//AQABAAIAAAAGAAAAAQACAAMAAAAHAAAAAQADAAMAAAAIAAAAAQAEAAMAAAAJAAAAAQAFAAMAAAAKAAAAAQAGAAMAAAALAAAAAQAHAAMAAAAMAAAAAQAIAAMAAAANAAAAAQAJAAMAAAAGAP//AQACAAIAAAAHAP//AQADAAIAAAAIAP//AQAEAAIAAAAJAP//AQAFAAIAAAAKAP//AQAGAAIAAAALAP//AQAHAAIAAAAMAP//AQAIAAIAAAANAP//AQABAAIAAAAOAAAAAQACAAMAAAAPAAAAAQADAAMAAAAQAAAAAQAEAAMAAAARAAAAAQAFAAMAAAASAAAAAQAGAAMAAAATAAAAAQAHAAMAAAAUAAAAAQAIAAMAAAAVAAAAAQAJAAMAAAAPAP//AQADAAIAAAAQAP//AQAEAAIAAAARAP//AQAFAAIAAAASAP//AQAGAAIAAAATAP//AQAHAAIAAAAUAP//AQAIAAIAAAAVAP//AQAJAAIAAAAOAP//AQACAAIAAAA=")
 tile_set = SubResource("TileSet_q3et8")
 collision_visibility_mode = 1
 physics_quadrant_size = 32
 
-[node name="EnemyCube" parent="." unique_id=1246260015 instance=ExtResource("2_j8rsw")]
-position = Vector2(200, 120)
+[node name="Testblock2" type="StaticBody2D" parent="." unique_id=990800814]
+position = Vector2(352, 136)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Testblock2" unique_id=1602164098]
+shape = SubResource("RectangleShape2D_j8rsw")
+
+[node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=1679305098]
+position = Vector2(272, 168)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=1176707820]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_q3et8")
 
 [editable path="Player"]
 [editable path="EnemySpawner2"]

@@ -28,13 +28,18 @@ enum CameraLimits {
 	LDCAMLIM #Left-Direction Camera-Limits
 }
 
-const JUMP_VELOCITY: int = -400
 const PCMAX_HEALTH = 10 #We make a new constant that defines the enemy has health.
 
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
 
+@export var walking_speed: int = 150
+@export var running_speed: int = 300
+@export var walk_jump_vel: int = -400
+@export var run_jump_vel: int = -600
+
 var health = PCMAX_HEALTH #We make a new variable based on the Health-constant.
 var SPEED: int = 0
+var JUMP_VELOCITY: int = 0
 
 var move_dir : Vector2 :
 	set(new_dir):
@@ -43,8 +48,7 @@ var move_dir : Vector2 :
 var is_grounded : bool = false #Boolean that tells if the player is grounded.
 var move_locked : bool = false #Boolean that says if the player can move.
 
-var walking_speed: int = 150
-var running_speed: int = 300
+
 
 var last_direction = 1 #Value that show the direction the player was moving in, last.
 var current_direction = 1 #Check for the player's current moving direction.
@@ -101,10 +105,15 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 
 	# Player presses jump -> Kewb jumps.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = walk_jump_vel
 		_unground_player() #We make sure to say the player isn't grounded.
 		print_debug("Player jumped")
-	
+	#Jump higher
+	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("charge") and is_on_floor(): #If we're also holding charge...
+		velocity.y = run_jump_vel
+		_unground_player()
+		print_debug("Player jumped higher")
+		
 	apply_movement(delta) #We run the movement-state switch.
 	update_animation() #We update the animation.
 	#camera_control() #We adjust the camera.
@@ -172,7 +181,7 @@ func _apply_gravity(delta : float):
 #The below is for killing the player.
 func _on_detection_area_entered(_enemyArea: Area2D) -> void:
 	if _enemyArea.is_in_group("enemyGroup"):
-		health -= 5 #Player's health decreases by 5, per punch that connects.
+		health -= 1 #Player's health decreases by 5, per punch that connects.
 		print("Got punched by the Enemy!")
 		if health <= 0: #If you run out of health, or if it goes negative, then...
 			self.queue_free() #...destroy the Player by removing from memory.
@@ -214,6 +223,9 @@ func _flip():
 
 func _ground_player():
 	is_grounded = true
+	velocity.y = walk_jump_vel #Make sure player looses ability to jump high.
+	print_debug("Grounded player.")
 	
 func _unground_player():
 	is_grounded = false
+	print_debug("Ungrounded player.")

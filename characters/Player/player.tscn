@@ -133,10 +133,13 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=1236161566 groups=["playerGroup"]]
+y_sort_enabled = true
+collision_layer = 5
 script = ExtResource("1_vb825")
 metadata/_edit_group_ = true
 
 [node name="Detection" type="Area2D" parent="." unique_id=263225864]
+collision_layer = 5
 
 [node name="DetectionCollisionShape2D" type="CollisionShape2D" parent="Detection" unique_id=331019338]
 shape = SubResource("RectangleShape2D_8gp0o")
