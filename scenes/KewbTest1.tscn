@@ -91,11 +91,14 @@ shape = SubResource("RectangleShape2D_mg0xd")
 enemy_tscn = ExtResource("2_j8rsw")
 spawn_points = [NodePath("Point"), NodePath("Point2")]
 
+[node name="SpawnCooldown" parent="EnemySpawner2" index="0" unique_id=1656349062]
+wait_time = 0.5
+
 [node name="Point" parent="EnemySpawner2" index="1" unique_id=251681297]
 position = Vector2(352, 120)
 
 [node name="Point2" type="Marker2D" parent="EnemySpawner2" unique_id=1148452854]
-position = Vector2(240, 192)
+position = Vector2(216, 168)
 
 [node name="BlueTilesTop" type="TileMapLayer" parent="." unique_id=1119523911]
 visibility_layer = 2

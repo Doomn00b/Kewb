@@ -15,11 +15,12 @@ z_index = 1
 y_sort_enabled = true
 collision_layer = 3
 script = ExtResource("1_fqm6r")
+Nmyspeed = null
 NmyArea2D = NodePath("NmyArea2D")
 metadata/_edit_group_ = true
 
 [node name="NmyCTimer" type="Timer" parent="." unique_id=1133709180]
-wait_time = 0.75
+wait_time = 1.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=168635995]
 shape = SubResource("RectangleShape2D_78frg")
