@@ -29,6 +29,7 @@ enum CameraLimits {
 }
 
 const PCMAX_HEALTH = 10 #We make a new constant that defines the enemy has health.
+const ACCELERATION : float = 9.8
 
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
 
@@ -47,8 +48,6 @@ var move_dir : Vector2 :
 #var player_pos : Transform2D
 var is_grounded : bool = false #Boolean that tells if the player is grounded.
 var move_locked : bool = false #Boolean that says if the player can move.
-
-
 
 var last_direction = 1 #Value that show the direction the player was moving in, last.
 var current_direction = 1 #Check for the player's current moving direction.
@@ -102,6 +101,7 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 	
 	# Add the gravity.
 	_apply_gravity(delta)
+	#_jump(delta)
 
 	# Player presses jump -> Kewb jumps.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -110,7 +110,7 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 		print_debug("Player jumped")
 	#Jump higher
 	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("charge") and is_on_floor(): #If we're also holding charge...
-		velocity.y = run_jump_vel
+		velocity.y = run_jump_vel 
 		_unground_player()
 		print_debug("Player jumped higher")
 		
@@ -171,9 +171,7 @@ func free_movement():
 func _apply_gravity(delta : float):
 	if not is_on_floor() : #Do I need MORE in the condition?
 		var gravity = get_gravity()
-		#velocity += gravity * delta
 		velocity.y += gravity.y * delta
-		#velocity.x += gravity.x * delta
 	
 	else: #Otherwise, we...
 		return #...don't do anything. (no gravity-application)
@@ -229,3 +227,13 @@ func _ground_player():
 func _unground_player():
 	is_grounded = false
 	print_debug("Ungrounded player.")
+	
+	#Pseudo-code: 
+	#Constant acceleration
+	#pos += velocity * delta-time + 1/2 acceleration * delta-time * delta-time
+	#Simplified, almost as good:
+	#delta-acceleration * delta-time * delta-time
+	#A curve to apply it?
+#func _jump(delta):
+	#self.position += (velocity * delta) + ((0.5 * ACCELERATION) * delta * delta)
+	#velocity += ACCELERATION * delta

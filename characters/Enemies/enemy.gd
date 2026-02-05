@@ -14,15 +14,17 @@ var health = NMYMAX_HEALTH #We make a new variable based on the Health-constant.
 var playerChr #We make a new variable to represent the player
 var player_chase : bool = false #Represents the enemy chasing the player or not.
 var targets : Array[Node2D]
-var nmy_raycast : RayCast2D
+var atk_raycast : RayCast2D
+var before_1st_atk : Timer #This variable is the time between spotting the player and attacking.
 
 func _ready() -> void:
+	before_1st_atk = $NmyCTimer #We define a timer to delay our 1st attack.
 	playerChr = get_tree().get_first_node_in_group("playerGroup")
 	print_debug("Got the player from Tree.")
 	enemies_spawned += 1 #When we start the scene, enemy-count will go up.
 	NmyArea2D.body_entered.connect(_on_cube_nmy_area_2d_body_entered) #Connecting area2D
 	NmyArea2D.body_exited.connect(_on_cube_nmy_area_2d_body_exited)
-	nmy_raycast = $RayCast2D #We give the raycast-object (from the node-tree) to our nmy-raycast variable.
+	atk_raycast = $NmyAtkRC #We give the raycast-object (from the node-tree) to our nmy-raycast variable.
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -36,23 +38,24 @@ func _physics_process(delta: float) -> void:
 
 
 func attack_player(delta : float):
-	#Raycasting, for detecting the player.
-	 #Variable that stores the question of the direction of the Ray in space.
-	#var nmy_ray_result = nmy_raycast.intersect_ray(nmy_ray_query) #Variable that stores the result of where the ray intersected with something. (based on where query was made)
-	#the result is also a dictionary.
-	
-	#if playerChr != null and nmy_ray_result != null : #If there's a player-character... and if it breaks the detection-cone.
+	#Guardclause, to prevent attacking without player.
 	if playerChr == null: #But if there is no player, then...
 		return #...We don't do anything.
+	#END guard-clause
+	#Raycasting, for detecting the player.
+	
+	if atk_raycast.is_colliding(): #If the raycast hits the player...
+		var nmy_ray_query : Vector2 = atk_raycast.get_collision_point()
+		before_1st_atk.start() #...we start a timer to delay the 1st attack.
+		await before_1st_atk.timeout #...which delays the below attack-code.
 		
-	if nmy_raycast.is_colliding():
-		var nmy_ray_query : Vector2 = nmy_raycast.get_collision_point()
-		if self.is_on_floor(): #Put in a condition that says they can only move if they're touching ground?
+		if self.is_on_floor() and nmy_ray_query >= Vector2(0,0): #Enemy has to be touching ground and a collision-point.
 			var direction = (playerChr.position - self.position).normalized()
 			velocity.x = direction.x * Nmyspeed
 			print("Detected player at:")#,nmy_ray_result.position)
 			return
-	velocity.x = 0.0
+	else:
+		velocity.x = 0.0 #Replace with Elif-statement: if not on floor and no ray-query, then 0.
 		
 
 
