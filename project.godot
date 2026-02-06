@@ -31,6 +31,7 @@ window/stretch/scale_mode="integer"
 
 playerGroup=""
 enemyGroup="Group for all the enemies."
+enemyDmgGroup=""
 
 [input]
 

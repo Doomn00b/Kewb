@@ -178,7 +178,7 @@ func _apply_gravity(delta : float):
 	
 #The below is for killing the player.
 func _on_detection_area_entered(_enemyArea: Area2D) -> void:
-	if _enemyArea.is_in_group("enemyGroup"):
+	if _enemyArea.is_in_group("enemyDmgGroup"):
 		health -= 1 #Player's health decreases by 5, per punch that connects.
 		print("Got punched by the Enemy!")
 		if health <= 0: #If you run out of health, or if it goes negative, then...
