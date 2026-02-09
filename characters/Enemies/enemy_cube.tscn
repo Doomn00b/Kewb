@@ -39,7 +39,7 @@ texture = ExtResource("3_ivb5h")
 
 [node name="NmyDmgArea" type="Area2D" parent="FlipNmy" unique_id=389465481 groups=["enemyDmgGroup"]]
 
-[node name="NmyDmgZone" type="CollisionShape2D" parent="FlipNmy/NmyDmgArea" unique_id=485172445 groups=["enemyGroup"]]
+[node name="NmyDmgZone" type="CollisionShape2D" parent="FlipNmy/NmyDmgArea" unique_id=485172445 groups=["enemyDmgGroup"]]
 position = Vector2(-14, 0)
 shape = SubResource("RectangleShape2D_e7fn0")
 debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)

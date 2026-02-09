@@ -1,12 +1,12 @@
 #TODO: Make enemy move slowly idly. Make enemy flip direction.
-
+	# Restore ability to get hurt
 
 class_name Enemy
 extends CharacterBody2D
 
 @export var Nmyspeed: int = 200 #We make a new variable: Enemy Speed, which is an Int with 200 as standard value.
 @export var NmyDmgArea: Area2D #We will store our NmyDmgArea here. (it's an Area2D)
-@export var NmyHurtArea: Area2D
+@export var NmyHurtArea: Area2D #This 
 
 static var enemies_spawned : int = 0 #This variable determines how many enemies have spawned.
 
@@ -63,8 +63,8 @@ func _attack_player(delta : float):
 		#var nmy_ray_query : Vector2 = atk_raycast.get_collision_point()
 		before_1st_atk.start() #...we start a timer to delay the 1st attack.
 		await before_1st_atk.timeout #...which delays the below attack-code.
-		
-		if self.is_on_floor(): #and nmy_ray_query >= Vector2(0,0): #Enemy has to be touching ground and a collision-point.
+		#If the enemy is touching the floor and we're not in Game Over, then...
+		if self.is_on_floor() and GameManager.instance.is_game_over == false : 
 			var direction = (playerChr.position - self.position).normalized()
 			velocity.x = direction.x * Nmyspeed
 			print("Detected player at:")#,nmy_ray_result.position)
@@ -93,7 +93,7 @@ func _on_raydetect(node : RayCast2D) -> void:
 		if node.get_collision_mask_value(3): #If the body that entered the Area is in the Player-group...
 			targets.append(node) #...then put it in the list of targets.
 			player_chase = true #And make it clear we're chasing the player.
-			print_debug("Chasing target on mask #3")
+			#print_debug("Chasing target on mask #3")
 
 func _on_notdetect(node : RayCast2D) -> void:
 	if atk_raycast.is_colliding() == null:
@@ -119,16 +119,18 @@ func _on_pbody_exi_dmg(node : Node2D) -> void:
 		return		
 		
 func _on_pfist_ent_hurt(node : Node2D) -> void:
-	if node.is_in_group("playerGroup"):
-		pass #Write way TO hurt player.
+	if node.is_in_group("playerDmgGroup"):
+		_nmy_gethurt()
+		print_debug("Enemy got hurt!")#
 		
 func _on_pfist_exi_hurt(node : Node2D) -> void:
-	if node.is_in_group("playerGroup"):
-		pass #Write way to stop hurting player
+	if node.is_in_group("playerDmgGroup"):
+		pass #Write way to stop getting hurt by player.
 
 #This is only supposed to run when the player is in range of hurting us.
 func _nmy_gethurt():
 	if Input.is_action_just_pressed("attack"): #If the player attacks...
+		#AND it's the player-damage zone that hits us...
 		health -= 5 #Enemy's health decreases by 5, per punch that connects.
 		print("Got punched by the Player!")
 		if health <= 0: #If the enemy is out of health, he dies.

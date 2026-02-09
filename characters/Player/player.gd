@@ -60,9 +60,12 @@ var current_anim_state = AnimationState.PAIDLE
 #@onready var anim : AnimationPlayer = %AnimationPlayer
 
 var anim : AnimationPlayer
+var fist_time : Timer
 
 func _ready() -> void:
 	anim = %AnimationPlayer
+	fist_time = $FistTime #We get the timer that decides how long our fist is visible
+	#Wait... do I need to connect this to an animation-state as well?? YES! >:( 
 	#We set the direction the player is facing, at the start of the game (to be right).
 	current_direction = -1 
 
@@ -77,20 +80,30 @@ func _input(event: InputEvent) -> void:
 	else:
 		current_move_state = MovementState.IDLE
 		
-	 #We run the flip-sprite function if we're moving.
-	_flip()
+	_flip() #We run the flip-sprite function if we're moving.
+	_player_attack() #If we press attack we run the player attack function.
+	
 	#If we're holding charge while walking, and moving, then...
 	if Input.is_action_pressed("charge") and move_dir.x:
 		print_debug("player is holding charge")
 		current_move_state = MovementState.RUNNING #...we start running.
 		
+func _player_attack():
 	# pseudocode - Player presses punch -> do punching-fist. (animation? Spawn arm?)
-	if Input.is_action_just_pressed("attack"): #If the player presses the shoot-action, then...
+	if Input.is_action_just_pressed("attack"): #If the player presses the attack-action, then...
+		#And the fist-timer has run out...
+		fist_tscn.instantiate() #Instantiate the fist.
+		var fist = fist_tscn.instance()
+		self.add_child(fist)
+		fist_time.start()
+		await fist_time
+		
+		
 		print_debug("Player attacked!")
 		if Input.is_action_pressed("charge") and Input.is_action_just_pressed("attack"):
 			#Replace with power-punch!
 			print_debug("Power-punch!")
-	
+
 #Physics Process Delta is a fixed Update, happens 60/1.
 func _physics_process(delta: float) -> void: #I picked physics, since this is movement.
 	

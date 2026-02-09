@@ -32,6 +32,7 @@ window/stretch/scale_mode="integer"
 playerGroup=""
 enemyGroup="Group for all the enemies."
 enemyDmgGroup=""
+playerDmgGroup=""
 
 [input]
 
@@ -82,4 +83,5 @@ move_down={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=3
 renderer/rendering_method="mobile"
