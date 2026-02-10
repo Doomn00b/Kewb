@@ -6,8 +6,8 @@ extends CharacterBody2D
 
 @export var Nmyspeed: int = 200 #We make a new variable: Enemy Speed, which is an Int with 200 as standard value.
 @export var NmyDmgArea: Area2D #We will store our NmyDmgArea here. (it's an Area2D)
-@export var NmyHurtArea: Area2D #This 
-
+#@export var NmyHurtArea: Area2D #This 
+@export var base_damage : int = 1
 static var enemies_spawned : int = 0 #This variable determines how many enemies have spawned.
 
 const NMYMAX_HEALTH = 10 #We make a new constant that defines the enemy has health.
@@ -28,18 +28,15 @@ func _ready() -> void:
 	enemies_spawned += 1 #When we start the scene, enemy-count will go up.
 	
 	NmyDmgArea.body_entered.connect(_on_pbody_ent_dmg) #Connecting Give-Damage-area.
-	NmyDmgArea.body_exited.connect(_on_pbody_exi_dmg)
-	NmyHurtArea.area_entered.connect(_on_pfist_ent_hurt) #Connecting Get-Hurt-area
-	NmyHurtArea.area_exited.connect(_on_pfist_exi_hurt)
+	#NmyDmgArea.body_exited.connect(_on_pbody_exi_dmg)
+	#NmyHurtArea.area_entered.connect(_on_pfist_ent_hurt) #Connecting Get-Hurt-area
+	#NmyHurtArea.area_exited.connect(_on_pfist_exi_hurt)
 	
 	atk_raycast = $FlipNmy/NmyAtkRC #We give the raycast-object (from the node-tree) to our nmy-raycast variable.
 		
 	edge_rayL = $FlipNmy/NmyEdgeL #Give the variable the left edge ray-cast
 	edge_rayR = $FlipNmy/NmyEdgeR #Give the variable the Right edge ray-cast
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 	
 func _physics_process(delta: float) -> void:
@@ -49,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	#_on_raydetect(atk_raycast)
 	#_on_notdetect(atk_raycast)
 	#End check
-	_attack_player(delta)
+	_rush_player(delta)
 	#Detect damages
 	#_on_pbody_ent_dmg()
 	#_on_pbody_exi_dmg()
@@ -58,7 +55,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func _attack_player(delta : float):
+func _rush_player(_delta : float):
 	#Guardclause, to prevent attacking without player.
 	if playerChr == null or GameManager.instance.is_game_over == true: #But if there is no player and game is over, then...
 		print_debug("Player is dead, Enemy won't attack.")
@@ -92,7 +89,7 @@ func _apply_gravity(delta : float):
 		return #...don't do anything. (no gravity-application)
 
 	
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	pass
 
 #Detecting the player, to chase them.
@@ -112,43 +109,51 @@ func _input(event: InputEvent) -> void:
 			#player_chase = false #And make it clear we're chasing the player.
 			#print_debug("Lost target.")
 ##END Detecting the player.
+func take_damage(damage : int):
+	health -= damage #Enemy's health decreases by 5, per punch that connects.
+	print("Enemy Took Damage!")
+	if health <= 0: #If the enemy is out of health, he dies.
+		queue_free() #We free the enemy from memory... we destroy it.
+		print("Something killed the Cube-enemy!")
 
 #Giving damage to player.
 func _on_pbody_ent_dmg(node : Node2D) -> void:
-	if node.is_in_group("playerGroup"): #If the body that entered the Area is in the Player-group...
-		print_debug("We can damage player.")
-	else:
-		return
+	if node is Player:
+		node.take_damage(base_damage)
+	#if node.is_in_group("playerGroup"): #If the body that entered the Area is in the Player-group...
+		#print_debug("We can damage player.")
+	#else:
+		#return
 
-func _on_pbody_exi_dmg(node : Node2D) -> void:
-		#Stop damaging player.
-	if node.is_in_group("playerGroup"):
-		print_debug("Can't hurt player any more.")
-	else:
-		return	
+#func _on_pbody_exi_dmg(node : Node2D) -> void:
+		##Stop damaging player.
+	#if node.is_in_group("playerGroup"):
+		#print_debug("Can't hurt player any more.")
+	#else:
+		#return	
 #END Damaging player.
 		
 #Getting HURT BY the player.
-func _on_pfist_ent_hurt(node : Area2D) -> void:
-	if node.is_in_group("playerDmgGroup"):
-		_nmy_gethurt()
-		print_debug("Enemy got hurt!")#
-		
-func _on_pfist_exi_hurt(node : Area2D) -> void:
-	if node.is_in_group("playerDmgGroup"):
+#func _on_pfist_ent_hurt(node : Area2D) -> void:
+	#if node.is_in_group("playerDmgGroup"):
+		##_nmy_gethurt()
+		#print_debug("Enemy got hurt!")#
+		#
+#func _on_pfist_exi_hurt(node : Area2D) -> void:
+	#if node.is_in_group("playerDmgGroup"):
 		pass #Write way to stop getting hurt by player.
 
-#This is only supposed to run when the player is in range of hurting us.
-func _nmy_gethurt():
-	if Input.is_action_just_pressed("attack"): #If the player attacks...
-		#AND it's the player-damage zone that hits us...
-		health -= 5 #Enemy's health decreases by 5, per punch that connects.
-		print("Got punched by the Player!")
-		if health <= 0: #If the enemy is out of health, he dies.
-			queue_free() #We free the enemy from memory... we destroy it.
-			print("Something killed the Cube-enemy!")
-			#Increase score when enemy dies.
-			#GameState.increase_score(10)
+##This is only supposed to run when the player is in range of hurting us.
+#func _nmy_gethurt():
+	#if Input.is_action_just_pressed("attack"): #If the player attacks...
+		##AND it's the player-damage zone that hits us...
+		#health -= 5 #Enemy's health decreases by 5, per punch that connects.
+		#print("Got punched by the Player!")
+		#if health <= 0: #If the enemy is out of health, he dies.
+			#queue_free() #We free the enemy from memory... we destroy it.
+			#print("Something killed the Cube-enemy!")
+			##Increase score when enemy dies.
+			##GameState.increase_score(10)
 #END getting hurt.
 
 func setup_enemy(pos : Vector2 = Vector2.ZERO): #A function that readies the enemy's properties in a level.

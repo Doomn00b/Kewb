@@ -13,13 +13,12 @@ size = Vector2(13, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7fn0"]
 size = Vector2(25, 34)
 
-[node name="EnemyCube" type="CharacterBody2D" unique_id=2049833632 node_paths=PackedStringArray("NmyDmgArea", "NmyHurtArea") groups=["enemyGroup"]]
+[node name="EnemyCube" type="CharacterBody2D" unique_id=2049833632 node_paths=PackedStringArray("NmyDmgArea") groups=["enemyGroup"]]
 z_index = 1
 y_sort_enabled = true
-collision_layer = 3
+collision_layer = 2
 script = ExtResource("1_fqm6r")
 NmyDmgArea = NodePath("FlipNmy/NmyDmgArea")
-NmyHurtArea = NodePath("FlipNmy/NmyHurtArea")
 metadata/_edit_group_ = true
 
 [node name="NmyCTimer" type="Timer" parent="." unique_id=1133709180]
@@ -41,6 +40,8 @@ position = Vector2(-16, -8)
 texture = ExtResource("3_ivb5h")
 
 [node name="NmyDmgArea" type="Area2D" parent="FlipNmy" unique_id=389465481 groups=["enemyDmgGroup"]]
+collision_layer = 0
+collision_mask = 4
 
 [node name="NmyDmgZone" type="CollisionShape2D" parent="FlipNmy/NmyDmgArea" unique_id=485172445 groups=["enemyDmgGroup"]]
 position = Vector2(-14.5, -3)
@@ -48,8 +49,10 @@ shape = SubResource("RectangleShape2D_ivb5h")
 debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)
 
 [node name="NmyHurtArea" type="Area2D" parent="FlipNmy" unique_id=340083749 groups=["enemyGroup"]]
+visible = false
 
 [node name="NmyHurtZone" type="CollisionShape2D" parent="FlipNmy/NmyHurtArea" unique_id=1600605225 groups=["enemyGroup"]]
+visible = false
 position = Vector2(4.5, 0)
 shape = SubResource("RectangleShape2D_e7fn0")
 debug_color = Color(0.2798203, 0.55712515, 0.804408, 0.41960785)

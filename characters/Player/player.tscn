@@ -141,10 +141,12 @@ fist_tscn = ExtResource("2_j7dd2")
 metadata/_edit_group_ = true
 
 [node name="PlayerHurtArea" type="Area2D" parent="." unique_id=263225864 groups=["playerGroup"]]
+visible = false
 collision_layer = 5
 collision_mask = 5
 
 [node name="PlayerHurtZone" type="CollisionShape2D" parent="PlayerHurtArea" unique_id=331019338 groups=["playerGroup"]]
+visible = false
 shape = SubResource("RectangleShape2D_8gp0o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=64264918]
@@ -165,6 +167,10 @@ texture_filter = 1
 texture = ExtResource("2_8gp0o")
 hframes = 5
 frame = 1
+
+[node name="FistPoint" type="Marker2D" parent="Flip" unique_id=1280658925]
+unique_name_in_owner = true
+position = Vector2(20, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2040663807]
 offset = Vector2(80, -40)

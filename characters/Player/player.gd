@@ -72,7 +72,7 @@ func _ready() -> void:
 	#We set the direction the player is facing, at the start of the game (to be right).
 	current_direction = -1 
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
 	#input from our movement-actions.
 	move_dir.x = Input.get_axis("move_back", "move_forward")
@@ -105,7 +105,7 @@ func _player_attack():
 	if fist_time.is_stopped(): #If the player presses the attack-action, then...
 		#And the fist-timer has run out...
 		var fist = fist_tscn.instantiate() #Instantiate the fist.
-		self.add_child(fist)
+		%FistPoint.add_child(fist)
 		fist_time.start()
 		await fist_time.timeout
 		fist.queue_free()
@@ -198,16 +198,23 @@ func _apply_gravity(delta : float):
 		return #...don't do anything. (no gravity-application)
 	
 #The below is for killing the player.
-func _on_detection_area_entered(_enemyArea: Area2D) -> void:
-	if _enemyArea.is_in_group("enemyDmgGroup"):
-		health -= 1 #Player's health decreases according to variable, per punch that connects.
-		print("Got punched by the Enemy!")
-		if health <= 0: #If you run out of health, or if it goes negative, then...
-			self.queue_free() #...destroy the Player by removing from memory.
-			print_debug("Player died.")
-			GameManager.instance.is_game_over = true #Error if not run from Main, expected
+#func _on_detection_area_entered(_enemyArea: Area2D) -> void:
+	#if _enemyArea.is_in_group("enemyDmgGroup"):
+		#health -= 1 #Player's health decreases according to variable, per punch that connects.
+		#print("Got punched by the Enemy!")
+		#if health <= 0: #If you run out of health, or if it goes negative, then...
+			#self.queue_free() #...destroy the Player by removing from memory.
+			#print_debug("Player died.")
+			#GameManager.instance.is_game_over = true #Error if not run from Main, expected
 
-		
+func take_damage(damage : int):
+	health -= damage #Player's health decreases according to variable, per punch that connects.
+	print("Player Took Damage!")
+	if health <= 0: #If you run out of health, or if it goes negative, then...
+		self.queue_free() #...destroy the Player by removing from memory.
+		print_debug("Player died.")
+		GameManager.instance.is_game_over = true
+	
 #Code to flip the character when walking.
 func _flip():
 	#Guard clause
