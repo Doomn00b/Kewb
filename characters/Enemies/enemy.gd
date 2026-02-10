@@ -26,10 +26,11 @@ func _ready() -> void:
 	playerChr = get_tree().get_first_node_in_group("playerGroup")
 	print_debug("Got the player from Tree.")
 	enemies_spawned += 1 #When we start the scene, enemy-count will go up.
+	
 	NmyDmgArea.body_entered.connect(_on_pbody_ent_dmg) #Connecting Give-Damage-area.
 	NmyDmgArea.body_exited.connect(_on_pbody_exi_dmg)
-	NmyHurtArea.body_entered.connect(_on_pfist_ent_hurt) #Connecting Get-Hurt-area
-	NmyHurtArea.body_exited.connect(_on_pfist_exi_hurt)
+	NmyHurtArea.area_entered.connect(_on_pfist_ent_hurt) #Connecting Get-Hurt-area
+	NmyHurtArea.area_exited.connect(_on_pfist_exi_hurt)
 	
 	atk_raycast = $FlipNmy/NmyAtkRC #We give the raycast-object (from the node-tree) to our nmy-raycast variable.
 		
@@ -40,12 +41,20 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	
+	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	_apply_gravity(delta)
-	_on_raydetect(atk_raycast)
-	_on_notdetect(atk_raycast)
+	#Check for the player
+	#_on_raydetect(atk_raycast)
+	#_on_notdetect(atk_raycast)
+	#End check
 	_attack_player(delta)
+	#Detect damages
+	#_on_pbody_ent_dmg()
+	#_on_pbody_exi_dmg()
+	#_on_pfist_ent_hurt()
+	#_on_pfist_exi_hurt()
 	move_and_slide()
 
 
@@ -67,7 +76,7 @@ func _attack_player(delta : float):
 		if self.is_on_floor() and GameManager.instance.is_game_over == false : 
 			var direction = (playerChr.position - self.position).normalized()
 			velocity.x = direction.x * Nmyspeed
-			print("Detected player at:")#,nmy_ray_result.position)
+			#print("Detected player")
 			return
 	else:
 		velocity.x = 0.0 #Replace with Elif-statement: if not on floor and no ray-query, then 0.
@@ -87,25 +96,25 @@ func _input(event: InputEvent) -> void:
 	pass
 
 #Detecting the player, to chase them.
-func _on_raydetect(node : RayCast2D) -> void:
-	if atk_raycast.is_colliding() != null:
-		#Targetting the player
-		if node.get_collision_mask_value(3): #If the body that entered the Area is in the Player-group...
-			targets.append(node) #...then put it in the list of targets.
-			player_chase = true #And make it clear we're chasing the player.
-			#print_debug("Chasing target on mask #3")
+#func _on_raydetect(node : RayCast2D) -> void:
+	#if atk_raycast.is_colliding() != null:
+		##Targetting the player
+		#if node.get_collision_mask_value(3): #If the body that entered the Area is in the Player-group...
+			#targets.append(node) #...then put it in the list of targets.
+			#player_chase = true #And make it clear we're chasing the player.
+			##print_debug("Chasing target on mask #3")
+#
+#func _on_notdetect(node : RayCast2D) -> void:
+	#if atk_raycast.is_colliding() == null:
+		##UN-targetting the player
+		#if node.get_collision_mask_value(!3): #If the body that entered the Area is in the Player-group...
+			#targets.erase(node) #...then put it in the list of targets.
+			#player_chase = false #And make it clear we're chasing the player.
+			#print_debug("Lost target.")
+##END Detecting the player.
 
-func _on_notdetect(node : RayCast2D) -> void:
-	if atk_raycast.is_colliding() == null:
-		#UN-targetting the player
-		if node.get_collision_mask_value(!3): #If the body that entered the Area is in the Player-group...
-			targets.erase(node) #...then put it in the list of targets.
-			player_chase = false #And make it clear we're chasing the player.
-			print_debug("Lost target.")
-#END Detecting the player.
-
+#Giving damage to player.
 func _on_pbody_ent_dmg(node : Node2D) -> void:
-	#Giving damage to player.
 	if node.is_in_group("playerGroup"): #If the body that entered the Area is in the Player-group...
 		print_debug("We can damage player.")
 	else:
@@ -116,14 +125,16 @@ func _on_pbody_exi_dmg(node : Node2D) -> void:
 	if node.is_in_group("playerGroup"):
 		print_debug("Can't hurt player any more.")
 	else:
-		return		
+		return	
+#END Damaging player.
 		
-func _on_pfist_ent_hurt(node : Node2D) -> void:
+#Getting HURT BY the player.
+func _on_pfist_ent_hurt(node : Area2D) -> void:
 	if node.is_in_group("playerDmgGroup"):
 		_nmy_gethurt()
 		print_debug("Enemy got hurt!")#
 		
-func _on_pfist_exi_hurt(node : Node2D) -> void:
+func _on_pfist_exi_hurt(node : Area2D) -> void:
 	if node.is_in_group("playerDmgGroup"):
 		pass #Write way to stop getting hurt by player.
 
@@ -138,7 +149,7 @@ func _nmy_gethurt():
 			print("Something killed the Cube-enemy!")
 			#Increase score when enemy dies.
 			#GameState.increase_score(10)
-
+#END getting hurt.
 
 func setup_enemy(pos : Vector2 = Vector2.ZERO): #A function that readies the enemy's properties in a level.
 	self.global_position = pos #Sets up the position of the enemy.

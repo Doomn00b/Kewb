@@ -2,6 +2,8 @@
 #Get input from 1. _input, and 2. _process_physics & save results to member variables.
 #→Detects input every frame for smooth controls.
 
+#TODO: Fix spawned fist moving away. Make it flip with player.
+
 
 class_name Player
 extends CharacterBody2D
@@ -20,7 +22,8 @@ enum AnimationState {
 	PARUN,
 	PAJUMP,
 	PASWIM,
-	PADEAD
+	PADEAD,
+	PAPUNCH
 }
 
 enum CameraLimits {
@@ -85,24 +88,29 @@ func _input(event: InputEvent) -> void:
 	
 	#If we're holding charge while walking, and moving, then...
 	if Input.is_action_pressed("charge") and move_dir.x:
-		print_debug("player is holding charge")
+		#print_debug("player is holding charge")
 		current_move_state = MovementState.RUNNING #...we start running.
 		
 func _player_attack():
+	if !Input.is_action_just_pressed("attack"): #Nothing will happen if an attack command did not happen
+		return
+	print_debug("Player attacked!")
+	if Input.is_action_pressed("charge"): #Release of charge attack, IMPORTANT DIFFERENCE
+		#Replace with power-punch!
+		print_debug("Power-punch!")
+		#CHARGE CODE HERE
+		return
 	# pseudocode - Player presses punch -> do punching-fist. (animation? Spawn arm?)
-	if Input.is_action_just_pressed("attack"): #If the player presses the attack-action, then...
+	
+	if fist_time.is_stopped(): #If the player presses the attack-action, then...
 		#And the fist-timer has run out...
-		fist_tscn.instantiate() #Instantiate the fist.
-		var fist = fist_tscn.instance()
+		var fist = fist_tscn.instantiate() #Instantiate the fist.
 		self.add_child(fist)
 		fist_time.start()
-		await fist_time
+		await fist_time.timeout
+		fist.queue_free()
 		
-		
-		print_debug("Player attacked!")
-		if Input.is_action_pressed("charge") and Input.is_action_just_pressed("attack"):
-			#Replace with power-punch!
-			print_debug("Power-punch!")
+	
 
 #Physics Process Delta is a fixed Update, happens 60/1.
 func _physics_process(delta: float) -> void: #I picked physics, since this is movement.
@@ -168,11 +176,11 @@ func update_animation(): #This is where we change which anim we're in.
 			pass
 		AnimationState.PASWIM:
 			pass
+		AnimationState.PAPUNCH:
+			pass
 		AnimationState.PADEAD:
 			anim.play("player_dead")
 	
-
-
 #These functions are called to turn on and off movement.
 func lock_movement():
 	move_locked = true #Turn off movement.
@@ -192,7 +200,7 @@ func _apply_gravity(delta : float):
 #The below is for killing the player.
 func _on_detection_area_entered(_enemyArea: Area2D) -> void:
 	if _enemyArea.is_in_group("enemyDmgGroup"):
-		health -= 1 #Player's health decreases by 5, per punch that connects.
+		health -= 1 #Player's health decreases according to variable, per punch that connects.
 		print("Got punched by the Enemy!")
 		if health <= 0: #If you run out of health, or if it goes negative, then...
 			self.queue_free() #...destroy the Player by removing from memory.

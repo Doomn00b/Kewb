@@ -7,8 +7,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78frg"]
 size = Vector2(32, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivb5h"]
+size = Vector2(13, 24)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7fn0"]
-size = Vector2(12, 30)
+size = Vector2(25, 34)
 
 [node name="EnemyCube" type="CharacterBody2D" unique_id=2049833632 node_paths=PackedStringArray("NmyDmgArea", "NmyHurtArea") groups=["enemyGroup"]]
 z_index = 1
@@ -40,16 +43,16 @@ texture = ExtResource("3_ivb5h")
 [node name="NmyDmgArea" type="Area2D" parent="FlipNmy" unique_id=389465481 groups=["enemyDmgGroup"]]
 
 [node name="NmyDmgZone" type="CollisionShape2D" parent="FlipNmy/NmyDmgArea" unique_id=485172445 groups=["enemyDmgGroup"]]
-position = Vector2(-14, 0)
-shape = SubResource("RectangleShape2D_e7fn0")
+position = Vector2(-14.5, -3)
+shape = SubResource("RectangleShape2D_ivb5h")
 debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)
 
 [node name="NmyHurtArea" type="Area2D" parent="FlipNmy" unique_id=340083749 groups=["enemyGroup"]]
 
 [node name="NmyHurtZone" type="CollisionShape2D" parent="FlipNmy/NmyHurtArea" unique_id=1600605225 groups=["enemyGroup"]]
-position = Vector2(-14, 0)
+position = Vector2(4.5, 0)
 shape = SubResource("RectangleShape2D_e7fn0")
-debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)
+debug_color = Color(0.2798203, 0.55712515, 0.804408, 0.41960785)
 
 [node name="NmyAtkRC" type="RayCast2D" parent="FlipNmy" unique_id=1170243958]
 position = Vector2(-16, 0)
