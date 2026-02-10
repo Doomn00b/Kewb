@@ -59,7 +59,7 @@ physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
 sources/1 = SubResource("TileSetAtlasSource_j8rsw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8rsw"]
-size = Vector2(64, 16)
+size = Vector2(232, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3et8"]
 size = Vector2(32, 16)
@@ -131,6 +131,7 @@ position = Vector2(352, 136)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Testblock2" unique_id=1602164098]
+position = Vector2(-84, 0)
 shape = SubResource("RectangleShape2D_j8rsw")
 
 [node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=1679305098]

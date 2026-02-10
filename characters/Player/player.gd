@@ -2,12 +2,11 @@
 #Get input from 1. _input, and 2. _process_physics & save results to member variables.
 #→Detects input every frame for smooth controls.
 
-#TODO: Fix spawned fist moving away. Make it flip with player.
-
+#TODO: 
 
 class_name Player
 extends CharacterBody2D
-
+#These Enums define the different movement-states the player can have.
 enum MovementState {
 	IDLE,
 	WALKING,
@@ -35,7 +34,6 @@ const PCMAX_HEALTH = 10 #We make a new constant that defines the enemy has healt
 const ACCELERATION : float = 9.8
 
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
-
 @export var walking_speed: int = 150
 @export var running_speed: int = 300
 @export var walk_jump_vel: int = -400
@@ -48,7 +46,6 @@ var JUMP_VELOCITY: int = 0
 var move_dir : Vector2 :
 	set(new_dir):
 		move_dir = new_dir
-#var player_pos : Transform2D
 var is_grounded : bool = false #Boolean that tells if the player is grounded.
 var move_locked : bool = false #Boolean that says if the player can move.
 
@@ -58,9 +55,7 @@ var current_cam_limit = CameraLimits.RDCAMLIM #Right-facing player is default, s
 
 var current_move_state = MovementState.IDLE #We make a new var to describe the basic state...Idle.
 var current_anim_state = AnimationState.PAIDLE
-#These enums define the different movement-states player can have.
 
-#@onready var anim : AnimationPlayer = %AnimationPlayer
 
 var anim : AnimationPlayer
 var fist_time : Timer
@@ -88,7 +83,7 @@ func _input(_event: InputEvent) -> void:
 	
 	#If we're holding charge while walking, and moving, then...
 	if Input.is_action_pressed("charge") and move_dir.x:
-		#print_debug("player is holding charge")
+		#print_debug("player is running")
 		current_move_state = MovementState.RUNNING #...we start running.
 		
 func _player_attack():
@@ -110,11 +105,8 @@ func _player_attack():
 		await fist_time.timeout
 		fist.queue_free()
 		
-	
-
 #Physics Process Delta is a fixed Update, happens 60/1.
 func _physics_process(delta: float) -> void: #I picked physics, since this is movement.
-	
 	#--Guard-clause, if we're not supposed to move, then we can't use the controls.
 	if move_locked: #If the move_locked bool has become true (i.e we're in a locked state)...
 		return #...then don't do the below stuff.
@@ -122,23 +114,26 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 	
 	# Add the gravity.
 	_apply_gravity(delta)
-	#_jump(delta)
+	_jumping(delta)
+	apply_movement(delta) #We run the movement-state switch.
+	update_animation() #We update the animation.
+	#camera_control() #We adjust the camera.
+	move_and_slide()
 
-	# Player presses jump -> Kewb jumps.
+func _jumping(_delta: float) -> void:
+		# Player presses jump -> Kewb jumps.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = walk_jump_vel
+		current_anim_state = AnimationState.PAJUMP
 		_unground_player() #We make sure to say the player isn't grounded.
 		print_debug("Player jumped")
 	#Jump higher
 	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("charge") and is_on_floor(): #If we're also holding charge...
 		velocity.y = run_jump_vel 
+		current_anim_state = AnimationState.PAJUMP
 		_unground_player()
 		print_debug("Player jumped higher")
-		
-	apply_movement(delta) #We run the movement-state switch.
-	update_animation() #We update the animation.
-	#camera_control() #We adjust the camera.
-	move_and_slide()
+
 
 func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
 	
@@ -148,17 +143,14 @@ func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 
 			_apply_gravity(delta)
 			current_anim_state = AnimationState.PAIDLE
 		MovementState.WALKING:
-			#SPEED = walking_speed
 			velocity.x = (move_dir * walking_speed).x #When walking our velocity should be the input from move_dir
 			_apply_gravity(delta)
 			current_anim_state = AnimationState.PAWALK
 		MovementState.RUNNING:
-			#SPEED = running_speed
 			velocity.x = (move_dir * running_speed).x
 			_apply_gravity(delta)
 			current_anim_state = AnimationState.PARUN
 			print_debug("Running!")
-			
 		MovementState.AIRBORNE:
 			pass
 		MovementState.UNDERWATER:
@@ -197,20 +189,12 @@ func _apply_gravity(delta : float):
 	else: #Otherwise, we...
 		return #...don't do anything. (no gravity-application)
 	
-#The below is for killing the player.
-#func _on_detection_area_entered(_enemyArea: Area2D) -> void:
-	#if _enemyArea.is_in_group("enemyDmgGroup"):
-		#health -= 1 #Player's health decreases according to variable, per punch that connects.
-		#print("Got punched by the Enemy!")
-		#if health <= 0: #If you run out of health, or if it goes negative, then...
-			#self.queue_free() #...destroy the Player by removing from memory.
-			#print_debug("Player died.")
-			#GameManager.instance.is_game_over = true #Error if not run from Main, expected
-
 func take_damage(damage : int):
 	health -= damage #Player's health decreases according to variable, per punch that connects.
 	print("Player Took Damage!")
 	if health <= 0: #If you run out of health, or if it goes negative, then...
+		current_anim_state = AnimationState.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
+		#Do I need a TIMER here, and an AWAIT?
 		self.queue_free() #...destroy the Player by removing from memory.
 		print_debug("Player died.")
 		GameManager.instance.is_game_over = true
@@ -231,22 +215,6 @@ func _flip():
 	#Update the last direction variable.
 	last_direction = current_direction
 	
-#func camera_control():
-	#match CameraLimits :
-		#CameraLimits.RDCAMLIM: #Right-Direction Camera-Limits 
-			#$Camera2D.limit_left = -90 #10 pixels more than camera-offset.
-			#$Camera2D.limit_bottom = 328 #40 pixels more than ref-rez Y.
-			#$Camera2D.limit_top = 30 #10 pixels less than camera-offset.
-			#$Camera2D.limit_right = 432 #80 pixels less than ref-rez X.
-			#print_debug("Set Right Camlimits")
-			#
-		#CameraLimits.LDCAMLIM: #Left-Direction Camera-Limits
-			#$Camera2D.limit_left = 70 #10 pixels LESS than camera-offset.
-			#$Camera2D.limit_bottom = 328 #40 pixels more than ref-rez Y.
-			#$Camera2D.limit_top = 30 
-			#$Camera2D.limit_right = 592 #80 pixels more than ref-rez X.
-			#print_debug("Set LEFT Camlimits")
-
 func _ground_player():
 	is_grounded = true
 	velocity.y = walk_jump_vel #Make sure player looses ability to jump high.
