@@ -1,13 +1,12 @@
 [gd_scene format=3 uid="uid://s3fiqrbtsdwi"]
 
 [ext_resource type="Script" uid="uid://mvqp0ch8vr7d" path="res://characters/Enemies/EnemyKewb.gd" id="1_vcfko"]
-[ext_resource type="Texture2D" uid="uid://vevcejhedk20" path="res://characters/Enemies/Test-enemy.png" id="1_wb1if"]
-[ext_resource type="Texture2D" uid="uid://bqni2yge2x58u" path="res://characters/Enemies/Test-enemy-nose.png" id="2_2jp2x"]
+[ext_resource type="Texture2D" uid="uid://bfltmihxlpttx" path="res://characters/Enemies/EnemyKewb.png" id="2_vcfko"]
 [ext_resource type="Script" uid="uid://dpduk2d1ah1ss" path="res://FiniteStateMachine.gd" id="3_2jp2x"]
 [ext_resource type="Script" uid="uid://lsb5g3ng2uin" path="res://characters/Enemies/EkRoamingState.gd" id="5_icoxl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78frg"]
-size = Vector2(32, 32)
+size = Vector2(32, 28)
 
 [sub_resource type="Animation" id="Animation_l43yn"]
 resource_name = "ek_idle"
@@ -26,7 +25,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivb5h"]
-size = Vector2(13, 24)
+size = Vector2(6, 19)
 
 [node name="EnemyKewb" type="CharacterBody2D" unique_id=2049833632 groups=["enemyGroup"]]
 z_index = 1
@@ -49,6 +48,7 @@ wait_time = 0.6
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=168635995]
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_78frg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2011432541]
@@ -57,18 +57,14 @@ libraries/ = SubResource("AnimationLibrary_l43yn")
 [node name="FlipEk" type="Marker2D" parent="." unique_id=923432180]
 
 [node name="Sprite2D" type="Sprite2D" parent="FlipEk" unique_id=1626493624]
-texture = ExtResource("1_wb1if")
-
-[node name="Sprite2D" type="Sprite2D" parent="FlipEk/Sprite2D" unique_id=791162413]
-position = Vector2(16, -8)
-texture = ExtResource("2_2jp2x")
+texture = ExtResource("2_vcfko")
 
 [node name="EDmgArea" type="Area2D" parent="FlipEk" unique_id=389465481 groups=["enemyDmgGroup"]]
 collision_layer = 0
 collision_mask = 4
 
 [node name="EDmgZone" type="CollisionShape2D" parent="FlipEk/EDmgArea" unique_id=485172445 groups=["enemyDmgGroup"]]
-position = Vector2(14.5, -3)
+position = Vector2(13, -0.5)
 shape = SubResource("RectangleShape2D_ivb5h")
 debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)
 
