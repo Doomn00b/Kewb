@@ -1,21 +1,38 @@
 [gd_scene format=3 uid="uid://s3fiqrbtsdwi"]
 
-[ext_resource type="Script" uid="uid://dg04trhnnvuwl" path="res://characters/Enemies/Enemy.gd" id="1_fqm6r"]
-[ext_resource type="Texture2D" uid="uid://vevcejhedk20" path="res://characters/Enemies/Test-enemy.png" id="2_aoswd"]
-[ext_resource type="Texture2D" uid="uid://bqni2yge2x58u" path="res://characters/Enemies/Test-enemy-nose.png" id="3_ivb5h"]
+[ext_resource type="Script" uid="uid://mvqp0ch8vr7d" path="res://characters/Enemies/EnemyKewb.gd" id="1_vcfko"]
+[ext_resource type="Texture2D" uid="uid://vevcejhedk20" path="res://characters/Enemies/Test-enemy.png" id="1_wb1if"]
+[ext_resource type="Texture2D" uid="uid://bqni2yge2x58u" path="res://characters/Enemies/Test-enemy-nose.png" id="2_2jp2x"]
+[ext_resource type="Script" uid="uid://dpduk2d1ah1ss" path="res://FiniteStateMachine.gd" id="3_2jp2x"]
+[ext_resource type="Script" uid="uid://lsb5g3ng2uin" path="res://characters/Enemies/EkRoamingState.gd" id="5_icoxl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78frg"]
 size = Vector2(32, 32)
 
+[sub_resource type="Animation" id="Animation_l43yn"]
+resource_name = "ek_idle"
+
+[sub_resource type="Animation" id="Animation_icoxl"]
+resource_name = "ek_rush"
+
+[sub_resource type="Animation" id="Animation_ouuic"]
+resource_name = "ek_walk"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l43yn"]
+_data = {
+&"ek_idle": SubResource("Animation_l43yn"),
+&"ek_rush": SubResource("Animation_icoxl"),
+&"ek_walk": SubResource("Animation_ouuic")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivb5h"]
 size = Vector2(13, 24)
 
-[node name="EnemyCube" type="CharacterBody2D" unique_id=2049833632 node_paths=PackedStringArray("EDmgArea") groups=["enemyGroup"]]
+[node name="EnemyKewb" type="CharacterBody2D" unique_id=2049833632 groups=["enemyGroup"]]
 z_index = 1
 y_sort_enabled = true
 collision_layer = 2
-script = ExtResource("1_fqm6r")
-EDmgArea = NodePath("FlipEk/EDmgArea")
+script = ExtResource("1_vcfko")
 metadata/_edit_group_ = true
 
 [node name="ETimer" type="Timer" parent="." unique_id=1133709180]
@@ -35,15 +52,16 @@ one_shot = true
 shape = SubResource("RectangleShape2D_78frg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2011432541]
+libraries/ = SubResource("AnimationLibrary_l43yn")
 
 [node name="FlipEk" type="Marker2D" parent="." unique_id=923432180]
 
 [node name="Sprite2D" type="Sprite2D" parent="FlipEk" unique_id=1626493624]
-texture = ExtResource("2_aoswd")
+texture = ExtResource("1_wb1if")
 
 [node name="Sprite2D" type="Sprite2D" parent="FlipEk/Sprite2D" unique_id=791162413]
 position = Vector2(16, -8)
-texture = ExtResource("3_ivb5h")
+texture = ExtResource("2_2jp2x")
 
 [node name="EDmgArea" type="Area2D" parent="FlipEk" unique_id=389465481 groups=["enemyDmgGroup"]]
 collision_layer = 0
@@ -66,6 +84,20 @@ target_position = Vector2(0, 16)
 [node name="EkEdgeR" type="RayCast2D" parent="FlipEk" unique_id=1977908662]
 position = Vector2(18, 16)
 target_position = Vector2(0, 16)
+
+[node name="FiniteStateMachine" type="Node" parent="." unique_id=1365371342 node_paths=PackedStringArray("state")]
+script = ExtResource("3_2jp2x")
+state = NodePath("EkRoamingState")
+metadata/_custom_type_script = "uid://dpduk2d1ah1ss"
+
+[node name="EkRoamingState" type="Node" parent="FiniteStateMachine" unique_id=1114765268 node_paths=PackedStringArray("actor", "animator", "atk_raycast", "edge_rayL", "edge_rayR")]
+script = ExtResource("5_icoxl")
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+atk_raycast = NodePath("../../FlipEk/EkAtkRC")
+edge_rayL = NodePath("../../FlipEk/EkEdgeL")
+edge_rayR = NodePath("../../FlipEk/EkEdgeR")
+metadata/_custom_type_script = "uid://lsb5g3ng2uin"
 
 [connection signal="timeout" from="DirTimer" to="." method="_on_dir_timer_timeout"]
 [connection signal="timeout" from="EbackTimer" to="." method="_on_dir_timer_timeout"]
