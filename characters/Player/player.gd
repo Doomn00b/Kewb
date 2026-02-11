@@ -204,13 +204,14 @@ func _flip():
 	#Guard clause
 	if move_dir.x == 0:
 		return
-	var signed_x : float = sign(move_dir.x)
+	#END Guard clause
+	var signed_x : float = sign(move_dir.x) #A variable that stores if the direction is positive or negative.
 	%Flip.scale.x = abs(scale.x) *  signed_x
 	current_direction = signed_x
 	var dir_string : String = "_left" if signed_x == -1 else "_right"
 	
-	if current_direction != last_direction:
-		$CamAnimationPlayer.play("cam_mov" + dir_string)
+	if current_direction != last_direction: #If the current direction is not the same as the last direction, then...
+		$CamAnimationPlayer.play("cam_mov" + dir_string) #Then move/animate the camera in the new direction.
 		
 	#Update the last direction variable.
 	last_direction = current_direction

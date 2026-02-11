@@ -10,15 +10,12 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivb5h"]
 size = Vector2(13, 24)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e7fn0"]
-size = Vector2(25, 34)
-
 [node name="EnemyCube" type="CharacterBody2D" unique_id=2049833632 node_paths=PackedStringArray("EDmgArea") groups=["enemyGroup"]]
 z_index = 1
 y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("1_fqm6r")
-EDmgArea = NodePath("FlipNmy/EDmgArea")
+EDmgArea = NodePath("FlipEk/EDmgArea")
 metadata/_edit_group_ = true
 
 [node name="ETimer" type="Timer" parent="." unique_id=1133709180]
@@ -28,50 +25,47 @@ one_shot = true
 [node name="DirTimer" type="Timer" parent="." unique_id=1800211472]
 wait_time = 0.8
 one_shot = true
+autostart = true
+
+[node name="EbackTimer" type="Timer" parent="." unique_id=1088373937]
+wait_time = 0.6
+one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=168635995]
 shape = SubResource("RectangleShape2D_78frg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2011432541]
 
-[node name="FlipNmy" type="Marker2D" parent="." unique_id=923432180]
+[node name="FlipEk" type="Marker2D" parent="." unique_id=923432180]
 
-[node name="Sprite2D" type="Sprite2D" parent="FlipNmy" unique_id=1626493624]
+[node name="Sprite2D" type="Sprite2D" parent="FlipEk" unique_id=1626493624]
 texture = ExtResource("2_aoswd")
 
-[node name="Sprite2D" type="Sprite2D" parent="FlipNmy/Sprite2D" unique_id=791162413]
-position = Vector2(-16, -8)
+[node name="Sprite2D" type="Sprite2D" parent="FlipEk/Sprite2D" unique_id=791162413]
+position = Vector2(16, -8)
 texture = ExtResource("3_ivb5h")
 
-[node name="EDmgArea" type="Area2D" parent="FlipNmy" unique_id=389465481 groups=["enemyDmgGroup"]]
+[node name="EDmgArea" type="Area2D" parent="FlipEk" unique_id=389465481 groups=["enemyDmgGroup"]]
 collision_layer = 0
 collision_mask = 4
 
-[node name="EDmgZone" type="CollisionShape2D" parent="FlipNmy/EDmgArea" unique_id=485172445 groups=["enemyDmgGroup"]]
-position = Vector2(-14.5, -3)
+[node name="EDmgZone" type="CollisionShape2D" parent="FlipEk/EDmgArea" unique_id=485172445 groups=["enemyDmgGroup"]]
+position = Vector2(14.5, -3)
 shape = SubResource("RectangleShape2D_ivb5h")
 debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)
 
-[node name="NmyHurtArea" type="Area2D" parent="FlipNmy" unique_id=340083749 groups=["enemyGroup"]]
-visible = false
-
-[node name="NmyHurtZone" type="CollisionShape2D" parent="FlipNmy/NmyHurtArea" unique_id=1600605225 groups=["enemyGroup"]]
-visible = false
-position = Vector2(4.5, 0)
-shape = SubResource("RectangleShape2D_e7fn0")
-debug_color = Color(0.2798203, 0.55712515, 0.804408, 0.41960785)
-
-[node name="NmyAtkRC" type="RayCast2D" parent="FlipNmy" unique_id=1170243958]
-position = Vector2(-16, 0)
-target_position = Vector2(-168, 0)
+[node name="EkAtkRC" type="RayCast2D" parent="FlipEk" unique_id=1170243958]
+position = Vector2(16, 0)
+target_position = Vector2(168, 0)
 collision_mask = 4
 
-[node name="NmyEdgeL" type="RayCast2D" parent="FlipNmy" unique_id=980637611]
-position = Vector2(-18, 16)
+[node name="EkEdgeL" type="RayCast2D" parent="FlipEk" unique_id=980637611]
+position = Vector2(-16, 16)
 target_position = Vector2(0, 16)
 
-[node name="NmyEdgeR" type="RayCast2D" parent="FlipNmy" unique_id=1977908662]
-position = Vector2(16, 16)
+[node name="EkEdgeR" type="RayCast2D" parent="FlipEk" unique_id=1977908662]
+position = Vector2(18, 16)
 target_position = Vector2(0, 16)
 
 [connection signal="timeout" from="DirTimer" to="." method="_on_dir_timer_timeout"]
+[connection signal="timeout" from="EbackTimer" to="." method="_on_dir_timer_timeout"]

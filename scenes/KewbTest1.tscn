@@ -59,7 +59,7 @@ physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
 sources/1 = SubResource("TileSetAtlasSource_j8rsw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8rsw"]
-size = Vector2(232, 16)
+size = Vector2(376, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3et8"]
 size = Vector2(32, 16)
@@ -98,7 +98,7 @@ wait_time = 0.5
 position = Vector2(352, 120)
 
 [node name="Point2" type="Marker2D" parent="EnemySpawner2" unique_id=1148452854]
-position = Vector2(216, 168)
+position = Vector2(16, 192)
 
 [node name="BlueTilesTop" type="TileMapLayer" parent="." unique_id=1119523911]
 visibility_layer = 2
@@ -131,7 +131,7 @@ position = Vector2(352, 136)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Testblock2" unique_id=1602164098]
-position = Vector2(-84, 0)
+position = Vector2(-116, 0)
 shape = SubResource("RectangleShape2D_j8rsw")
 
 [node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=1679305098]
