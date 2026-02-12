@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 #Is the issue that DIRECTION isn't defined ever??
-func _roaming(delta):
+func _roaming(_delta):
 	#If we're not dead, not chasing the player, and standing on the floor, then...
 	if dead == false and self.is_on_floor() and player_chase == false and is_roaming ==  true:
 		velocity = move_dir * Ewspeed 
@@ -133,7 +133,7 @@ func _on_pbody_ent_dmg(node : Node2D) -> void:
 		backoff_time.start()
 		print_debug("running backoff-timer")
 		while !backoff_time.is_stopped():
-			#Make the enemy back off when damaging the player.
+			#Make the enemy back off after damaging the player.
 			self.velocity.x = Ewspeed #Enemy moves backwards at walk-speed.
 			print_debug("Enemy back-speed:", velocity)
 		

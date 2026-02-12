@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bfltmihxlpttx" path="res://characters/Enemies/EnemyKewb.png" id="2_vcfko"]
 [ext_resource type="Script" uid="uid://dpduk2d1ah1ss" path="res://FiniteStateMachine.gd" id="3_2jp2x"]
 [ext_resource type="Script" uid="uid://lsb5g3ng2uin" path="res://characters/Enemies/EkRoamingState.gd" id="5_icoxl"]
+[ext_resource type="Script" uid="uid://b05t1b3r143i1" path="res://characters/Enemies/EkRushState.gd" id="5_ouuic"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78frg"]
 size = Vector2(32, 28)
@@ -34,7 +35,7 @@ collision_layer = 2
 script = ExtResource("1_vcfko")
 metadata/_edit_group_ = true
 
-[node name="ETimer" type="Timer" parent="." unique_id=1133709180]
+[node name="RushDelay" type="Timer" parent="." unique_id=1133709180]
 wait_time = 0.8
 one_shot = true
 
@@ -86,14 +87,15 @@ script = ExtResource("3_2jp2x")
 state = NodePath("EkRoamingState")
 metadata/_custom_type_script = "uid://dpduk2d1ah1ss"
 
-[node name="EkRoamingState" type="Node" parent="FiniteStateMachine" unique_id=1114765268 node_paths=PackedStringArray("actor", "animator", "atk_raycast", "edge_rayL", "edge_rayR")]
+[node name="EkRoamingState" type="Node" parent="FiniteStateMachine" unique_id=1114765268 node_paths=PackedStringArray("actor")]
 script = ExtResource("5_icoxl")
 actor = NodePath("../..")
-animator = NodePath("../../AnimationPlayer")
-atk_raycast = NodePath("../../FlipEk/EkAtkRC")
-edge_rayL = NodePath("../../FlipEk/EkEdgeL")
-edge_rayR = NodePath("../../FlipEk/EkEdgeR")
 metadata/_custom_type_script = "uid://lsb5g3ng2uin"
+
+[node name="EkRushState" type="Node" parent="FiniteStateMachine" unique_id=1032189707 node_paths=PackedStringArray("actor")]
+script = ExtResource("5_ouuic")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://b05t1b3r143i1"
 
 [connection signal="timeout" from="DirTimer" to="." method="_on_dir_timer_timeout"]
 [connection signal="timeout" from="EbackTimer" to="." method="_on_dir_timer_timeout"]
