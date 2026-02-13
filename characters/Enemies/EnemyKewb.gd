@@ -3,6 +3,11 @@ extends CharacterBody2D
 
 @export var max_speed : int = 40
 @export var acceleration : int = 50
+#Below is State-Machine
+@onready var fin_sm = $FiniteStateMachine 
+@onready var roaming_state = $FiniteStateMachine/EkRoamingState as EkRoamingState
+@onready var rush_state = $FiniteStateMachine/EkRushState as EkRushState
+#End state-machine access.
 
 static var enemies_spawned : int = 0 #This variable determines how many enemies have spawned.
 
@@ -29,11 +34,23 @@ func _ready() -> void:
 	edge_rayL = $FlipEk/EkEdgeL
 	edge_rayR = $FlipEk/EkEdgeR
 	animator = $AnimationPlayer
+	
+	#State-Machine activation.
+	roaming_state.found_player.connect(fin_sm.change_state.bind(rush_state)) #We connect the found player signal to activate the rush state
+	rush_state.lost_player.connect(fin_sm.change_state.bind(roaming_state)) #Connecting lost player signal to activating roam state.
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
 	
+	
+func _apply_gravity(delta : float):
+	if not is_on_floor() : #Do I need MORE in the condition?
+		var gravity = get_gravity() #We make a new temp-var, and base it on the get-gravity-function.
+		velocity.y += gravity.y * delta
+	else: #Otherwise, we...
+		return #...don't do anything. (no gravity-application)
 	
 func _flip():
 	flip.scale.x = sign(velocity.x) #We make it so our flip's scale is dependent on if the enemy is moving on the x-axis.

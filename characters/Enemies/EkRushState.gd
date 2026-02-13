@@ -25,8 +25,10 @@ func _enter_state() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	actor._apply_gravity(delta)
 	_rush_player(delta)
 	actor._flip()
+	actor.move_and_slide()
 	
 func _rush_player(_delta : float):
 	#Guardclause, to prevent attacking without player.
@@ -48,6 +50,7 @@ func _rush_player(_delta : float):
 			return
 	elif !actor.atk_raycast.is_colliding(): #If the raycast can't see the player, then...
 		lost_player.emit() #...emit the signal to change state.
+		print_debug("Lost the player.")
 
 #func _flip():
 	#flip.scale.x = sign(actor.velocity.x) #We make it so our flip's scale is dependent on if the enemy is moving on the x-axis.
@@ -59,3 +62,4 @@ func _rush_player(_delta : float):
 
 func _exit_state() -> void:
 	set_physics_process(false)
+	print_debug("Exiting RUSH.")

@@ -26,10 +26,12 @@ func _exit_state() -> void:
 	set_physics_process(false) #We turn off physics again, when we exit state. (because the next state will turn its own on)
 
 func _physics_process(delta: float) -> void: #FixedUpdate
+	actor._apply_gravity(delta)
 	_roaming()
 	actor._flip() #We run the flip-function in the Actor (enemy-kewb).
 	actor._wall_collide(delta) #We check for wall-collisions via the function in Actor. (enemy-kewb)
 	_seek_player(delta)
+	actor.move_and_slide()
 
 func _roaming():
 	actor.animator.play("ek_walk") #We play the walking-animation, using the Actors animator.
@@ -39,6 +41,7 @@ func _roaming():
 func _seek_player(_delta):
 	if actor.atk_raycast.is_colliding():
 		found_player.emit()
+		print_debug("Saw player. Exiting Roam.")
 
 #TODO: decide if the below code should be in individual states, or accessed from the Actor.
 #func _flip():

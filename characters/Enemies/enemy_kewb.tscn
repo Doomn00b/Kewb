@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dpduk2d1ah1ss" path="res://FiniteStateMachine.gd" id="3_2jp2x"]
 [ext_resource type="Script" uid="uid://lsb5g3ng2uin" path="res://characters/Enemies/EkRoamingState.gd" id="5_icoxl"]
 [ext_resource type="Script" uid="uid://b05t1b3r143i1" path="res://characters/Enemies/EkRushState.gd" id="5_ouuic"]
+[ext_resource type="Script" uid="uid://d233he44s01xw" path="res://characters/Enemies/EkDeathState.gd" id="6_ouuic"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78frg"]
 size = Vector2(32, 28)
@@ -96,6 +97,10 @@ metadata/_custom_type_script = "uid://lsb5g3ng2uin"
 script = ExtResource("5_ouuic")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://b05t1b3r143i1"
+
+[node name="EkDeathState" type="Node" parent="FiniteStateMachine" unique_id=955960929]
+script = ExtResource("6_ouuic")
+metadata/_custom_type_script = "uid://d233he44s01xw"
 
 [connection signal="timeout" from="DirTimer" to="." method="_on_dir_timer_timeout"]
 [connection signal="timeout" from="EbackTimer" to="." method="_on_dir_timer_timeout"]
