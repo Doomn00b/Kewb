@@ -3,21 +3,19 @@ class_name EkDeathState
 
 @export var actor: EnemyKewb #We put our "Actor" here, in this case, our enemy-Kewb.
 
-signal ek_dead #Signal that says enemy is dead.
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	set_physics_process(false)
+	pass
 	
-func _enter_state() -> void:
-	set_physics_process(true)
+func enter_state() -> void:
+	actor.animator.play("ek_dead")
+	actor.queue_free() #We remove Enemy from memory, destroying it.
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
-	actor._apply_gravity(delta)
-	actor.move_and_slide()
+func update_state(_delta: float) -> void:
+	pass
 	
-func _exit_state() -> void:
-	set_physics_process(false)
-	print_debug("Enemy-kewb died!")
+	
+func exit_state() -> void:
+	#We NEVER exit this state. This is the end...
+	pass

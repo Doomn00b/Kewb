@@ -6,8 +6,11 @@ extends Node
 signal state_finished #We give the script the ability to send a signal, that it's done.
 
 @abstract 
-func _enter_state() -> void
+func enter_state() -> void
+
+@abstract
+func update_state(delta : float) -> void
 
 @abstract 
-func _exit_state() -> void
+func exit_state() -> void
 	

@@ -62,7 +62,7 @@ var fist_time : Timer
 
 func _ready() -> void:
 	anim = %AnimationPlayer
-	fist_time = $FistTime #We get the timer that decides how long our fist is visible
+	fist_time = %FistTime #We get the timer that decides how long our fist is visible
 	#Wait... do I need to connect this to an animation-state as well?? YES! >:( 
 	#We set the direction the player is facing, at the start of the game (to be right).
 	current_direction = -1 
@@ -78,7 +78,7 @@ func _input(_event: InputEvent) -> void:
 	else:
 		current_move_state = MovementState.IDLE
 		
-	_flip() #We run the flip-sprite function if we're moving.
+	flip() #We run the flip-sprite function if we're moving.
 	_player_attack() #If we press attack we run the player attack function.
 	
 	#If we're holding charge while walking, and moving, then...
@@ -195,12 +195,12 @@ func take_damage(damage : int):
 	if health <= 0: #If you run out of health, or if it goes negative, then...
 		current_anim_state = AnimationState.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
 		#Do I need a TIMER here, and an AWAIT?
-		self.queue_free() #...destroy the Player by removing from memory.
 		print_debug("Player died.")
 		GameManager.instance.is_game_over = true
-	
+		self.queue_free() #...destroy the Player by removing from memory.
+		
 #Code to flip the character when walking.
-func _flip():
+func flip():
 	#Guard clause
 	if move_dir.x == 0:
 		return

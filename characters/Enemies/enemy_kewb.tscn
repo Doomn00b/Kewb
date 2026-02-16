@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://mvqp0ch8vr7d" path="res://characters/Enemies/EnemyKewb.gd" id="1_vcfko"]
 [ext_resource type="Texture2D" uid="uid://bfltmihxlpttx" path="res://characters/Enemies/EnemyKewb.png" id="2_vcfko"]
-[ext_resource type="Script" uid="uid://dpduk2d1ah1ss" path="res://FiniteStateMachine.gd" id="3_2jp2x"]
+[ext_resource type="Script" uid="uid://cdqs8btxrwkmb" path="res://characters/Enemies/enemy_state_machine.gd" id="3_ouuic"]
 [ext_resource type="Script" uid="uid://lsb5g3ng2uin" path="res://characters/Enemies/EkRoamingState.gd" id="5_icoxl"]
 [ext_resource type="Script" uid="uid://b05t1b3r143i1" path="res://characters/Enemies/EkRushState.gd" id="5_ouuic"]
 [ext_resource type="Script" uid="uid://d233he44s01xw" path="res://characters/Enemies/EkDeathState.gd" id="6_ouuic"]
@@ -10,17 +10,61 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78frg"]
 size = Vector2(32, 28)
 
+[sub_resource type="Animation" id="Animation_0p1gw"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_bw5ij"]
+resource_name = "ek_dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlipEk/EkSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
 [sub_resource type="Animation" id="Animation_l43yn"]
 resource_name = "ek_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlipEk/EkSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_icoxl"]
 resource_name = "ek_rush"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlipEk/EkSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_ouuic"]
 resource_name = "ek_walk"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l43yn"]
 _data = {
+&"RESET": SubResource("Animation_0p1gw"),
+&"ek_dead": SubResource("Animation_bw5ij"),
 &"ek_idle": SubResource("Animation_l43yn"),
 &"ek_rush": SubResource("Animation_icoxl"),
 &"ek_walk": SubResource("Animation_ouuic")
@@ -36,7 +80,33 @@ collision_layer = 2
 script = ExtResource("1_vcfko")
 metadata/_edit_group_ = true
 
+[node name="EkStateMachine" type="Node" parent="." unique_id=1365371342 node_paths=PackedStringArray("actor", "state")]
+unique_name_in_owner = true
+script = ExtResource("3_ouuic")
+actor = NodePath("..")
+state = NodePath("EkRoamingState")
+metadata/_custom_type_script = "uid://dpduk2d1ah1ss"
+
+[node name="EkRoamingState" type="Node" parent="EkStateMachine" unique_id=1114765268 node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("5_icoxl")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://lsb5g3ng2uin"
+
+[node name="EkRushState" type="Node" parent="EkStateMachine" unique_id=1032189707 node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("5_ouuic")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://b05t1b3r143i1"
+
+[node name="EkDeathState" type="Node" parent="EkStateMachine" unique_id=955960929 node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("6_ouuic")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://d233he44s01xw"
+
 [node name="RushDelay" type="Timer" parent="." unique_id=1133709180]
+unique_name_in_owner = true
 wait_time = 0.8
 one_shot = true
 
@@ -54,12 +124,15 @@ position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_78frg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2011432541]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_l43yn")
 
 [node name="FlipEk" type="Marker2D" parent="." unique_id=923432180]
+unique_name_in_owner = true
 
-[node name="Sprite2D" type="Sprite2D" parent="FlipEk" unique_id=1626493624]
+[node name="EkSprite2D" type="Sprite2D" parent="FlipEk" unique_id=1626493624]
 texture = ExtResource("2_vcfko")
+hframes = 3
 
 [node name="EDmgArea" type="Area2D" parent="FlipEk" unique_id=389465481 groups=["enemyDmgGroup"]]
 collision_layer = 0
@@ -71,36 +144,20 @@ shape = SubResource("RectangleShape2D_ivb5h")
 debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)
 
 [node name="EkAtkRC" type="RayCast2D" parent="FlipEk" unique_id=1170243958]
+unique_name_in_owner = true
 position = Vector2(16, 0)
 target_position = Vector2(168, 0)
 collision_mask = 4
 
 [node name="EkEdgeL" type="RayCast2D" parent="FlipEk" unique_id=980637611]
+unique_name_in_owner = true
 position = Vector2(-16, 16)
 target_position = Vector2(0, 16)
 
 [node name="EkEdgeR" type="RayCast2D" parent="FlipEk" unique_id=1977908662]
+unique_name_in_owner = true
 position = Vector2(18, 16)
 target_position = Vector2(0, 16)
-
-[node name="FiniteStateMachine" type="Node" parent="." unique_id=1365371342 node_paths=PackedStringArray("state")]
-script = ExtResource("3_2jp2x")
-state = NodePath("EkRoamingState")
-metadata/_custom_type_script = "uid://dpduk2d1ah1ss"
-
-[node name="EkRoamingState" type="Node" parent="FiniteStateMachine" unique_id=1114765268 node_paths=PackedStringArray("actor")]
-script = ExtResource("5_icoxl")
-actor = NodePath("../..")
-metadata/_custom_type_script = "uid://lsb5g3ng2uin"
-
-[node name="EkRushState" type="Node" parent="FiniteStateMachine" unique_id=1032189707 node_paths=PackedStringArray("actor")]
-script = ExtResource("5_ouuic")
-actor = NodePath("../..")
-metadata/_custom_type_script = "uid://b05t1b3r143i1"
-
-[node name="EkDeathState" type="Node" parent="FiniteStateMachine" unique_id=955960929]
-script = ExtResource("6_ouuic")
-metadata/_custom_type_script = "uid://d233he44s01xw"
 
 [connection signal="timeout" from="DirTimer" to="." method="_on_dir_timer_timeout"]
 [connection signal="timeout" from="EbackTimer" to="." method="_on_dir_timer_timeout"]

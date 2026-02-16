@@ -149,7 +149,7 @@ collision_mask = 5
 visible = false
 shape = SubResource("RectangleShape2D_8gp0o")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=64264918]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=64264918 groups=["playerGroup"]]
 modulate = Color(0.9831343, 0.25027704, 0.99999994, 1)
 self_modulate = Color(1, 0.79607844, 1, 1)
 position = Vector2(4.7683716e-07, 4.7683716e-07)
@@ -183,6 +183,7 @@ drag_horizontal_enabled = true
 libraries/ = SubResource("AnimationLibrary_5nx12")
 
 [node name="FistTime" type="Timer" parent="." unique_id=526654313]
+unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
 

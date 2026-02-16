@@ -1,5 +1,3 @@
-#TODO: Make enemy flip direction when Walking to edge.
-		#Fix chasing the player backwards!!
 class_name Enemy
 extends CharacterBody2D
 
@@ -9,8 +7,8 @@ extends CharacterBody2D
 @export var base_damage : int = 1
 static var enemies_spawned : int = 0 #This variable determines how many enemies have spawned.
 
-const NMYMAX_HEALTH = 10 #We make a new constant that defines the enemy has health.
-var health = NMYMAX_HEALTH #We make a new variable based on the Health-constant.
+const EK_MAX_HEALTH = 10 #We make a new constant that defines the enemy has health.
+var health = EK_MAX_HEALTH #We make a new variable based on the Health-constant.
 var playerChr #We make a new variable to represent the player
 var player_chase : bool = false #Represents the enemy chasing the player or not.
 var is_roaming : bool = true #Represents the enemy randomly walking around.
@@ -36,7 +34,7 @@ func _ready() -> void:
 	playerChr = get_tree().get_first_node_in_group("playerGroup")
 	print_debug("Got the player from Tree.")
 	enemies_spawned += 1 #When we start the scene, enemy-count will go up.
-	EDmgArea.body_entered.connect(_on_pbody_ent_dmg) #Connecting Give-Damage-area.
+	EDmgArea.body_entered.connect(on_pbody_ent_dmg) #Connecting Give-Damage-area.
 	atk_raycast = $FlipEk/EkAtkRC #We give the raycast-object (from the node-tree) to our nmy-raycast variable.
 	edge_rayL = $FlipEk/EkEdgeL #Give the variable the left edge ray-cast
 	edge_rayR = $FlipEk/EkEdgeR #Give the variable the Right edge ray-cast
@@ -64,11 +62,11 @@ func _on_dir_timer_timeout() -> void:
 	direction_timer.start()
 	if player_chase == false: #If we're not chasing the player then...
 		move_dir = [Vector2.RIGHT, Vector2.LEFT].pick_random() #Choose a random left or right direction.
-		_flip() #We run the function to see if we now need to flip the player.
+		flip() #We run the function to see if we now need to flip the player.
 		print_debug("New random direction?")
 		
 #Code to flip the character when walking.
-func _flip():
+func flip():
 	#Guard clause
 	if move_dir.x == 0:
 		return
@@ -127,7 +125,7 @@ func take_damage(damage : int):
 		
 
 #Giving damage to player.
-func _on_pbody_ent_dmg(node : Node2D) -> void:
+func on_pbody_ent_dmg(node : Node2D) -> void:
 	if node is Player:
 		node.take_damage(base_damage)
 		backoff_time.start()
