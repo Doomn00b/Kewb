@@ -1,7 +1,5 @@
 class_name EnemyKewb
-extends CharacterBody2D
-
-signal enemy_died()
+extends Enemy
 
 @export var max_speed : int = 40
 @export var acceleration : int = 50
@@ -37,6 +35,7 @@ func take_damage(damage : int):
 	if health <= 0: #If the enemy gets zero or less health,then...
 		enemy_died.emit() #...we emit the enemy-died signal.
 		print("Enemy died, start death-state.")
+
 		
 func apply_gravity(delta : float):
 	if not is_on_floor() : #Do I need MORE in the condition?
@@ -53,9 +52,10 @@ func flip():
 		flip_node.scale.x = -1 #...we flip the scale.
 	
 func wall_collide(delta):
-	var collision = self.move_and_collide(self.velocity_x * delta)
-	if collision:
-		var bounce_velocity = self.velocity_x.bounce(collision.get_normal())
+	#We make a variable based on the y-preserved velocity * change over time.
+	var wall_collision = self.move_and_collide(self.velocity_x * delta)
+	if wall_collision :
+		var bounce_velocity = self.velocity_x.bounce(wall_collision.get_normal())
 		self.velocity = bounce_velocity
 	
 func setup_enemy(pos : Vector2 = Vector2.ZERO): #A function that readies the enemy's properties in a level.

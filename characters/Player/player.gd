@@ -48,15 +48,11 @@ var move_dir : Vector2 :
 		move_dir = new_dir
 var is_grounded : bool = false #Boolean that tells if the player is grounded.
 var move_locked : bool = false #Boolean that says if the player can move.
-
 var last_direction = 1 #Value that show the direction the player was moving in, last.
 var current_direction = 1 #Check for the player's current moving direction.
 var current_cam_limit = CameraLimits.RDCAMLIM #Right-facing player is default, so camera-limits Right is also default.
-
 var current_move_state = MovementState.IDLE #We make a new var to describe the basic state...Idle.
 var current_anim_state = AnimationState.PAIDLE
-
-
 var anim : AnimationPlayer
 var fist_time : Timer
 

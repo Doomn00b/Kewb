@@ -71,7 +71,7 @@ y_sort_enabled = true
 z_index = 1
 position = Vector2(101, 196)
 
-[node name="TestBlock" type="StaticBody2D" parent="." unique_id=1762496683]
+[node name="TestBlock" type="StaticBody2D" parent="." unique_id=1762496683 groups=["Obstacle", "Walls"]]
 position = Vector2(-392, 88)
 metadata/_edit_group_ = true
 
@@ -79,7 +79,7 @@ metadata/_edit_group_ = true
 position = Vector2(7, 58)
 shape = SubResource("RectangleShape2D_mg0xd")
 
-[node name="TestBlock3" type="StaticBody2D" parent="." unique_id=1829756627]
+[node name="TestBlock3" type="StaticBody2D" parent="." unique_id=1829756627 groups=["Obstacle", "Walls"]]
 position = Vector2(416, 88)
 metadata/_edit_group_ = true
 
@@ -126,7 +126,7 @@ tile_set = SubResource("TileSet_q3et8")
 collision_visibility_mode = 1
 physics_quadrant_size = 32
 
-[node name="Testblock2" type="StaticBody2D" parent="." unique_id=990800814]
+[node name="Testblock2" type="StaticBody2D" parent="." unique_id=990800814 groups=["Floors"]]
 position = Vector2(352, 136)
 metadata/_edit_group_ = true
 

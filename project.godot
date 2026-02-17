@@ -41,6 +41,9 @@ playerGroup=""
 enemyGroup="Group for all the enemies."
 enemyDmgGroup=""
 playerDmgGroup=""
+Walls="Walls in the game, with no special effects."
+Floors="Standable floor, with no other effects."
+Obstacle=""
 
 [input]
 

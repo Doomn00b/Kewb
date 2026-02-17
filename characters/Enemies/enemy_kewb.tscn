@@ -10,6 +10,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78frg"]
 size = Vector2(32, 28)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ouuic"]
+size = Vector2(32, 28)
+
 [sub_resource type="Animation" id="Animation_0p1gw"]
 length = 0.001
 
@@ -119,9 +122,16 @@ autostart = true
 wait_time = 0.6
 one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=168635995]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=168635995 groups=["enemyGroup"]]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_78frg")
+
+[node name="EHurtArea" type="Area2D" parent="." unique_id=1378704572 groups=["enemyGroup"]]
+position = Vector2(0, 2)
+
+[node name="EHurtZone" type="CollisionShape2D" parent="EHurtArea" unique_id=72357732 groups=["enemyGroup"]]
+shape = SubResource("RectangleShape2D_ouuic")
+debug_color = Color(0.09832699, 0.6465208, 0.15118578, 0.41960785)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2011432541]
 unique_name_in_owner = true

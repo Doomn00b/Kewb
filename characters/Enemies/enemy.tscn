@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://x6vcvfrs6qj1"]
+[gd_scene format=3 uid="uid://x6vcvfrs6qj1"]
 
-[ext_resource type="Script" uid="uid://dg04trhnnvuwl" path="res://characters/Enemies/Enemy.gd" id="1_4gyqm"]
+[ext_resource type="Script" uid="uid://dg04trhnnvuwl" path="res://characters/Enemies/EnemyOld.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://cnw8e2jeoxe6p" path="res://characters/Player/kewb_fist.png" id="2_vq7lu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivycn"]

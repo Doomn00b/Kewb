@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cxhau404j4m7v"]
+
+[ext_resource type="Texture2D" uid="uid://du4ip7qhs16o" path="res://interactables/Doors/kewb-door_arch.png" id="1_sl387"]
+[ext_resource type="Texture2D" uid="uid://yisdf5kym2gg" path="res://interactables/Doors/kewb-door_iron.png" id="2_s7jw3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7jw3"]
+size = Vector2(58, 4)
+
+[node name="Door" type="Node2D" unique_id=100351584]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1258453598]
+position = Vector2(0, -35)
+texture = ExtResource("1_sl387")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1759808285]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=384570661]
+offset_left = -16.0
+offset_top = -48.0
+offset_right = 24.217392
+offset_bottom = -8.2383
+scale = Vector2(0.92, 1.207192)
+texture = ExtResource("2_s7jw3")
+region_rect = Rect2(0, 0, 37, 48)
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1261347723]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=83102821]
+position = Vector2(2, -64)
+shape = SubResource("RectangleShape2D_s7jw3")
