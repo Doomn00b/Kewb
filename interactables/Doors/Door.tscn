@@ -1,7 +1,79 @@
 [gd_scene format=3 uid="uid://cxhau404j4m7v"]
 
 [ext_resource type="Texture2D" uid="uid://du4ip7qhs16o" path="res://interactables/Doors/kewb-door_arch.png" id="1_sl387"]
-[ext_resource type="Texture2D" uid="uid://yisdf5kym2gg" path="res://interactables/Doors/kewb-door_iron.png" id="2_s7jw3"]
+[ext_resource type="Texture2D" uid="uid://b1qohwo8vl5qs" path="res://interactables/Doors/kewb-door_iron_compact.png" id="2_s7jw3"]
+
+[sub_resource type="Animation" id="Animation_j6dmf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(37, 48.000004)]
+}
+
+[sub_resource type="Animation" id="Animation_u31xj"]
+resource_name = "closed"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(37, 48)]
+}
+
+[sub_resource type="Animation" id="Animation_bt7ja"]
+resource_name = "opened"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(37, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_s7jw3"]
+resource_name = "opening"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-4.1410575, -4.1410575),
+"update": 0,
+"values": [Vector2(37, 48), Vector2(37, 10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u31xj"]
+_data = {
+&"RESET": SubResource("Animation_j6dmf"),
+&"closed": SubResource("Animation_u31xj"),
+&"opened": SubResource("Animation_bt7ja"),
+&"opening": SubResource("Animation_s7jw3")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7jw3"]
 size = Vector2(58, 4)
@@ -13,17 +85,21 @@ position = Vector2(0, -35)
 texture = ExtResource("1_sl387")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1759808285]
+libraries/ = SubResource("AnimationLibrary_u31xj")
+autoplay = &"closed"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=384570661]
 offset_left = -16.0
 offset_top = -48.0
-offset_right = 24.217392
-offset_bottom = -8.2383
-scale = Vector2(0.92, 1.207192)
+offset_right = 21.0
 texture = ExtResource("2_s7jw3")
-region_rect = Rect2(0, 0, 37, 48)
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
+region_rect = Rect2(0, 0, 19, 19)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 6
+patch_margin_bottom = 6
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1261347723]
 

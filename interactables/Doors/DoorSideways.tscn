@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://des8idf8hwabd"]
+
+[ext_resource type="Texture2D" uid="uid://d3dhj0wq2s6oq" path="res://interactables/Doors/kewb-door_sideways.png" id="1_dc0b7"]
+
+[sub_resource type="Animation" id="Animation_dc0b7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KewbDoorSideways:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0009999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorBody2D/DoorCshape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_btoix"]
+resource_name = "closed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KewbDoorSideways:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorBody2D/DoorCshape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_8p8p1"]
+resource_name = "closed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KewbDoorSideways:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorBody2D/DoorCshape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_btoix"]
+_data = {
+&"RESET": SubResource("Animation_dc0b7"),
+&"closed": SubResource("Animation_btoix"),
+&"open": SubResource("Animation_8p8p1")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dc0b7"]
+size = Vector2(5, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8p8p1"]
+size = Vector2(7, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btoix"]
+size = Vector2(4, 24)
+
+[node name="DoorSideways" type="Node2D" unique_id=81813317]
+
+[node name="KewbDoorSideways" type="Sprite2D" parent="." unique_id=400005428]
+position = Vector2(0, -35)
+texture = ExtResource("1_dc0b7")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=504591112]
+libraries/ = SubResource("AnimationLibrary_btoix")
+
+[node name="DoorBody2D" type="StaticBody2D" parent="." unique_id=1001663614]
+position = Vector2(-2, -25)
+
+[node name="DoorCshape" type="CollisionShape2D" parent="DoorBody2D" unique_id=1719783703]
+position = Vector2(1.5, -1)
+shape = SubResource("RectangleShape2D_dc0b7")
+
+[node name="ArchBody2D" type="StaticBody2D" parent="." unique_id=1438797017]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArchBody2D" unique_id=1649449463]
+position = Vector2(6.5, -56.5)
+shape = SubResource("RectangleShape2D_8p8p1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ArchBody2D" unique_id=869359792]
+position = Vector2(1, -58)
+shape = SubResource("RectangleShape2D_btoix")
