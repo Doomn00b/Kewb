@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d2kxrorooo8fd"]
 
-[ext_resource type="Script" uid="uid://csryygu8ef6y5" path="res://EnemySpawner.gd" id="1_00s5r"]
+[ext_resource type="Script" uid="uid://csryygu8ef6y5" path="res://characters/Enemies/EnemySpawner.gd" id="1_00s5r"]
 [ext_resource type="PackedScene" uid="uid://x6vcvfrs6qj1" path="res://characters/Enemies/enemy.tscn" id="2_63vqd"]
 
 [node name="EnemySpawner" type="Node2D" unique_id=622893082 node_paths=PackedStringArray("spawn_points")]

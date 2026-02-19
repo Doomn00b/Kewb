@@ -24,7 +24,7 @@ func _ready() -> void:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept") and is_game_over:# and GM.is_game_over:
+	if Input.is_action_just_pressed("ui_accept") and is_game_over == true:
 		print_debug("enter has been pressed")
 		#Reload the scene.
 		get_tree().reload_current_scene() #We get the whole tree, everything in every scene.
@@ -33,21 +33,33 @@ func _process(_delta: float) -> void:
 
 func change_level2D(new_level: String, delete: bool = true, 
 	keep_running: bool = false ) -> void:
-	if current_level2d != null:
+	if current_level2d != null: #If there's a current level running, then...
 		if delete:
-			current_level2d.queue_free() #Removes a node entirely.
+			current_level2d.queue_free() #Removes the level entirely.
 		elif keep_running:
-			current_level2d.visible = false #Keeps the gui in memory and running... BAD!
+			current_level2d.visible = false #Keeps the level in memory and RUNNING, but invisible.
 		else:
-			gui.remove_child(current_level2d) #This keeps the GUI in memory, but NOT running.	
-	var newL2D = load(new_level).instantiate() #Variable that defines a new GUI based on a new instance of new_guiscene.
-	gui.add_child(newL2D) #We make the new popup/gui a child of gui, so it appears under it in the editor.
+			gui.remove_child(current_level2d) #This keeps the Level in memory, but NOT running.	
+	var newL2D = load(new_level).instantiate() #Variable that defines a new Level based on a new instance of new_level.
+	level_2D.add_child(newL2D) #We make the new popup/gui a child of gui, so it appears under it in the editor.
 	current_level2d = newL2D
 	
-
 #This function manages GUI-scenes/prefabs
-func change_gui_scene(new_guiscene: String, delete: bool = true, 
-	keep_running: bool = false) -> void:
+func change_gui_scene() -> void:
+	#Local variables (WHY do I need to make these local?? seems like extra text.)
+	var new_guiscene: String
+	var delete: bool = true
+	var keep_running: bool = false
+	var transition: bool = true
+	var transition_in: String = "fade_in"
+	var transition_out: String = "fade_out"
+	var seconds: float = 0.8
+	
+	#Condition to run a scene-transition.
+	if transition:
+		TransitionController.instance.transition(transition_out, seconds)
+	
+	#Conditions to change GUI.
 	if current_gui != null:
 		if delete:
 			current_gui.queue_free() #Removes a node entirely.
@@ -58,7 +70,6 @@ func change_gui_scene(new_guiscene: String, delete: bool = true,
 	var newGUI = load(new_guiscene).instantiate() #Variable that defines a new GUI based on a new instance of new_guiscene.
 	gui.add_child(newGUI) #We make the new popup/gui a child of gui, so it appears under it in the editor.
 	current_gui = newGUI
-
 
 func reset_values(): #Because you died, but you're restarting...
 	#score = 0

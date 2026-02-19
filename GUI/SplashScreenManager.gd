@@ -51,5 +51,4 @@ func fade() -> void:
 #This function lets the player skip splash-screens
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_pressed(): #If any key is pressed...
-		#get_tree().change_scene_to_packed(load_scene) #...we change to our new scene instead.
 		GameManager.instance.change_gui_scene("res://GUI/main_menu.tscn") #We summon the GameManager's current instance, and run the change-gui function.

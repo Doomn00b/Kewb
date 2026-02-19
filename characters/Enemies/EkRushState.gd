@@ -27,7 +27,7 @@ func update_state(delta : float) -> void:
 	actor.move_and_slide()
 	
 func _rush_player(_delta : float):
-	#Guardclause, to prevent attacking without player.
+	#Guardclause, to prevent attacking without player.x
 	if actor.playerChr == null or GameManager.instance.is_game_over == true: #But if there is no player and game is over, then...
 		print_debug("Player is dead, Enemy won't attack.")
 		return #...We don't do anything.
