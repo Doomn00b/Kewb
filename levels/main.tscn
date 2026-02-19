@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://q0bh23avpg8e"]
 
 [ext_resource type="Script" uid="uid://b05hv42pd7wly" path="res://GameManager.gd" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://catv4gbu1rp2n" path="res://scenes/KewbTest1.tscn" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://catv4gbu1rp2n" path="res://levels/KewbTest1.tscn" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dsjr2e3n05mnb" path="res://GUI/GUI.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://lc0p06eyckk2" path="res://TransitionController.tscn" id="4_m1504"]
 
 [node name="Main" type="Node2D" unique_id=518110699]
 
@@ -17,6 +18,8 @@ gui = NodePath("../GUI")
 
 [node name="SplashScreenManager" parent="GUI" index="0" unique_id=1907148508 node_paths=PackedStringArray("splash_screen_container")]
 splash_screen_container = NodePath("SplashScreenContainer")
+
+[node name="TransitionController" parent="." unique_id=1899625543 instance=ExtResource("4_m1504")]
 
 [editable path="GUI"]
 [editable path="GUI/SplashScreenManager"]

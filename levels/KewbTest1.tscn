@@ -2,9 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://ck072mpnnrudx" path="res://characters/Player/player.tscn" id="1_34yvf"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/enemy_kewb.tscn" id="2_j8rsw"]
-[ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://enemy_spawner.tscn" id="3_78frg"]
+[ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="3_mg0xd"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="5_j8rsw"]
+[ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/Door.tscn" id="6_q3et8"]
+[ext_resource type="PackedScene" uid="uid://df32owiq5jjp" path="res://interactables/Doors/VertButton.tscn" id="7_w8ycf"]
+[ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="8_kjfbt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mg0xd"]
 size = Vector2(34, 136)
@@ -70,10 +73,10 @@ y_sort_enabled = true
 
 [node name="Player" parent="." unique_id=1702685496 instance=ExtResource("1_34yvf")]
 z_index = 1
-position = Vector2(-296, 200)
+position = Vector2(-336, 200)
 
 [node name="TestBlock" type="StaticBody2D" parent="." unique_id=1762496683 groups=["Obstacle", "Walls"]]
-position = Vector2(-392, 88)
+position = Vector2(-446, 88)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock" unique_id=843593661]
@@ -138,6 +141,16 @@ shape = SubResource("RectangleShape2D_q3et8")
 z_index = 1
 y_sort_enabled = true
 position = Vector2(-253, 219)
+
+[node name="Door" parent="." unique_id=100351584 instance=ExtResource("6_q3et8")]
+position = Vector2(112, 212)
+
+[node name="VertButton" parent="." unique_id=1519454596 instance=ExtResource("7_w8ycf")]
+position = Vector2(-282, 194)
+
+[node name="LevelTransition" parent="." unique_id=1965396953 instance=ExtResource("8_kjfbt")]
+position = Vector2(-417, 214)
+target_level = "uid://cepwkqqc6s3dp"
 
 [editable path="Player"]
 [editable path="EnemySpawner2"]

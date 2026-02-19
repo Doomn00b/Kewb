@@ -1,0 +1,124 @@
+[gd_scene format=4 uid="uid://cepwkqqc6s3dp"]
+
+[ext_resource type="PackedScene" uid="uid://ck072mpnnrudx" path="res://characters/Player/player.tscn" id="1_aq4yf"]
+[ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="2_62q5x"]
+[ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/enemy_kewb.tscn" id="3_d4w2d"]
+[ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="4_ikoun"]
+[ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/Door.tscn" id="5_aq4yf"]
+[ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="6_62q5x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mg0xd"]
+size = Vector2(34, 247.5)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j8rsw"]
+texture = ExtResource("4_ikoun")
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0 = 0
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0 = 0
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:3/0 = 0
+2:3/0 = 0
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:3/0 = 0
+4:3/0 = 0
+6:2/0 = 0
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:2/0 = 0
+7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:3/0 = 0
+6:3/0 = 0
+8:2/0 = 0
+8:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:2/0 = 0
+9:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:3/0 = 0
+8:3/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_q3et8"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
+sources/1 = SubResource("TileSetAtlasSource_j8rsw")
+
+[node name="Level2D" type="Node2D" unique_id=2143603366]
+y_sort_enabled = true
+
+[node name="Player" parent="." unique_id=1702685496 instance=ExtResource("1_aq4yf")]
+z_index = 1
+position = Vector2(-296, 200)
+
+[node name="TestBlock" type="StaticBody2D" parent="." unique_id=1762496683 groups=["Obstacle", "Walls"]]
+position = Vector2(-392, 88)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock" unique_id=843593661]
+position = Vector2(7, 26.5)
+shape = SubResource("RectangleShape2D_mg0xd")
+
+[node name="TestBlock3" type="StaticBody2D" parent="." unique_id=1829756627 groups=["Obstacle", "Walls"]]
+position = Vector2(416, 88)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock3" unique_id=1064870560]
+position = Vector2(23, 33.75)
+shape = SubResource("RectangleShape2D_mg0xd")
+
+[node name="EnemySpawner2" parent="." unique_id=562540624 node_paths=PackedStringArray("spawn_points") instance=ExtResource("2_62q5x")]
+enemy_tscn = ExtResource("3_d4w2d")
+spawn_points = [NodePath("Point"), NodePath("Point2")]
+
+[node name="SpawnCooldown" parent="EnemySpawner2" index="0" unique_id=1656349062]
+wait_time = 0.5
+
+[node name="Point" parent="EnemySpawner2" index="1" unique_id=251681297]
+position = Vector2(352, 120)
+
+[node name="Point2" type="Marker2D" parent="EnemySpawner2" unique_id=1148452854]
+position = Vector2(16, 192)
+
+[node name="BlueTilesTop" type="TileMapLayer" parent="." unique_id=1119523911]
+visibility_layer = 2
+z_index = -1
+y_sort_enabled = true
+position = Vector2(72, 232)
+tile_map_data = PackedByteArray("AAD8//7/AQAIAAEAAAD9//7/AQABAAEAAAD+//7/AQACAAEAAAD///7/AQADAAEAAAAAAP7/AQAEAAEAAAABAP7/AQAFAAEAAAACAP7/AQAGAAEAAAADAP7/AQAHAAEAAAAEAP7/AQAIAAEAAAAFAP7/AQABAAEAAAAMAP7/AQAIAAEAAAANAP7/AQABAAEAAAAOAP7/AQACAAEAAAAPAP7/AQADAAEAAAAQAP7/AQAEAAEAAAARAP7/AQAFAAEAAAASAP7/AQAGAAEAAAATAP7/AQAHAAEAAAAUAP7/AQAIAAEAAAAVAP7/AQAJAAEAAAAGAP7/AQACAAEAAAAHAP7/AQADAAEAAAAIAP7/AQAEAAEAAAAJAP7/AQAFAAEAAAAKAP7/AQAGAAEAAAALAP7/AQAHAAEAAAD7//7/AQAHAAEAAAD6//7/AQAGAAEAAAD5//7/AQAFAAEAAAD4//7/AQAEAAEAAAD3//7/AQADAAEAAAD2//7/AQACAAEAAAD1//7/AQABAAEAAAD0//7/AQAIAAEAAADz//7/AQACAAEAAADy//7/AQAGAAEAAADx//7/AQAFAAEAAADw//7/AQAEAAEAAADv//7/AQADAAEAAADu//7/AQACAAEAAADj//7/AQAHAAEAAADi//7/AQAGAAEAAADl//7/AQABAAEAAADm//7/AQACAAEAAADn//7/AQADAAEAAADo//7/AQAEAAEAAADp//7/AQAFAAEAAADq//7/AQAGAAEAAADr//7/AQAHAAEAAADs//7/AQAIAAEAAADt//7/AQABAAEAAADk//7/AQAIAAEAAADh//7/AQACAAEAAADg//7/AQABAAEAAADf//7/AQAAAAEAAAA=")
+tile_set = SubResource("TileSet_q3et8")
+collision_enabled = false
+physics_quadrant_size = 8
+
+[node name="BlueTilesBot" type="TileMapLayer" parent="." unique_id=704312989]
+position = Vector2(72, 232)
+tile_map_data = PackedByteArray("AAD8/wAAAQAIAAMAAAD9/wAAAQAJAAMAAAD+/wAAAQACAAMAAAD//wAAAQADAAMAAAAAAAAAAQAEAAMAAAABAAAAAQAFAAMAAAACAAAAAQAGAAMAAAADAAAAAQAHAAMAAAAEAAAAAQAIAAMAAAAFAAAAAQAJAAMAAAD8////AQAIAAIAAAD9////AQAJAAIAAAD+////AQACAAIAAAD/////AQADAAIAAAAAAP//AQAEAAIAAAABAP//AQAFAAIAAAACAP//AQAGAAIAAAADAP//AQAHAAIAAAAEAP//AQAIAAIAAAAFAP//AQABAAIAAAAGAAAAAQACAAMAAAAHAAAAAQADAAMAAAAIAAAAAQAEAAMAAAAJAAAAAQAFAAMAAAAKAAAAAQAGAAMAAAALAAAAAQAHAAMAAAAMAAAAAQAIAAMAAAANAAAAAQAJAAMAAAAGAP//AQACAAIAAAAHAP//AQADAAIAAAAIAP//AQAEAAIAAAAJAP//AQAFAAIAAAAKAP//AQAGAAIAAAALAP//AQAHAAIAAAAMAP//AQAIAAIAAAANAP//AQABAAIAAAAOAAAAAQACAAMAAAAPAAAAAQADAAMAAAAQAAAAAQAEAAMAAAARAAAAAQAFAAMAAAASAAAAAQAGAAMAAAATAAAAAQAHAAMAAAAUAAAAAQAIAAMAAAAVAAAAAQAJAAMAAAAPAP//AQADAAIAAAAQAP//AQAEAAIAAAARAP//AQAFAAIAAAASAP//AQAGAAIAAAATAP//AQAHAAIAAAAUAP//AQAIAAIAAAAVAP//AQAJAAIAAAAOAP//AQACAAIAAAD7////AQAHAAIAAAD7/wAAAQAHAAMAAAD6////AQAGAAIAAAD5////AQAFAAIAAAD4////AQAEAAIAAAD3////AQADAAIAAAD2////AQACAAIAAAD1////AQABAAIAAAD1/wAAAQAJAAMAAAD2/wAAAQACAAMAAAD3/wAAAQADAAMAAAD4/wAAAQAEAAMAAAD5/wAAAQAFAAMAAAD6/wAAAQAGAAMAAAD0/wAAAQAIAAMAAAD0////AQAIAAIAAADz/wAAAQAHAAMAAADy/wAAAQAGAAMAAADx/wAAAQAFAAMAAADw/wAAAQAEAAMAAADv/wAAAQADAAMAAADu/wAAAQACAAMAAADv////AQADAAIAAADw////AQAEAAIAAADx////AQAFAAIAAADy////AQAGAAIAAADz////AQAHAAIAAADu////AQACAAIAAADt/wAAAQABAAMAAADt////AQABAAIAAADs/wAAAQAIAAMAAADs////AQAIAAIAAADr////AQAHAAIAAADr/wAAAQAHAAMAAADq/wAAAQAGAAMAAADp/wAAAQAFAAMAAADo/wAAAQAEAAMAAADn/wAAAQADAAMAAADm/wAAAQACAAMAAADl/wAAAQAJAAMAAADl////AQABAAIAAADm////AQACAAIAAADn////AQADAAIAAADo////AQAEAAIAAADp////AQAFAAIAAADq////AQAGAAIAAADk/wAAAQAIAAMAAADj/wAAAQAHAAMAAADi/wAAAQAGAAMAAADi////AQAGAAIAAADj////AQAHAAIAAADk////AQAIAAIAAADh/wAAAQACAAMAAADh////AQACAAIAAADg////AQABAAIAAADf////AQAAAAIAAADf/wAAAQAAAAMAAADg/wAAAQABAAMAAAA=")
+tile_set = SubResource("TileSet_q3et8")
+collision_visibility_mode = 1
+physics_quadrant_size = 32
+
+[node name="Door" parent="." unique_id=100351584 instance=ExtResource("5_aq4yf")]
+position = Vector2(-219, 212)
+
+[node name="LevelTransition" parent="." unique_id=1965396953 instance=ExtResource("6_62q5x")]
+position = Vector2(-368, 208)
+target_level = "uid://catv4gbu1rp2n"
+
+[editable path="Player"]
+[editable path="EnemySpawner2"]
