@@ -20,7 +20,6 @@ func _ready() -> void:
 	get_screens()
 	fade()
 
-
 #This function goes through the texture-rects of the Splash-Screen-container,
 #thereby letting us set properties of the screens. (such as making them invisible) 
 func get_screens() -> void:
@@ -43,10 +42,6 @@ func fade() -> void:
 	#GameManager.instance.change_level2D(load_scene)
 	#get_tree().change_scene_to_packed(load_scene) 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-	#pass
 
 #This function lets the player skip splash-screens
 func _unhandled_input(event: InputEvent) -> void:

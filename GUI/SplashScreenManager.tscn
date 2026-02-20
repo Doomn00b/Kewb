@@ -36,5 +36,6 @@ layout_mode = 2
 texture = ExtResource("2_n4pxi")
 
 [node name="Screen3" type="TextureRect" parent="SplashScreenContainer" unique_id=7338426]
+visible = false
 layout_mode = 2
 texture = ExtResource("4_qbari")

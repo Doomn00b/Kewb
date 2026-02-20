@@ -4,6 +4,8 @@ extends Control
 @export var background: ColorRect #We get the coloured rectangle to use as transition-background.
 @export var animation_player: AnimationPlayer #We get the animation-player to fade the background in and out.
 
+
+
 static var instance : TransitionController
 
 func _init() -> void:

@@ -1,4 +1,4 @@
-@tool #A tool-script runs while we're in the editor.
+#@tool #A tool-script runs while we're in the editor.
 @icon("res://levels/level_transition_symbol.png")
 class_name LevelTransition
 extends Node2D
@@ -25,11 +25,12 @@ BOTTOM}
 
 func _ready() -> void:
 	#GUARD-CLAUSE
-	if Engine.is_editor_hint(): #If we're still in the editor (instead of the game), then...
-		print_debug("We're running in the editor; turning off scene-transitions.")
-		return #...don't run the scene-transition-code.
+	#if Engine.is_editor_hint(): #If we're still in the editor (instead of the game), then...
+		#print_debug("We're running in the editor; turning off scene-transitions.")
+		#return #...don't run the scene-transition-code.
 	#END Guard-Clause
 	player_ent_zone.connect(_transition_level) #When we start the scene we connect a signal to the transition-level function.
+	apply_area_settings() #Run the changes to the shape of zone.
 
 func _on_lt_area_body_entered(body: Node2D) -> void: #Check if the player enters area.
 	if body.is_in_group("playerGroup"): #If it's the player in the zone...
@@ -37,7 +38,7 @@ func _on_lt_area_body_entered(body: Node2D) -> void: #Check if the player enters
 		player_ent_zone.emit() #...the signal is emitted, which starts the transition-level function.
 
 func _transition_level(): #Transition to a different level, runs when signal is emitted.
-	get_tree().change_scene_to_file(target_level) #Go through the tree, and change to the scene 
+	get_tree().change_scene_to_file.call_deferred(target_level) #Go through the tree, and change to the scene 
 
 
 func apply_area_settings(): #This function changes the size et c properties of the transition-zone.
