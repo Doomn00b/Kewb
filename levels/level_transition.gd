@@ -9,7 +9,7 @@ enum SIDE #Enums for the sides of the transition-zone.
 RIGHT, 
 TOP, 
 BOTTOM} 
-
+@export_category("Shape of transition-zone:")
 @export_range( 2, 12, 1, "or_greater") var size: int = 2 : #Size-range that the scene-transition can have.
 	set(value):
 		size = value
@@ -18,6 +18,8 @@ BOTTOM}
 	set(value):
 		location = value
 		apply_area_settings()
+@export_category("Put level & Trans.-zone NAME here:")
+#@export var target_level : PackedScene
 @export_file("*.tscn") var target_level : String = "" #We make a new Var that stores the target, and the target can only be the tscn-filetype
 @export var target_area_name: String = "LevelTransition" #The target spawn-area the transition-zone leads to.
 
@@ -38,8 +40,7 @@ func _on_lt_area_body_entered(body: Node2D) -> void: #Check if the player enters
 		player_ent_zone.emit() #...the signal is emitted, which starts the transition-level function.
 
 func _transition_level(): #Transition to a different level, runs when signal is emitted.
-	get_tree().change_scene_to_file.call_deferred(target_level) #Go through the tree, and change to the scene 
-
+	GameManager.instance.change_level2D(load(target_level))
 
 func apply_area_settings(): #This function changes the size et c properties of the transition-zone.
 	area_2d = get_node_or_null("")

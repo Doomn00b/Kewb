@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://d3rrxxne0sxya"]
 
 [ext_resource type="Script" uid="uid://cwd14gsquftyp" path="res://GUI/SplashScreenManager.gd" id="1_ddgav"]
-[ext_resource type="Texture2D" uid="uid://d4bak5ux4dto8" path="res://icon.svg" id="1_l8vrt"]
+[ext_resource type="PackedScene" uid="uid://q0bh23avpg8e" path="res://levels/main.tscn" id="2_kedqe"]
 [ext_resource type="Texture2D" uid="uid://vevcejhedk20" path="res://characters/Enemies/Test-enemy.png" id="2_n4pxi"]
+[ext_resource type="Texture2D" uid="uid://b84gedsakmis1" path="res://GUI/Kewb_splash-screen.png" id="2_qbari"]
 [ext_resource type="Texture2D" uid="uid://bqni2yge2x58u" path="res://characters/Enemies/Test-enemy-nose.png" id="4_qbari"]
 
-[node name="SplashScreenManager" type="Control" unique_id=1907148508]
+[node name="SplashScreenManager" type="Control" unique_id=1907148508 node_paths=PackedStringArray("splash_screen_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +14,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ddgav")
+load_scene = ExtResource("2_kedqe")
+splash_screen_container = NodePath("SplashScreenContainer")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=510771792]
 layout_mode = 0
@@ -28,7 +31,7 @@ offset_bottom = 288.0
 [node name="Screen1" type="TextureRect" parent="SplashScreenContainer" unique_id=2141059519]
 visible = false
 layout_mode = 2
-texture = ExtResource("1_l8vrt")
+texture = ExtResource("2_qbari")
 
 [node name="Screen2" type="TextureRect" parent="SplashScreenContainer" unique_id=1294809757]
 visible = false

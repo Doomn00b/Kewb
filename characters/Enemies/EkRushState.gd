@@ -1,6 +1,6 @@
 extends State
 class_name EkRushState
-
+@export_category("Put Actor, aka Enemy-prefab here")
 @export var actor: EnemyKewb #We put our "Actor" here, in this case, our enemy-Kewb.
 @export var Erunspeed: int = 50 #The walking, aka Roaming -speed.
 

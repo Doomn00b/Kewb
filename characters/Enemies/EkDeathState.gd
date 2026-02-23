@@ -1,6 +1,6 @@
 extends State
 class_name EkDeathState
-
+@export_category("Put Actor, aka Enemy-prefab here")
 @export var actor: EnemyKewb #We put our "Actor" here, in this case, our enemy-Kewb.
 
 # Called when the node enters the scene tree for the first time.

@@ -15,8 +15,10 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Kewb"
-run/main_scene="uid://q0bh23avpg8e"
+run/main_scene="uid://d3rrxxne0sxya"
 config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]

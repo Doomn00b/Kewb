@@ -1,7 +1,7 @@
 #This is the enemy-Kewb's roaming state.
 class_name EkRoamingState
 extends State #We inherit from our old abstract class, making what's in here a State.
-
+@export_category("Put Actor, aka Enemy-prefab here")
 @export var actor: EnemyKewb #We put our "Actor" here, in this case, our enemy-Kewb.
 @export var Ewspeed: int = 50 #The walking, aka Roaming -speed.
 

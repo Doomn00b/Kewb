@@ -29,7 +29,7 @@ func get_screens() -> void:
 
 #This is for fading in and out our Splash-screens.
 func fade() -> void:
-	for screen in splash_screens:
+	for screen in splash_screens: #This loop runs through the splash-screen array. 
 		var tween = self.create_tween()
 		tween.tween_interval(in_time)
 		tween.tween_property(screen, "modulate:a", 1.0, fade_in_time)

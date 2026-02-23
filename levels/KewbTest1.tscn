@@ -68,7 +68,7 @@ size = Vector2(80, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3et8"]
 size = Vector2(168, 16)
 
-[node name="Level2D" type="Node2D" unique_id=2143603366]
+[node name="LevelTest1" type="Node2D" unique_id=2143603366]
 y_sort_enabled = true
 
 [node name="Player" parent="." unique_id=1702685496 instance=ExtResource("1_34yvf")]

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/enemy_kewb.tscn" id="3_d4w2d"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="4_ikoun"]
 [ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/Door.tscn" id="5_aq4yf"]
-[ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="6_62q5x"]
+[ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="7_ndik7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mg0xd"]
 size = Vector2(34, 247.5)
@@ -60,7 +60,7 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
 sources/1 = SubResource("TileSetAtlasSource_j8rsw")
 
-[node name="Level2D" type="Node2D" unique_id=2143603366]
+[node name="LevelTest2" type="Node2D" unique_id=2143603366]
 y_sort_enabled = true
 
 [node name="Player" parent="." unique_id=1702685496 instance=ExtResource("1_aq4yf")]
@@ -116,7 +116,7 @@ physics_quadrant_size = 32
 [node name="Door" parent="." unique_id=100351584 instance=ExtResource("5_aq4yf")]
 position = Vector2(-219, 212)
 
-[node name="LevelTransition" parent="." unique_id=1965396953 instance=ExtResource("6_62q5x")]
+[node name="LevelTransition" parent="." unique_id=1965396953 instance=ExtResource("7_ndik7")]
 position = Vector2(-368, 208)
 target_level = "uid://catv4gbu1rp2n"
 
