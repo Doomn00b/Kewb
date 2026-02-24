@@ -39,8 +39,6 @@ func change_level2D(new_level : PackedScene,
 	delete: bool = true, 
 	keep_running: bool = false, 
 	transition: bool = true, #Wait... WHEN does this become true?!
-	#transition_in: String = "fade_in",
-	#transition_out: String = "fade_out", #This is very verbose, consider changing it, perhaps just two functions in transitioncontroller instead.
 	seconds: float = 0.8) -> void:
 	
 	#Condition to run a scene-transition.
@@ -101,13 +99,12 @@ func change_gui_scene(
 	delete: bool = true,
 	keep_running: bool = false,
 	transition: bool = true,
-	transition_in: String = "fade_in",
-	transition_out: String = "fade_out",
 	seconds: float = 0.8 ) -> void:
 	
 	#Condition to run a gui scene-transition.
-	if transition:
-		TransitionController.instance.transition(transition_out, seconds) #Get the instance of the controller & run the transition-function, with the fade_out animation as a variable.
+	if transition == true:
+		print_debug("We shall run a transition")
+		TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
 	#End transition-condition.
 	
@@ -129,12 +126,7 @@ func change_gui_scene(
 			gui.add_child(new_gui)
 		new_gui.visible = true
 	
-	#Old code that could lead to issues, down below.
-	#var newGUI = load(new_guiscene).instantiate() #Variable that defines a new GUI based on a new instance of new_guiscene.
-	#gui.add_child(newGUI) #We make the new popup/gui a child of gui, so it appears under it in the editor.
-	#current_gui = newGUI
-	
-	TransitionController.instance.transition(transition_in, seconds) #Now we run the fade in transition as well.
+	TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 
 func reset_values(): #Because you died, but you're restarting...
 	#score = 0
