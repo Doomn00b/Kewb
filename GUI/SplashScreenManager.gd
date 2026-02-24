@@ -38,12 +38,10 @@ func fade() -> void:
 		tween.tween_interval(out_time)
 		await tween.finished
 	#When all screens are tweened and done, we change to our new scene.
-	#GameManager.instance.change_gui_scene("res://GUI/main_menu.tscn")
-	#GameManager.instance.change_level2D(load_scene)
-	#get_tree().change_scene_to_packed(load_scene) 
+	get_tree().change_scene_to_packed(load_scene) 
 
 
 #This function lets the player skip splash-screens
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_pressed(): #If any key is pressed...
-		GameManager.instance.change_gui_scene("res://GUI/main_menu.tscn") #We summon the GameManager's current instance, and run the change-gui function.
+		get_tree().change_scene_to_packed(load_scene)

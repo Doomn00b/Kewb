@@ -10,7 +10,16 @@ func _init() -> void:
 	instance = self
 
 #This function will reference the animationplayer and play the fade-in/out animations.
-func transition(animation: String, seconds: float) -> void:
-	#For the length of the animation, we are adjusting the animation-speed by...
-	animation_player.play(animation, -0.8, 0.8 / seconds) #...adjusting the animation-speed by dividing it with our desired time-length. (0.8 seconds)
-	print_debug("Ran scene-transition fade.")
+#func transition(animation: String, seconds: float) -> void:
+	##For the length of the animation, we are adjusting the animation-speed by...
+	#animation_player.play(animation, -0.8, 0.8 / seconds) #...adjusting the animation-speed by dividing it with our desired time-length. (0.8 seconds)
+	#print_debug("Ran scene-transition fade.")
+
+func transition_in(seconds: float) -> void:
+	animation_player.play("fade_in", -0.8, 0.8 / seconds)
+	print_debug("Ran fade in.")
+
+func transition_out(seconds: float) -> void:
+	animation_player.play("fade_out", -0.8, 0.8 / seconds)
+	print_debug("Ran fade out.")	
+	

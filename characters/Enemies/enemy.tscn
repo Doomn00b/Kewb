@@ -5,15 +5,15 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivycn"]
 
-[node name="Enemy" type="Area2D" groups=["enemyGroup"]]
+[node name="Enemy" type="Area2D" unique_id=796365940 groups=["enemyGroup"]]
 script = ExtResource("1_4gyqm")
 metadata/_edit_group_ = true
 
-[node name="NmyShipGraphic" type="Sprite2D" parent="."]
+[node name="NmyShipGraphic" type="Sprite2D" parent="." unique_id=1958424086]
 texture_filter = 1
 texture = ExtResource("2_vq7lu")
 
-[node name="NmyCollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="NmyCollisionShape2D" type="CollisionShape2D" parent="." unique_id=532283692]
 scale = Vector2(2.5, 2)
 shape = SubResource("RectangleShape2D_ivycn")
 

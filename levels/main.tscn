@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b05hv42pd7wly" path="res://GameManager.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://catv4gbu1rp2n" path="res://levels/KewbTest1.tscn" id="2_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://dsjr2e3n05mnb" path="res://GUI/GUI.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dsjr2e3n05mnb" path="res://GUI/GUI.tscn" id="3_m1504"]
 [ext_resource type="PackedScene" uid="uid://lc0p06eyckk2" path="res://TransitionController.tscn" id="4_m1504"]
 
 [node name="Main" type="Node2D" unique_id=518110699]
@@ -10,16 +10,18 @@
 [node name="GameManager" type="Node" parent="." unique_id=1162974979 node_paths=PackedStringArray("level_2D", "gui")]
 script = ExtResource("1_sugp2")
 level_2D = NodePath("../Level2D")
-gui = NodePath("../GUI")
+gui = NodePath("../CanvasLayer/GUI")
 
 [node name="Level2D" parent="." unique_id=2143603366 instance=ExtResource("2_jyhfs")]
 
-[node name="GUI" parent="." unique_id=2074600678 instance=ExtResource("3_tbgi4")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1438152076]
 
-[node name="SplashScreenManager" parent="GUI" index="0" unique_id=1907148508 node_paths=PackedStringArray("splash_screen_container")]
-splash_screen_container = NodePath("SplashScreenContainer")
+[node name="GUI" parent="CanvasLayer" unique_id=2074600678 instance=ExtResource("3_m1504")]
+unique_name_in_owner = true
 
-[node name="TransitionController" parent="." unique_id=1899625543 instance=ExtResource("4_m1504")]
-
-[editable path="GUI"]
-[editable path="GUI/SplashScreenManager"]
+[node name="TransitionController" parent="CanvasLayer" unique_id=1899625543 instance=ExtResource("4_m1504")]
+offset_top = 0.0
+offset_bottom = 0.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true

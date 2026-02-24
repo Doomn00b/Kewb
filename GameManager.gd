@@ -18,8 +18,8 @@ func _init() -> void:
 	instance = self
 
 func _ready() -> void:
-	current_gui = SplashScreenManager.instance
-	current_level2d = level_2D
+	current_gui = %GUI
+	current_level2d = level_2D #When you start, the current Level2D should just be the preset one.
 	#The below gui-change code with a dictionary may be sus...
 	if current_gui.scene_file_path: #If there's a current gui and it has a filepath, then...
 		scene_cache[current_gui.scene_file_path] = current_gui #...look into the scene-cache using the filepath and make that the current gui.
@@ -38,21 +38,22 @@ func _process(_delta: float) -> void:
 func change_level2D(new_level : PackedScene,
 	delete: bool = true, 
 	keep_running: bool = false, 
-	transition: bool = true,
-	transition_in: String = "fade_in",
-	transition_out: String = "fade_out",
+	transition: bool = true, #Wait... WHEN does this become true?!
+	#transition_in: String = "fade_in",
+	#transition_out: String = "fade_out", #This is very verbose, consider changing it, perhaps just two functions in transitioncontroller instead.
 	seconds: float = 0.8) -> void:
-		
+	
+	#Condition to run a scene-transition.
+	if transition == true:
+		print_debug("We shall run a transition")
+		TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
+		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
+	#End transition-condition.
 	current_level2d.queue_free()
 	current_level2d = new_level.instantiate()
 	add_sibling.call_deferred(current_level2d)
 	
-	#Condition to run a scene-transition.
-	if transition:
-		TransitionController.instance.transition(transition_out, seconds) #Get the instance of the controller & run the transition-function, with the fade_out animation as a variable.
-		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
-	#End transition-condition.
-	TransitionController.instance.transition(transition_in, seconds) #Now we run the fade in transition as well.
+	TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 	
 	
 #func change_level2D(
@@ -120,13 +121,14 @@ func change_gui_scene(
 			current_gui.visible = false #Keeps the gui in memory and running.
 		else:
 			gui.remove_child(current_gui) #This keeps the GUI in memory, but NOT running.	
-	
+			
 	var new_gui: Control
 	if scene_cache.has(new_guiscene):
 		new_gui = scene_cache[new_guiscene]
 		if new_gui.get_parent() == null:
 			gui.add_child(new_gui)
 		new_gui.visible = true
+	
 	#Old code that could lead to issues, down below.
 	#var newGUI = load(new_guiscene).instantiate() #Variable that defines a new GUI based on a new instance of new_guiscene.
 	#gui.add_child(newGUI) #We make the new popup/gui a child of gui, so it appears under it in the editor.

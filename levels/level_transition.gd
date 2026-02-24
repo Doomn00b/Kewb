@@ -19,7 +19,6 @@ BOTTOM}
 		location = value
 		apply_area_settings()
 @export_category("Put level & Trans.-zone NAME here:")
-#@export var target_level : PackedScene
 @export_file("*.tscn") var target_level : String = "" #We make a new Var that stores the target, and the target can only be the tscn-filetype
 @export var target_area_name: String = "LevelTransition" #The target spawn-area the transition-zone leads to.
 
@@ -40,6 +39,7 @@ func _on_lt_area_body_entered(body: Node2D) -> void: #Check if the player enters
 		player_ent_zone.emit() #...the signal is emitted, which starts the transition-level function.
 
 func _transition_level(): #Transition to a different level, runs when signal is emitted.
+	#GameManager.instance.change_level2D(transition)
 	GameManager.instance.change_level2D(load(target_level))
 
 func apply_area_settings(): #This function changes the size et c properties of the transition-zone.
