@@ -19,17 +19,12 @@ BOTTOM}
 		location = value
 		apply_area_settings()
 @export_category("Put level & Trans.-zone NAME here:")
-@export_file("*.tscn") var target_level : String = "" #We make a new Var that stores the target, and the target can only be the tscn-filetype
+@export var target_level : String = ""
 @export var target_area_name: String = "LevelTransition" #The target spawn-area the transition-zone leads to.
 
 @onready var area_2d: Area2D = %LtArea #When the script starts, we store the level-transitions area2D.
 
 func _ready() -> void:
-	#GUARD-CLAUSE
-	#if Engine.is_editor_hint(): #If we're still in the editor (instead of the game), then...
-		#print_debug("We're running in the editor; turning off scene-transitions.")
-		#return #...don't run the scene-transition-code.
-	#END Guard-Clause
 	player_ent_zone.connect(_transition_level) #When we start the scene we connect a signal to the transition-level function.
 	apply_area_settings() #Run the changes to the shape of zone.
 
@@ -39,8 +34,7 @@ func _on_lt_area_body_entered(body: Node2D) -> void: #Check if the player enters
 		player_ent_zone.emit() #...the signal is emitted, which starts the transition-level function.
 
 func _transition_level(): #Transition to a different level, runs when signal is emitted.
-	#GameManager.instance.change_level2D(transition)
-	GameManager.instance.change_level2D(load(target_level))
+	GameManager.instance.change_level2D(target_level, 0)
 
 func apply_area_settings(): #This function changes the size et c properties of the transition-zone.
 	area_2d = get_node_or_null("")

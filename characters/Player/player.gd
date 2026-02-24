@@ -55,7 +55,11 @@ var current_move_state = MovementState.IDLE #We make a new var to describe the b
 var current_anim_state = AnimationState.PAIDLE
 var anim : AnimationPlayer
 var fist_time : Timer
+static var instance : Player
 
+func _init() -> void:
+	instance = self
+	
 func _ready() -> void:
 	anim = %AnimationPlayer
 	fist_time = %FistTime #We get the timer that decides how long our fist is visible
