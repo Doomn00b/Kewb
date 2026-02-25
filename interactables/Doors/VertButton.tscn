@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://df32owiq5jjp"]
 
-[ext_resource type="Texture2D" uid="uid://bg7n8yeiv4pfp" path="res://interactables/Doors/kewb-door_vert-button.png" id="1_ecsuh"]
+[ext_resource type="Texture2D" uid="uid://bg7n8yeiv4pfp" path="res://interactables/Buttons/kewb-door_vert-button.png" id="1_ecsuh"]
+[ext_resource type="Script" uid="uid://b150fx1ctel3q" path="res://interactables/Buttons/Buttons.gd" id="1_f7n2h"]
 
 [sub_resource type="Animation" id="Animation_ecsuh"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("VertButtSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -22,7 +23,7 @@ resource_name = "pressed"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("VertButtSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -49,7 +50,7 @@ resource_name = "pressing"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("VertButtSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -76,7 +77,7 @@ resource_name = "unpressed"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("VertButtSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -123,8 +124,10 @@ radius = 4.0
 height = 10.0
 
 [node name="VertButton" type="Node2D" unique_id=1519454596]
+script = ExtResource("1_f7n2h")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1594769823]
+[node name="VertButtSprite" type="Sprite2D" parent="." unique_id=1594769823]
+unique_name_in_owner = true
 texture = ExtResource("1_ecsuh")
 hframes = 3
 
@@ -132,6 +135,10 @@ hframes = 3
 libraries/ = SubResource("AnimationLibrary_ngknt")
 
 [node name="ButtonArea2D" type="Area2D" parent="." unique_id=108171431]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+monitorable = false
 
 [node name="ButtonCShape2D" type="CollisionShape2D" parent="ButtonArea2D" unique_id=1901998722]
 position = Vector2(-2, 0)

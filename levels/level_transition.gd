@@ -20,7 +20,7 @@ BOTTOM}
 		apply_area_settings()
 @export_category("Put level & Trans.-zone NAME here:")
 @export var target_level : String = ""
-@export var target_area_name: String = "LevelTransition" #The target spawn-area the transition-zone leads to.
+@export var entry_point : int  #The target spawn-area the transition-zone leads to.
 
 @onready var area_2d: Area2D = %LtArea #When the script starts, we store the level-transitions area2D.
 
@@ -34,8 +34,8 @@ func _on_lt_area_body_entered(body: Node2D) -> void: #Check if the player enters
 		player_ent_zone.emit() #...the signal is emitted, which starts the transition-level function.
 
 func _transition_level(): #Transition to a different level, runs when signal is emitted.
-	GameManager.instance.change_level2D(target_level, 0)
-
+	GameManager.instance.change_level2D(target_level, entry_point) #We run the change-level function in the GameManager, and designate a level and an entry-point
+	
 func apply_area_settings(): #This function changes the size et c properties of the transition-zone.
 	area_2d = get_node_or_null("")
 	#GUARD-CLAUSE:

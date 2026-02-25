@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cepwkqqc6s3dp"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_ndik7"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_ndik7"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="2_62q5x"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/enemy_kewb.tscn" id="3_d4w2d"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="4_ikoun"]
@@ -60,12 +60,14 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
 sources/1 = SubResource("TileSetAtlasSource_j8rsw")
 
-[node name="LevelTest2" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_points")]
+[node name="LevelTest2" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_dict")]
 y_sort_enabled = true
 script = ExtResource("1_ndik7")
-entry_points = [NodePath("EntryPoint"), NodePath("EntryPoint")]
+entry_dict = {
+0: NodePath("EPleftLvl2")
+}
 
-[node name="EntryPoint" type="Marker2D" parent="." unique_id=1872710426]
+[node name="EPleftLvl2" type="Marker2D" parent="." unique_id=1872710426]
 position = Vector2(-296, 200)
 
 [node name="TestBlock" type="StaticBody2D" parent="." unique_id=1762496683 groups=["Obstacle", "Walls"]]
@@ -117,8 +119,11 @@ physics_quadrant_size = 32
 [node name="Door" parent="." unique_id=100351584 instance=ExtResource("5_aq4yf")]
 position = Vector2(-219, 212)
 
-[node name="LevelTransition" parent="." unique_id=1965396953 instance=ExtResource("7_ndik7")]
+[node name="LTleftLvl2" parent="." unique_id=1965396953 instance=ExtResource("7_ndik7")]
+unique_name_in_owner = true
 position = Vector2(-368, 208)
 target_level = "Level1"
+entry_point = 1
 
 [editable path="EnemySpawner2"]
+[editable path="Door"]

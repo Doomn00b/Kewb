@@ -2,6 +2,9 @@ class_name GameManager
 extends Node
 #This is our Singleton that remembers our score and other things, in-between scenes.
 #The GAME MANAGER, essentially.
+
+signal level_entered #A signal to show that the Player has entered a level.
+
 @export var level_2D : Node2D #We set up a variable for the levels.
 @export var gui : Control #A variable for the various Graphical User Interface.
 
@@ -19,20 +22,23 @@ func _init() -> void:
 func _ready() -> void:
 	current_gui = null
 	current_level2d = level_2D #When you start, the current Level2D should just be the preset one.
-	#The below gui-change code with a dictionary may be sus...
+	#We define entries in the Gui and Level -dictionaries.
 	level_dict["Level1"] = %LevelTest1
 	level_dict["Level2"] = %LevelTest2
 	gui_dict["PauseMenu"] = %PauseMenu
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept") and is_game_over == true:
+func _process(delta: float) -> void:
+	_game_over_check(delta)
+
+func _game_over_check(_delta) -> void:
+	if is_game_over == true and Input.is_action_just_pressed("ui_accept") :
 		print_debug("enter has been pressed")
 		#Reload the scene.
 		get_tree().reload_current_scene() #We get the whole tree, everything in every scene & then we reload the current scene, aka level.
 		reset_values() #And reset the values too.
 
 func change_level2D(new_level : String,
-	target_area : int,
+	entry_point : int,
 	transition: bool = true,
 	seconds: float = 0.8) -> void:
 	
@@ -45,11 +51,10 @@ func change_level2D(new_level : String,
 	#OLD LEVEL TURN OFF
 	current_level2d.visible = false
 	current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
-	
 	current_level2d = level_dict[new_level]
 	
 	#NEW LEVEL TURN ON
-	current_level2d.place_player(Player.instance, target_area)
+	current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
 	await get_tree().process_frame
 	current_level2d.visible = true
 	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT

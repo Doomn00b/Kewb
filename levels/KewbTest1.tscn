@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://catv4gbu1rp2n"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_prie1"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_prie1"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/enemy_kewb.tscn" id="2_j8rsw"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="3_mg0xd"]
@@ -68,15 +68,18 @@ size = Vector2(80, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3et8"]
 size = Vector2(168, 16)
 
-[node name="LevelTest1" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_points")]
+[node name="LevelTest1" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_dict")]
 y_sort_enabled = true
 script = ExtResource("1_prie1")
-entry_points = [NodePath("EntryPoint"), NodePath("EntryPoint2")]
+entry_dict = {
+0: NodePath("EPLeftLvl1"),
+1: NodePath("EPRightLvl1")
+}
 
-[node name="EntryPoint" type="Marker2D" parent="." unique_id=153490671]
-position = Vector2(-339, 198)
+[node name="EPLeftLvl1" type="Marker2D" parent="." unique_id=153490671]
+position = Vector2(-368, 198)
 
-[node name="EntryPoint2" type="Marker2D" parent="." unique_id=95239767]
+[node name="EPRightLvl1" type="Marker2D" parent="." unique_id=95239767]
 position = Vector2(174, 188)
 
 [node name="TestBlock" type="StaticBody2D" parent="." unique_id=1762496683 groups=["Obstacle", "Walls"]]
@@ -146,11 +149,11 @@ z_index = 1
 y_sort_enabled = true
 position = Vector2(-253, 219)
 
+[node name="VertButton" parent="DoorSideways" unique_id=1519454596 instance=ExtResource("7_w8ycf")]
+position = Vector2(-29, -25)
+
 [node name="Door" parent="." unique_id=100351584 instance=ExtResource("6_q3et8")]
 position = Vector2(112, 212)
-
-[node name="VertButton" parent="." unique_id=1519454596 instance=ExtResource("7_w8ycf")]
-position = Vector2(-282, 194)
 
 [node name="LevelTransition" parent="." unique_id=1965396953 instance=ExtResource("8_kjfbt")]
 position = Vector2(-417, 214)

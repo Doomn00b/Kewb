@@ -81,6 +81,8 @@ size = Vector2(58, 4)
 [node name="Door" type="Node2D" unique_id=100351584]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1258453598]
+z_index = -1
+y_sort_enabled = true
 position = Vector2(0, -35)
 texture = ExtResource("1_sl387")
 
@@ -89,6 +91,8 @@ libraries/ = SubResource("AnimationLibrary_u31xj")
 autoplay = &"closed"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=384570661]
+z_index = -1
+y_sort_enabled = true
 offset_left = -16.0
 offset_top = -48.0
 offset_right = 21.0

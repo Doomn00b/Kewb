@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://lc0p06eyckk2"]
 
-[ext_resource type="Script" uid="uid://ba5wldhykt580" path="res://TransitionController.gd" id="1_pr747"]
+[ext_resource type="Script" uid="uid://ba5wldhykt580" path="res://game_management/TransitionController.gd" id="1_pr747"]
 
 [sub_resource type="Animation" id="Animation_7ci60"]
 length = 0.001

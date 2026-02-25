@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://des8idf8hwabd"]
 
+[ext_resource type="Script" uid="uid://b0tcwj47yq257" path="res://interactables/Doors/Doors.gd" id="1_8p8p1"]
 [ext_resource type="Texture2D" uid="uid://d3dhj0wq2s6oq" path="res://interactables/Doors/kewb-door_sideways.png" id="1_dc0b7"]
 
 [sub_resource type="Animation" id="Animation_dc0b7"]
@@ -100,6 +101,7 @@ size = Vector2(7, 27)
 size = Vector2(4, 24)
 
 [node name="DoorSideways" type="Node2D" unique_id=81813317]
+script = ExtResource("1_8p8p1")
 
 [node name="KewbDoorSideways" type="Sprite2D" parent="." unique_id=400005428]
 position = Vector2(0, -35)
@@ -107,6 +109,7 @@ texture = ExtResource("1_dc0b7")
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=504591112]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_btoix")
 
 [node name="DoorBody2D" type="StaticBody2D" parent="." unique_id=1001663614]

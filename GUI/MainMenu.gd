@@ -3,8 +3,8 @@ extends CenterContainer
 
 
 func _on_new_game_pressed() -> void:
-	GameManager.instance.change_level2D()
-
+	#GameManager.instance.change_level2D()
+	pass
 
 func _on_continue_pressed() -> void:
 	pass # Replace with function body.
