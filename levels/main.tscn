@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cepwkqqc6s3dp" path="res://levels/KewbTest2.tscn" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://dsjr2e3n05mnb" path="res://GUI/GUI.tscn" id="3_m1504"]
 [ext_resource type="PackedScene" uid="uid://lc0p06eyckk2" path="res://game_management/TransitionController.tscn" id="4_m1504"]
-[ext_resource type="Script" uid="uid://chw6nlvn3d152" path="res://game_management/SaveManager.gd" id="6_5k4jt"]
+[ext_resource type="Script" uid="uid://chw6nlvn3d152" path="res://game_management/SaveManagerOld.gd" id="6_5k4jt"]
 
 [sub_resource type="GDScript" id="GDScript_ifaiv"]
 script/source = "class_name GameManager
