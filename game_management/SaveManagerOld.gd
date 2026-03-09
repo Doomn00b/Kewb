@@ -22,7 +22,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 func create_new_game_save() -> void:
@@ -48,10 +48,10 @@ func save_game() -> void:
 	pass
 	
 func load_game() -> void:
-	var load_file = FileAccess.open("user://save.sav",FileAccess.READ)
+	var _load_file = FileAccess.open("user://save.sav",FileAccess.READ)
 	
 #Function for testing the saving and loading, with keyboard shortcuts, instead of UI and checkpoints.
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("save_test"):
 		create_new_game_save()
 	if Input.is_action_just_pressed("load_test"):

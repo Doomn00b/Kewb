@@ -150,7 +150,7 @@ func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 
 			velocity.x = (move_dir * running_speed).x
 			_apply_gravity(delta)
 			current_anim_state = AnimationState.PARUN
-			print_debug("Running!")
+			#print_debug("Running!")
 		MovementState.AIRBORNE:
 			pass
 		MovementState.UNDERWATER:

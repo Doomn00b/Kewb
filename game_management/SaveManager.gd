@@ -1,35 +1,43 @@
 #Based on this tutorial: https://www.youtube.com/watch?v=TGdQ57qCCF0
 #And this: https://www.gdquest.com/library/save_game_godot4/#what-changed-in-godot-4
+@icon("res://game_management/save_symbol.png")
 class_name SaveManager
-extends Resource
+extends Node
 
 const SAVE_GAME_PATH:= "user://savegame.tres"
 var save_game: SaveGame = null
 
-@export var player_char: Resource
+@export var player_char: Resource #THIS is an issue! My player is not based on a resource.
 @export var upgrades: Resource
 
 @export var level_name := ""
 @export var player_glob_pos := Vector2.ZERO 
 
-func _ready() -> void:
-	pass
+func _ready() -> void: #For some reason we have to create an empty save-file before we can start saving/loading...
+	if ResourceLoader.exists(SAVE_GAME_PATH):
+		save_game = ResourceLoader.load(SAVE_GAME_PATH, "", ResourceLoader.CACHE_MODE_IGNORE)
+	else: #But if there is no save-file, we'll create a new one.
+		save_game = SaveGame.new()
 
 func write_save() -> void:
-	var error_code:= ResourceSaver.save(self, SAVE_GAME_PATH)
+	var error_code:= ResourceSaver.save(save_game, SAVE_GAME_PATH)
 	if error_code != OK:
 		push_error("Failed to save game: " + error_string(error_code))
+	else:
+		print_debug("Saved game.")
 
 func load_save() -> void:
 	if ResourceLoader.exists(SAVE_GAME_PATH):
 		save_game = ResourceLoader.load(SAVE_GAME_PATH, "", ResourceLoader.CACHE_MODE_IGNORE)
-		#print_debug("SHIT!")
+		print_debug("Loaded game")
 	else:
-		print_debug("SHIT!")
+		print_debug("SHIT! Couldn't load!")
 
 #Function for testing the saving and loading, with keyboard shortcuts, instead of UI and checkpoints.
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
+	#F5 for saving
 	if Input.is_action_just_pressed("save_test"):
 		write_save()
+	#F9 for loading
 	if Input.is_action_just_pressed("load_test"):
 		load_save()
