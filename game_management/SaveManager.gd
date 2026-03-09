@@ -7,7 +7,7 @@ extends Node
 const SAVE_GAME_PATH:= "user://savegame.tres"
 var save_game: SaveGame = null
 
-@export var player_char: Resource #THIS is an issue! My player is not based on a resource.
+@export var player_char: Player #THIS is an issue! My player is not based on a resource.
 @export var upgrades: Resource
 
 @export var level_name := ""
@@ -20,6 +20,8 @@ func _ready() -> void: #For some reason we have to create an empty save-file bef
 		save_game = SaveGame.new()
 
 func write_save() -> void:
+	save_game.player_glob_pos = player_char.global_position
+	save_game.is_facing_right = player_char.facing_right
 	var error_code:= ResourceSaver.save(save_game, SAVE_GAME_PATH)
 	if error_code != OK:
 		push_error("Failed to save game: " + error_string(error_code))

@@ -50,6 +50,7 @@ var is_grounded : bool = false #Boolean that tells if the player is grounded.
 var move_locked : bool = false #Boolean that says if the player can move.
 var last_direction = 1.0 #Value that show the direction the player was moving in, last.
 var current_direction = 1.0 #Check for the player's current moving direction.
+var facing_right: bool = true #This is only for save-games.
 var current_cam_limit = CameraLimits.RDCAMLIM #Right-facing player is default, so camera-limits Right is also default.
 var current_move_state = MovementState.IDLE #We make a new var to describe the basic state...Idle.
 var current_anim_state = AnimationState.PAIDLE
@@ -209,6 +210,11 @@ func flip():
 	%Flip.scale.x = abs(scale.x) *  signed_x
 	current_direction = signed_x
 	var dir_string : String = "_left" if signed_x == -1.0 else "_right"
+	
+	if dir_string == "_left":
+		facing_right = false
+	elif dir_string == "_right":
+		facing_right = true
 	
 	if current_direction != last_direction: #If the current direction is not the same as the last direction, then...
 		$CamAnimationPlayer.play("cam_mov" + dir_string) #Then move/animate the camera in the new direction.
