@@ -9,19 +9,21 @@ var save_game: SaveGame = null
 
 @export var player_char: Player #THIS is an issue! My player is not based on a resource.
 @export var upgrades: Resource
-
+#@export var health
 @export var level_name := ""
 @export var player_glob_pos := Vector2.ZERO 
 
 func _ready() -> void: #For some reason we have to create an empty save-file before we can start saving/loading...
 	if ResourceLoader.exists(SAVE_GAME_PATH):
-		save_game = ResourceLoader.load(SAVE_GAME_PATH, "", ResourceLoader.CACHE_MODE_IGNORE)
+		save_game = ResourceLoader.load(SAVE_GAME_PATH)#, "", ResourceLoader.CACHE_MODE_IGNORE)
 	else: #But if there is no save-file, we'll create a new one.
 		save_game = SaveGame.new()
 
 func write_save() -> void:
 	save_game.player_glob_pos = player_char.global_position
 	save_game.is_facing_right = player_char.facing_right
+	save_game.current_level = GameManager.instance.current_level_name
+	
 	var error_code:= ResourceSaver.save(save_game, SAVE_GAME_PATH)
 	if error_code != OK:
 		push_error("Failed to save game: " + error_string(error_code))
@@ -29,8 +31,11 @@ func write_save() -> void:
 		print_debug("Saved game.")
 
 func load_save() -> void:
+	#GameManager.instance.change_level2D("Level1", false)
 	if ResourceLoader.exists(SAVE_GAME_PATH):
-		save_game = ResourceLoader.load(SAVE_GAME_PATH, "", ResourceLoader.CACHE_MODE_IGNORE)
+		print_debug("Resourceloader exists.")
+		save_game = ResourceLoader.load(SAVE_GAME_PATH)#, "", ResourceLoader.CACHE_MODE_IGNORE)
+		GameManager.instance.load_level2D(save_game, true)
 		print_debug("Loaded game")
 	else:
 		print_debug("SHIT! Couldn't load!")

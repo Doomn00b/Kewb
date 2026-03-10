@@ -42,17 +42,30 @@ func create_new_game_save() -> void:
 	}
 	#Save game data
 	var save_file = FileAccess.open("user://save.sav", FileAccess.WRITE) #Create a variable that saves in the OS's user-directory.
-	save_file.store_line( JSON.stringify(save_data))
+	save_file.store_line( JSON.stringify(save_data)) #Turn all of the entries in save_data into jason-text.
 	
 func save_game() -> void:
-	pass
+		save_data = { #Key/Value in a dictionary - Key is the identifier for a value.
+		"level_path" : GameManager.instance.current_level2d,
+		#"player_location" : Level.instance.place_player(entry_point)
+		"x" : 60, #TEMPORARY - just to get through tutorial- CHANGE later.
+		"y" : 230,
+		"hp" : 10,
+		"max_health" : 10,
+		#We'll add the upgrades later
+		#"power_punch": false,
+		"discovered_areas": discovered_areas,
+		"persistent_data": persistent_data,
+		}
 	
 func load_game() -> void:
 	var _load_file = FileAccess.open("user://save.sav",FileAccess.READ)
 	
 #Function for testing the saving and loading, with keyboard shortcuts, instead of UI and checkpoints.
 func _unhandled_input(_event: InputEvent) -> void:
+	#F5
 	if Input.is_action_just_pressed("save_test"):
 		create_new_game_save()
+	#ctrl-F9
 	if Input.is_action_just_pressed("load_test"):
 		load_game()

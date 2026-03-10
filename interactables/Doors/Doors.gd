@@ -15,10 +15,10 @@ func _ready():
 
 func _on_button_activated() -> void:
 	#Play sound-effect punch button.
-	#Play sound-effect door opening.
+	#Play sound-effect door opening. (through GLOBAL system)
 	#Play button getting pressed animation.
 	#Play door opening animation.
-	animation_player.play("open") #Play the opening door animation.
+	animation_player.play("opening") #Play the opening door animation.
 	
 func _on_button_remain() -> void: #When the button remains DOWN 
 	animation_player.play("open") #We play the static opened animation.
@@ -26,7 +26,7 @@ func _on_button_remain() -> void: #When the button remains DOWN
 #Anxiety-coding to check for missing button in the door-prefab:
 func _get_configuration_warnings() -> PackedStringArray:
 	if _check_for_button() == false:
-		return [ "Requires a Button as a child node."]
+		return [ "Requires a Button as a child node. (in a level)"] #In-editor warning text from the triangle.
 	return []
 
 func _check_for_button() -> bool: #This function checks if the door has a button connected to it. (so it can be opened)

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dsjr2e3n05mnb" path="res://GUI/GUI.tscn" id="3_m1504"]
 [ext_resource type="PackedScene" uid="uid://lc0p06eyckk2" path="res://game_management/TransitionController.tscn" id="4_m1504"]
 [ext_resource type="Script" uid="uid://byfwftw4s2gg6" path="res://game_management/SaveManager.gd" id="7_qy63d"]
+[ext_resource type="Script" uid="uid://6cdocq3nrno7" path="res://game_management/LevelPackUser.gd" id="8_6et1j"]
 
 [node name="Main" type="Node2D" unique_id=518110699]
 
@@ -54,3 +55,6 @@ metadata/_edit_use_anchors_ = true
 [node name="SaveManager" type="Node" parent="." unique_id=542018000 node_paths=PackedStringArray("player_char")]
 script = ExtResource("7_qy63d")
 player_char = NodePath("../Player")
+
+[node name="LevelPackUser" type="Node" parent="." unique_id=619941219]
+script = ExtResource("8_6et1j")
