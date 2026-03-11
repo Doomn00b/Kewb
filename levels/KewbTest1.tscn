@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="3_mg0xd"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="5_j8rsw"]
 [ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/Door.tscn" id="6_q3et8"]
-[ext_resource type="PackedScene" uid="uid://df32owiq5jjp" path="res://interactables/Doors/VertButton.tscn" id="7_w8ycf"]
+[ext_resource type="PackedScene" uid="uid://df32owiq5jjp" path="res://interactables/Buttons/VertButton.tscn" id="7_w8ycf"]
 [ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="8_kjfbt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mg0xd"]

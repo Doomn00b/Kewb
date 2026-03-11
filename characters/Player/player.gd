@@ -68,7 +68,7 @@ func _ready() -> void:
 	#We set the direction the player is facing, at the start of the game (to be right).
 	current_direction = -1 
 
-func _input(_event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
 	#input from our movement-actions.
 	move_dir.x = Input.get_axis("move_back", "move_forward")
@@ -87,6 +87,11 @@ func _input(_event: InputEvent) -> void:
 		#print_debug("player is running")
 		current_move_state = MovementState.RUNNING #...we start running.
 		
+	#Message-stuff
+	if event.is_action_pressed("action"):
+		#Insert message-signal here!
+		MessageBus.instance.player_interacted.emit(self) #Emit a reference to the player when action happens.
+	
 func _player_attack():
 	if !Input.is_action_just_pressed("attack"): #Nothing will happen if an attack command did not happen
 		return
@@ -137,7 +142,6 @@ func _jumping(_delta: float) -> void:
 
 
 func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
-	
 	match current_move_state :
 		MovementState.IDLE: #This would be a "case" in Unity.
 			velocity.x = (0.0)

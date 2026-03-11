@@ -1,5 +1,3 @@
-#Based on this tutorial: https://www.youtube.com/watch?v=TGdQ57qCCF0
-#And this: https://www.gdquest.com/library/save_game_godot4/#what-changed-in-godot-4
 @icon("res://game_management/save_symbol.png")
 class_name SaveManager
 extends Node
