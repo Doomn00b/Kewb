@@ -1,10 +1,5 @@
-#Based on this tutorial: https://www.youtube.com/watch?v=gOcmEDWhPbo
-#And this tutorial: 
 class_name SaveGame
 extends Resource
-
-
-#@export var player_name := "" #This is if you let the player rename the main character.
 #@export var best_score := 0 #If you have a best score...
 #@export var scores_history := [] #Array that holds our score-history.
 
