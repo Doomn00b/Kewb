@@ -11,6 +11,11 @@ var save_game: SaveGame = null
 @export var level_name := ""
 @export var player_glob_pos := Vector2.ZERO 
 
+static var instance : SaveManager
+
+func _init() -> void:
+	instance = self
+
 func _ready() -> void: #For some reason we have to create an empty save-file before we can start saving/loading...
 	if ResourceLoader.exists(SAVE_GAME_PATH):
 		save_game = ResourceLoader.load(SAVE_GAME_PATH)#, "", ResourceLoader.CACHE_MODE_IGNORE)

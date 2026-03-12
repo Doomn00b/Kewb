@@ -14,7 +14,7 @@ func _ready() -> void: #Start
 	found_player.connect(sm.change_state.bind("Rush")) #We connect the found player signal to activate the rush state
 	
 func enter_state() -> void:
-	pass
+	print_debug("Entered Roaming")
 	
 func exit_state() -> void:
 	print_debug("Exiting Roaming")

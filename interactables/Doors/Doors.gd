@@ -10,7 +10,13 @@ const DOOR_CRASH_AUDIO = preload("res://interactables/Doors/brick_break.ogg")
 func _ready():
 	if Engine.is_editor_hint():
 		return
-	#Add connection to button code.
+	#This connects the door to the button.
+	for children in get_children():
+		if children is Buttons: #If there's a child that's a Button, then...
+			children.button_activated.connect(_on_button_activated) #Connect the button_activated signal to the On-button-activated function.
+			if children.is_open == true: #If our is-open bool in button has been set, then...
+				_on_button_remain() #...make sure the door remains open.
+			#break
 
 
 func _on_button_activated() -> void:

@@ -14,7 +14,7 @@ var current_slot : int = 0 #The game we're currently playing.
 var save_data: Dictionary 
 var discovered_areas: Array = [] #Areas we've discovered on our map.
 var persistent_data: Dictionary = {} #Upgrades, opened / unlocked doors, defeated boss's, discovered Secret.
-
+#Dictionairies have built-in functions like get_or_add()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

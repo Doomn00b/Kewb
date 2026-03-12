@@ -150,7 +150,7 @@ y_sort_enabled = true
 position = Vector2(-253, 219)
 
 [node name="VertButton" parent="DoorSideways" unique_id=1519454596 instance=ExtResource("7_w8ycf")]
-position = Vector2(-29, -25)
+position = Vector2(-29, -23)
 
 [node name="Door" parent="." unique_id=100351584 instance=ExtResource("6_q3et8")]
 position = Vector2(112, 212)
