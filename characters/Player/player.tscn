@@ -191,7 +191,7 @@ libraries/ = SubResource("AnimationLibrary_5nx12")
 
 [node name="FistTime" type="Timer" parent="." unique_id=526654313]
 unique_name_in_owner = true
-wait_time = 0.5
+wait_time = 2.0
 one_shot = true
 
 [node name="InputHints" type="Node2D" parent="." unique_id=1221919347]
