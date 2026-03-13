@@ -126,11 +126,13 @@ radius = 4.0
 height = 10.0
 
 [node name="VertButton" type="Node2D" unique_id=1519454596]
-z_index = 1
+z_as_relative = false
+y_sort_enabled = true
 script = ExtResource("1_f7n2h")
 
 [node name="VertButtSprite" type="Sprite2D" parent="." unique_id=1594769823]
 unique_name_in_owner = true
+y_sort_enabled = true
 texture = ExtResource("1_ecsuh")
 hframes = 3
 
@@ -140,11 +142,12 @@ libraries/ = SubResource("AnimationLibrary_ngknt")
 
 [node name="ButtonArea2D" type="Area2D" parent="." unique_id=108171431]
 unique_name_in_owner = true
-z_index = 1
+z_as_relative = false
 collision_mask = 12
 monitorable = false
 
 [node name="ButtonCShape2D" type="CollisionShape2D" parent="ButtonArea2D" unique_id=1901998722]
+z_as_relative = false
 position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_ecsuh")
 debug_color = Color(0.9395177, 0.13239226, 0.5229541, 0.41960785)

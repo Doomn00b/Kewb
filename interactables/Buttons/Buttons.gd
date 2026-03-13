@@ -6,7 +6,6 @@ extends Node2D
 signal button_activated
 
 const DOOR_BUTTON_AUDIO = preload("res://interactables/Buttons/block_hit.ogg")
-#@onready var butt_sprite: Sprite2D = %VertButtSprite
 @onready var butt_anim: AnimationPlayer = %BAnimPlayer
 @onready var butt_area: Area2D = %ButtonArea2D
 var is_open : bool = false
@@ -18,11 +17,11 @@ func _ready() -> void:
 	if SaveManager.instance.save_game != null : #If there's a save,then...
 		is_open = true
 		set_open() # run set to open function, if there's save-data.
-	else:
-		#connect to signals
-		butt_area.body_entered.connect(_on_player_entered) #Used for tool-tip
-		butt_area.body_exited.connect(_on_player_exited) #Used for turning off tool-tip.
-		butt_area.area_entered.connect(_on_player_punched)
+	
+	#connect to signals
+	butt_area.body_entered.connect(_on_player_entered) #Used for tool-tip
+	butt_area.body_exited.connect(_on_player_exited) #Used for turning off tool-tip.
+	butt_area.area_entered.connect(_on_player_punched)
 		
 		
 func _on_player_entered(_node: Node2D) -> void: #When the player walks next to the buttons collider.
@@ -31,19 +30,15 @@ func _on_player_entered(_node: Node2D) -> void: #When the player walks next to t
 	
 func _on_player_exited(_node: Node2D) -> void: #Maybe ON-FIST-EXITED?
 	MessageBus.instance.input_hint_changed.emit(GameEnums.HintMsg.NOTHING) #When the player exits, the hint-message NOTHING makes the pop-up invisible.
-	#if MessageBus.instance.player_interacted.is_connected(_on_player_interacted):
-		#MessageBus.instance.player_interacted.disconnect(_on_player_interacted) #Do I need to move this?
-	#else:
-		#pass
 	print_debug("Player EXITED Button-range.")
 
 func _on_player_punched(area: Area2D) -> void: #This is what happens if you punch the button.
 	if area == get_tree().get_first_node_in_group("playerDmgGroup"): #If the area that enters is the FIST
 		print_debug("Player punched button.")
-		MessageBus.instance.player_interacted.connect(_on_player_interacted) #After punching we send a signal that we have interacted.
-		MessageBus.instance.player_interacted.emit()
-		
-func _on_player_interacted(_player : Player) -> void:
+		MessageBus.instance.player_interacted.emit() #After punching we send a signal that we have interacted.
+		_on_player_interacted()
+
+func _on_player_interacted() -> void:
 	print_debug("Player Interacted.")
 	#if SaveManager.instance.save_game != null : #Check our persistent data if the player has already interacted/opened the door.
 	#Add audio playback
