@@ -41,12 +41,12 @@ func load_package(): #Instance_pressed (button) puts something up on screen, loa
 	print_debug("Packed level loaded and unpacked.")
 	
 #Function for testing the saving and loading, with keyboard shortcuts, instead of UI and checkpoints.
-func _unhandled_input(_event: InputEvent) -> void:
-	#5 for saving
-	if Input.is_action_just_pressed("save_pack_test"):
-		print("save")
-		save_package()
-	#9 for loading
-	if Input.is_action_just_pressed("load_pack_test"):
-		print("load")
-		load_package()
+#func _unhandled_input(_event: InputEvent) -> void:
+	##5 for saving
+	#if Input.is_action_just_pressed("save_pack_test"):
+		#print("save")
+		#save_package()
+	##9 for loading
+	#if Input.is_action_just_pressed("load_pack_test"):
+		#print("load")
+		#load_package()

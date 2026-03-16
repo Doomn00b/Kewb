@@ -26,12 +26,19 @@ func write_save() -> void:
 	save_game.player_glob_pos = player_char.global_position
 	save_game.is_facing_right = player_char.facing_right
 	save_game.current_level = GameManager.instance.current_level_name
+	var level_dict : Dictionary[String, Node2D] = GameManager.instance.level_dict
+	for level_name in level_dict.keys():
+		var level : Node2D = level_dict[level_name]
+		var level_pack : PackedScene = LevelPacker.create_package(level)
+		save_game.level_data_dict[level_name] = level_pack
+	#SAVE LEVEL STATES
 	
 	var error_code:= ResourceSaver.save(save_game, SAVE_GAME_PATH)
 	if error_code != OK:
 		push_error("Failed to save game: " + error_string(error_code))
 	else:
 		print_debug("Saved game.")
+		save_game.clean_save = false
 
 func load_save() -> void:
 	#GameManager.instance.change_level2D("Level1", false)
@@ -49,5 +56,14 @@ func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("save_test"):
 		write_save()
 	#F9 for loading
+	if Input.is_action_just_pressed("reset_test"):
+		save_game.reset_all()
+		var error_code:= ResourceSaver.save(save_game, SAVE_GAME_PATH)
+		if error_code != OK:
+			push_error("Failed to save game: " + error_string(error_code))
+		else:
+			print_debug("Saved game.")
+	#F9 for loading
 	if Input.is_action_just_pressed("load_test"):
 		load_save()
+	
