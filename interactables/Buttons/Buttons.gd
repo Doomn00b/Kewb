@@ -48,7 +48,7 @@ func _on_player_interacted() -> void:
 	
 func set_open() -> void:
 	is_open = true
-	MessageBus.instance.player_interacted.disconnect(_on_player_interacted)
+	#MessageBus.instance.player_interacted.disconnect(_on_player_interacted)
 	butt_anim.play("pressed")
 	butt_area.queue_free() #We destroy the collider, so we can't punch the button again.
 #This might be necessary to change, if I want doors that can be reopened...

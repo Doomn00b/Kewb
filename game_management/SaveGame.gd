@@ -9,7 +9,7 @@ extends Resource
 @export var current_level := ""
 @export var is_facing_right: bool #Whether the player will face left or right, when loaded.
 @export var player_health: int
-#var level_data_dict : Dictionary[String, Resource] = {} #Example of how to do persistent level data
+@export var level_data_dict : Dictionary[String, PackedScene] = {} #Example of how to do persistent level data
 #We need:
 	#Global Position
 	#Players current health. player/health

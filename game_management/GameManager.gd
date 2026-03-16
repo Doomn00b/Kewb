@@ -4,7 +4,7 @@ extends Node
 #The GAME MANAGER, essentially.
 
 signal level_entered #A signal to show that the Player has entered a level.
-
+@export var save_game : SaveGame
 @export var level_2D : Node2D #We set up a variable for the levels.
 @export var gui : Control #A variable for the various Graphical User Interface.
 
@@ -26,9 +26,21 @@ func _ready() -> void:
 	current_gui = null
 	current_level2d = level_2D #When you start, the current Level2D should just be the preset one.
 	#We define entries in the Gui and Level -dictionaries.
+	
+	#DEFAULTS TO Runtime Dict
 	level_dict["Level1"] = %LevelTest1
 	level_dict["Level2"] = %LevelTest2
 	gui_dict["PauseMenu"] = %PauseMenu
+	
+	#OVERRIDE RUNTIME DICT
+	
+	#SAVE NEW DEFAULTS TO SAVE GAME
+	for level_name in level_dict.keys():
+		if !save_game.level_dict.has(level_name):
+			var level : Node2D = level_dict[level_name]
+			var level_pack : PackedScene = LevelPacker.create_package(level)
+			save_game.level_data_dict[level_name] = level_pack
+			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	_game_over_check(delta)
@@ -65,11 +77,13 @@ func change_level2D(new_level : String,
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 	
-func load_level2D(save_game : SaveGame = SaveGame.new(),
+func load_level2D(
+	save_game,
 	transition: bool = true,
 	seconds: float = 0.8) -> void:
 	
-	#Condition to run a scene-transition.
+	#save_game = LevelPackUser.instance.created_package #We turn our save into the level-pack.
+	#Condition to run a scene-transition
 	if transition == true:
 		print_debug("We shall run a transition")
 		TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
@@ -78,7 +92,7 @@ func load_level2D(save_game : SaveGame = SaveGame.new(),
 	#OLD LEVEL TURN OFF
 	current_level2d.visible = false
 	current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
-	current_level2d = level_dict[save_game.current_level]
+	current_level2d = level_dict[save_game]
 	
 	#NEW LEVEL TURN ON
 	#current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
@@ -91,7 +105,36 @@ func load_level2D(save_game : SaveGame = SaveGame.new(),
 	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if transition == true:
-		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
+		TransitionController.instance.transition_in(seconds) 
+
+#Below is the OLD load-function.
+#func load_level2D(save_game : SaveGame = SaveGame.new(),
+	#transition: bool = true,
+	#seconds: float = 0.8) -> void:
+	#
+	##Condition to run a scene-transition.
+	#if transition == true:
+		#print_debug("We shall run a transition")
+		#TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
+		#await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
+	##End transition-condition.
+	##OLD LEVEL TURN OFF
+	#current_level2d.visible = false
+	#current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
+	#current_level2d = level_dict[save_game.current_level]
+	#
+	##NEW LEVEL TURN ON
+	##current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
+	#var player : Player = Player.instance
+	#player.global_position = save_game.player_glob_pos
+	#if !save_game.is_facing_right:
+		#player.flip()
+	#await get_tree().process_frame
+	#current_level2d.visible = true
+	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
+	#
+	#if transition == true:
+		#TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 	
 	
 #This function manages GUI-scenes/prefabs

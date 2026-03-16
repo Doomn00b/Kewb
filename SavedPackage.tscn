@@ -1,104 +1,29 @@
 [gd_scene format=4]
 
-[ext_resource type="Script" path="res://levels/Level.gd" id="1_kaxu5"]
-[ext_resource type="PackedScene" path="res://characters/Enemies/enemy_spawner.tscn" id="2_shl00"]
-[ext_resource type="Script" path="res://characters/Enemies/EnemySpawner.gd" id="3_6d2jm"]
-[ext_resource type="PackedScene" path="res://characters/Enemies/enemy_kewb.tscn" id="4_es1qo"]
-[ext_resource type="Script" path="res://characters/Enemies/EnemyKewb.gd" id="5_qa7f4"]
-[ext_resource type="Script" path="res://characters/Enemies/enemy_state_machine.gd" id="6_46it7"]
-[ext_resource type="Script" path="res://characters/Enemies/EkRoamingState.gd" id="7_7fbdo"]
-[ext_resource type="Script" path="res://characters/Enemies/EkRushState.gd" id="8_k1ytx"]
-[ext_resource type="Script" path="res://characters/Enemies/EkDeathState.gd" id="9_clmgv"]
-[ext_resource type="Texture2D" path="res://characters/Enemies/EnemyKewb.png" id="10_5v5ym"]
-[ext_resource type="Texture2D" path="res://Tilesets/kewb-tiles_blue.png" id="11_i1frr"]
-[ext_resource type="PackedScene" path="res://interactables/Doors/DoorSideways.tscn" id="12_2q33a"]
-[ext_resource type="Script" path="res://interactables/Doors/Doors.gd" id="13_h4w0h"]
-[ext_resource type="Texture2D" path="res://interactables/Doors/kewb-door_sideways.png" id="14_7xgd5"]
-[ext_resource type="PackedScene" path="res://interactables/Buttons/VertButton.tscn" id="15_30gqf"]
-[ext_resource type="Script" path="res://interactables/Buttons/Buttons.gd" id="16_3juet"]
-[ext_resource type="Texture2D" path="res://interactables/Buttons/kewb-door_vert-button.png" id="17_mllb4"]
-[ext_resource type="PackedScene" path="res://interactables/Doors/Door.tscn" id="18_kk6cp"]
-[ext_resource type="Texture2D" path="res://interactables/Doors/kewb-door_arch.png" id="19_shwma"]
-[ext_resource type="Texture2D" path="res://interactables/Doors/kewb-door_iron_compact.png" id="20_s07wv"]
-[ext_resource type="PackedScene" path="res://levels/LevelTransition.tscn" id="21_3ae5l"]
-[ext_resource type="Script" path="res://levels/level_transition.gd" id="22_mgsn0"]
+[ext_resource type="Script" path="res://levels/Level.gd" id="1_j4r5f"]
+[ext_resource type="PackedScene" path="res://characters/Enemies/enemy_spawner.tscn" id="2_3nsg6"]
+[ext_resource type="Script" path="res://characters/Enemies/EnemySpawner.gd" id="3_21j3a"]
+[ext_resource type="PackedScene" path="res://characters/Enemies/enemy_kewb.tscn" id="4_o2fof"]
+[ext_resource type="Texture2D" path="res://Tilesets/kewb-tiles_blue.png" id="5_cc8f0"]
+[ext_resource type="PackedScene" path="res://interactables/Doors/DoorSideways.tscn" id="6_45o3a"]
+[ext_resource type="Script" path="res://interactables/Doors/Doors.gd" id="7_kaxu5"]
+[ext_resource type="Texture2D" path="res://interactables/Doors/kewb-door_sideways.png" id="8_shl00"]
+[ext_resource type="PackedScene" path="res://interactables/Buttons/VertButton.tscn" id="9_6d2jm"]
+[ext_resource type="Script" path="res://interactables/Buttons/Buttons.gd" id="10_es1qo"]
+[ext_resource type="Texture2D" path="res://interactables/Buttons/kewb-door_vert-button.png" id="11_qa7f4"]
+[ext_resource type="PackedScene" path="res://interactables/Doors/Door.tscn" id="12_46it7"]
+[ext_resource type="Texture2D" path="res://interactables/Doors/kewb-door_arch.png" id="13_7fbdo"]
+[ext_resource type="Texture2D" path="res://interactables/Doors/kewb-door_iron_compact.png" id="14_k1ytx"]
+[ext_resource type="PackedScene" path="res://levels/LevelTransition.tscn" id="15_clmgv"]
+[ext_resource type="Script" path="res://levels/level_transition.gd" id="16_5v5ym"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mg0xd"]
 size = Vector2(34, 136)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_78frg"]
-size = Vector2(32, 28)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ouuic"]
-size = Vector2(32, 28)
-
-[sub_resource type="Animation" id="Animation_0p1gw"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_bw5ij"]
-resource_name = "ek_dead"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FlipEk/EkSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-
-[sub_resource type="Animation" id="Animation_l43yn"]
-resource_name = "ek_idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FlipEk/EkSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_icoxl"]
-resource_name = "ek_rush"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FlipEk/EkSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="Animation" id="Animation_ouuic"]
-resource_name = "ek_walk"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_l43yn"]
-_data = {
-&"RESET": SubResource("Animation_0p1gw"),
-&"ek_dead": SubResource("Animation_bw5ij"),
-&"ek_idle": SubResource("Animation_l43yn"),
-&"ek_rush": SubResource("Animation_icoxl"),
-&"ek_walk": SubResource("Animation_ouuic")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivb5h"]
-size = Vector2(6, 19)
-
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j8rsw"]
-texture = ExtResource("11_i1frr")
+texture = ExtResource("5_cc8f0")
 0:2/0 = 0
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:3/0 = 0
@@ -394,10 +319,6 @@ _data = {
 &"unpressed": SubResource("Animation_28xqm")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ecsuh"]
-radius = 4.0
-height = 10.0
-
 [sub_resource type="Animation" id="Animation_j6dmf"]
 length = 0.001
 tracks/0/type = "value"
@@ -479,7 +400,7 @@ size = Vector2(32, 32)
 [node name="LevelTest1" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_dict")]
 unique_name_in_owner = true
 y_sort_enabled = true
-script = ExtResource("1_kaxu5")
+script = ExtResource("1_j4r5f")
 entry_dict = {
 0: NodePath("EPLeftLvl1"),
 1: NodePath("EPRightLvl1")
@@ -507,9 +428,9 @@ metadata/_edit_group_ = true
 position = Vector2(23, 58)
 shape = SubResource("RectangleShape2D_mg0xd")
 
-[node name="EnemySpawner2" parent="." unique_id=562540624 node_paths=PackedStringArray("spawn_points") instance=ExtResource("2_shl00")]
-script = ExtResource("3_6d2jm")
-enemy_tscn = ExtResource("4_es1qo")
+[node name="EnemySpawner2" parent="." unique_id=562540624 node_paths=PackedStringArray("spawn_points") instance=ExtResource("2_3nsg6")]
+script = ExtResource("3_21j3a")
+enemy_tscn = ExtResource("4_o2fof")
 spawn_points = [NodePath("Point"), NodePath("Point2")]
 
 [node name="SpawnCooldown" type="Timer" parent="EnemySpawner2" unique_id=1656349062]
@@ -521,186 +442,6 @@ position = Vector2(352, 120)
 
 [node name="Point2" type="Marker2D" parent="EnemySpawner2" unique_id=1148452854]
 position = Vector2(16, 192)
-
-[node name="@CharacterBody2D@2" type="CharacterBody2D" parent="." unique_id=2049833632 groups=["enemyGroup"] instance=ExtResource("4_es1qo")]
-z_index = 1
-y_sort_enabled = true
-position = Vector2(159.93587, 199.92401)
-collision_layer = 2
-velocity = Vector2(17.720058, 0)
-script = ExtResource("5_qa7f4")
-metadata/_edit_group_ = true
-
-[node name="EkStateMachine" type="Node" parent="@CharacterBody2D@2" unique_id=1365371342 node_paths=PackedStringArray("actor", "state")]
-unique_name_in_owner = true
-script = ExtResource("6_46it7")
-actor = NodePath("..")
-state = NodePath("EkRoamingState")
-metadata/_custom_type_script = "uid://dpduk2d1ah1ss"
-
-[node name="EkRoamingState" type="Node" parent="@CharacterBody2D@2/EkStateMachine" unique_id=1114765268 node_paths=PackedStringArray("actor")]
-unique_name_in_owner = true
-script = ExtResource("7_7fbdo")
-actor = NodePath("../..")
-metadata/_custom_type_script = "uid://lsb5g3ng2uin"
-
-[node name="EkRushState" type="Node" parent="@CharacterBody2D@2/EkStateMachine" unique_id=1032189707 node_paths=PackedStringArray("actor")]
-unique_name_in_owner = true
-script = ExtResource("8_k1ytx")
-actor = NodePath("../..")
-metadata/_custom_type_script = "uid://b05t1b3r143i1"
-
-[node name="EkDeathState" type="Node" parent="@CharacterBody2D@2/EkStateMachine" unique_id=955960929 node_paths=PackedStringArray("actor")]
-unique_name_in_owner = true
-script = ExtResource("9_clmgv")
-actor = NodePath("../..")
-metadata/_custom_type_script = "uid://d233he44s01xw"
-
-[node name="RushDelay" type="Timer" parent="@CharacterBody2D@2" unique_id=1133709180]
-unique_name_in_owner = true
-wait_time = 0.8
-one_shot = true
-
-[node name="DirTimer" type="Timer" parent="@CharacterBody2D@2" unique_id=1800211472]
-wait_time = 0.8
-one_shot = true
-
-[node name="EbackTimer" type="Timer" parent="@CharacterBody2D@2" unique_id=1088373937]
-wait_time = 0.6
-one_shot = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="@CharacterBody2D@2" unique_id=168635995 groups=["enemyGroup"]]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_78frg")
-
-[node name="EHurtArea" type="Area2D" parent="@CharacterBody2D@2" unique_id=1378704572 groups=["enemyGroup"]]
-position = Vector2(0, 2)
-
-[node name="EHurtZone" type="CollisionShape2D" parent="@CharacterBody2D@2/EHurtArea" unique_id=72357732 groups=["enemyGroup"]]
-shape = SubResource("RectangleShape2D_ouuic")
-debug_color = Color(0.09832699, 0.6465208, 0.15118578, 0.41960785)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="@CharacterBody2D@2" unique_id=2011432541]
-unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_l43yn")
-
-[node name="FlipEk" type="Marker2D" parent="@CharacterBody2D@2" unique_id=923432180]
-unique_name_in_owner = true
-
-[node name="EkSprite2D" type="Sprite2D" parent="@CharacterBody2D@2/FlipEk" unique_id=1626493624]
-texture = ExtResource("10_5v5ym")
-hframes = 3
-frame = 1
-
-[node name="EDmgArea" type="Area2D" parent="@CharacterBody2D@2/FlipEk" unique_id=389465481 groups=["enemyDmgGroup"]]
-collision_layer = 0
-collision_mask = 4
-
-[node name="EDmgZone" type="CollisionShape2D" parent="@CharacterBody2D@2/FlipEk/EDmgArea" unique_id=485172445 groups=["enemyDmgGroup"]]
-position = Vector2(13, -0.5)
-shape = SubResource("RectangleShape2D_ivb5h")
-debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)
-
-[node name="EkAtkRC" type="RayCast2D" parent="@CharacterBody2D@2/FlipEk" unique_id=1170243958]
-unique_name_in_owner = true
-position = Vector2(16, 0)
-target_position = Vector2(168, 0)
-collision_mask = 4
-
-[node name="EkEdgeL" type="RayCast2D" parent="@CharacterBody2D@2/FlipEk" unique_id=980637611]
-unique_name_in_owner = true
-position = Vector2(-16, 16)
-target_position = Vector2(0, 16)
-
-[node name="EkEdgeR" type="RayCast2D" parent="@CharacterBody2D@2/FlipEk" unique_id=1977908662]
-unique_name_in_owner = true
-position = Vector2(18, 16)
-target_position = Vector2(0, 16)
-
-[node name="EnemyKewb" type="CharacterBody2D" parent="." unique_id=803567246 groups=["enemyGroup"] instance=ExtResource("4_es1qo")]
-z_index = 1
-y_sort_enabled = true
-position = Vector2(-161.70633, 199.92403)
-collision_layer = 2
-velocity = Vector2(29.093937, 0)
-script = ExtResource("5_qa7f4")
-metadata/_edit_group_ = true
-
-[node name="EkStateMachine" type="Node" parent="EnemyKewb" unique_id=1158953804 node_paths=PackedStringArray("actor", "state")]
-script = ExtResource("6_46it7")
-actor = NodePath("..")
-state = NodePath("EkRoamingState")
-metadata/_custom_type_script = "uid://dpduk2d1ah1ss"
-
-[node name="EkRoamingState" type="Node" parent="EnemyKewb/EkStateMachine" unique_id=37395579 node_paths=PackedStringArray("actor")]
-script = ExtResource("7_7fbdo")
-actor = NodePath("../..")
-metadata/_custom_type_script = "uid://lsb5g3ng2uin"
-
-[node name="EkRushState" type="Node" parent="EnemyKewb/EkStateMachine" unique_id=1165828146 node_paths=PackedStringArray("actor")]
-script = ExtResource("8_k1ytx")
-actor = NodePath("../..")
-metadata/_custom_type_script = "uid://b05t1b3r143i1"
-
-[node name="EkDeathState" type="Node" parent="EnemyKewb/EkStateMachine" unique_id=1367776086 node_paths=PackedStringArray("actor")]
-script = ExtResource("9_clmgv")
-actor = NodePath("../..")
-metadata/_custom_type_script = "uid://d233he44s01xw"
-
-[node name="RushDelay" type="Timer" parent="EnemyKewb" unique_id=201193860]
-wait_time = 0.8
-one_shot = true
-
-[node name="DirTimer" type="Timer" parent="EnemyKewb" unique_id=245828623]
-wait_time = 0.8
-one_shot = true
-
-[node name="EbackTimer" type="Timer" parent="EnemyKewb" unique_id=488846756]
-wait_time = 0.6
-one_shot = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyKewb" unique_id=627752438 groups=["enemyGroup"]]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_78frg")
-
-[node name="EHurtArea" type="Area2D" parent="EnemyKewb" unique_id=868995608 groups=["enemyGroup"]]
-position = Vector2(0, 2)
-
-[node name="EHurtZone" type="CollisionShape2D" parent="EnemyKewb/EHurtArea" unique_id=1162331227 groups=["enemyGroup"]]
-shape = SubResource("RectangleShape2D_ouuic")
-debug_color = Color(0.09832699, 0.6465208, 0.15118578, 0.41960785)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyKewb" unique_id=1757211069]
-libraries/ = SubResource("AnimationLibrary_l43yn")
-
-[node name="FlipEk" type="Marker2D" parent="EnemyKewb" unique_id=166807754]
-
-[node name="EkSprite2D" type="Sprite2D" parent="EnemyKewb/FlipEk" unique_id=1183613416]
-texture = ExtResource("10_5v5ym")
-hframes = 3
-frame = 1
-
-[node name="EDmgArea" type="Area2D" parent="EnemyKewb/FlipEk" unique_id=688165611 groups=["enemyDmgGroup"]]
-collision_layer = 0
-collision_mask = 4
-
-[node name="EDmgZone" type="CollisionShape2D" parent="EnemyKewb/FlipEk/EDmgArea" unique_id=1517826964 groups=["enemyDmgGroup"]]
-position = Vector2(13, -0.5)
-shape = SubResource("RectangleShape2D_ivb5h")
-debug_color = Color(0.90518546, 0.17105508, 0.6280246, 0.41960785)
-
-[node name="EkAtkRC" type="RayCast2D" parent="EnemyKewb/FlipEk" unique_id=2069146970]
-position = Vector2(16, 0)
-target_position = Vector2(168, 0)
-collision_mask = 4
-
-[node name="EkEdgeL" type="RayCast2D" parent="EnemyKewb/FlipEk" unique_id=1049578774]
-position = Vector2(-16, 16)
-target_position = Vector2(0, 16)
-
-[node name="EkEdgeR" type="RayCast2D" parent="EnemyKewb/FlipEk" unique_id=390970019]
-position = Vector2(18, 16)
-target_position = Vector2(0, 16)
 
 [node name="BlueTilesTop" type="TileMapLayer" parent="." unique_id=1119523911]
 visibility_layer = 2
@@ -735,18 +476,20 @@ metadata/_edit_group_ = true
 position = Vector2(76, 0)
 shape = SubResource("RectangleShape2D_q3et8")
 
-[node name="DoorSideways" type="Node2D" parent="." unique_id=81813317 instance=ExtResource("12_2q33a")]
+[node name="DoorSideways" type="Node2D" parent="." unique_id=81813317 instance=ExtResource("6_45o3a")]
 z_index = 1
 y_sort_enabled = true
 position = Vector2(-253, 219)
-script = ExtResource("13_h4w0h")
+script = ExtResource("7_kaxu5")
 
 [node name="KewbDoorSideways" type="Sprite2D" parent="DoorSideways" unique_id=400005428]
 position = Vector2(0, -35)
-texture = ExtResource("14_7xgd5")
+texture = ExtResource("8_shl00")
 hframes = 2
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="DoorSideways" unique_id=504591112]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_btoix")
 
 [node name="DoorBody2D" type="StaticBody2D" parent="DoorSideways" unique_id=1001663614]
@@ -755,6 +498,7 @@ position = Vector2(-2, -25)
 [node name="DoorCshape" type="CollisionShape2D" parent="DoorSideways/DoorBody2D" unique_id=1719783703]
 position = Vector2(1.5, -1)
 shape = SubResource("RectangleShape2D_dc0b7")
+disabled = true
 
 [node name="ArchBody2D" type="StaticBody2D" parent="DoorSideways" unique_id=1438797017]
 
@@ -766,38 +510,31 @@ shape = SubResource("RectangleShape2D_8p8p1")
 position = Vector2(1, -58)
 shape = SubResource("RectangleShape2D_btoix")
 
-[node name="VertButton" type="Node2D" parent="DoorSideways" unique_id=1519454596 instance=ExtResource("15_30gqf")]
+[node name="VertButton" type="Node2D" parent="DoorSideways" unique_id=1519454596 instance=ExtResource("9_6d2jm")]
+z_as_relative = false
+y_sort_enabled = true
 position = Vector2(-29, -23)
-script = ExtResource("16_3juet")
+script = ExtResource("10_es1qo")
 
 [node name="VertButtSprite" type="Sprite2D" parent="DoorSideways/VertButton" unique_id=1594769823]
 unique_name_in_owner = true
-texture = ExtResource("17_mllb4")
+y_sort_enabled = true
+texture = ExtResource("11_qa7f4")
 hframes = 3
+frame = 2
 
 [node name="BAnimPlayer" type="AnimationPlayer" parent="DoorSideways/VertButton" unique_id=893745996]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_ngknt")
 
-[node name="ButtonArea2D" type="Area2D" parent="DoorSideways/VertButton" unique_id=108171431]
-unique_name_in_owner = true
-collision_layer = 0
-collision_mask = 4
-monitorable = false
-
-[node name="ButtonCShape2D" type="CollisionShape2D" parent="DoorSideways/VertButton/ButtonArea2D" unique_id=1901998722]
-position = Vector2(-2, 0)
-shape = SubResource("CapsuleShape2D_ecsuh")
-debug_color = Color(0.9395177, 0.13239226, 0.5229541, 0.41960785)
-
-[node name="Door" type="Node2D" parent="." unique_id=100351584 instance=ExtResource("18_kk6cp")]
+[node name="Door" type="Node2D" parent="." unique_id=100351584 instance=ExtResource("12_46it7")]
 position = Vector2(112, 212)
 
 [node name="Sprite2D" type="Sprite2D" parent="Door" unique_id=1258453598]
 z_index = -1
 y_sort_enabled = true
 position = Vector2(0, -35)
-texture = ExtResource("19_shwma")
+texture = ExtResource("13_7fbdo")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Door" unique_id=1759808285]
 libraries/ = SubResource("AnimationLibrary_u31xj")
@@ -809,7 +546,7 @@ y_sort_enabled = true
 offset_left = -16.0
 offset_top = -48.0
 offset_right = 21.0
-texture = ExtResource("20_s07wv")
+texture = ExtResource("14_k1ytx")
 region_rect = Rect2(0, 0, 19, 19)
 patch_margin_left = 7
 patch_margin_top = 7
@@ -824,9 +561,9 @@ axis_stretch_vertical = 1
 position = Vector2(2, -64)
 shape = SubResource("RectangleShape2D_s7jw3")
 
-[node name="LevelTransition" type="Node2D" parent="." unique_id=1965396953 instance=ExtResource("21_3ae5l")]
+[node name="LevelTransition" type="Node2D" parent="." unique_id=1965396953 instance=ExtResource("15_clmgv")]
 position = Vector2(-417, 214)
-script = ExtResource("22_mgsn0")
+script = ExtResource("16_5v5ym")
 size = 4
 target_level = "Level2"
 
@@ -843,10 +580,6 @@ shape = SubResource("RectangleShape2D_4wwod")
 debug_color = Color(0.9550459, 0.4094053, 0.69794196, 0.41960785)
 
 [connection signal="timeout" from="EnemySpawner2/SpawnCooldown" to="EnemySpawner2" method="spawn_enemies"]
-[connection signal="timeout" from="@CharacterBody2D@2/DirTimer" to="@CharacterBody2D@2" method="_on_dir_timer_timeout"]
-[connection signal="timeout" from="@CharacterBody2D@2/EbackTimer" to="@CharacterBody2D@2" method="_on_dir_timer_timeout"]
-[connection signal="timeout" from="EnemyKewb/DirTimer" to="EnemyKewb" method="_on_dir_timer_timeout"]
-[connection signal="timeout" from="EnemyKewb/EbackTimer" to="EnemyKewb" method="_on_dir_timer_timeout"]
 [connection signal="body_entered" from="LevelTransition/LtArea" to="LevelTransition" method="_on_lt_area_body_entered"]
 
 [editable path="EnemySpawner2"]

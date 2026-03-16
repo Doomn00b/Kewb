@@ -3,7 +3,7 @@ class_name LevelPacker
 #extends Node
 static func create_package(_node: Node) -> PackedScene: 
 	set_pack_owner(_node, _node) #sets the owner of the level-node that has all the things to be packed.
-	var package:= PackedScene.new()
+	var package := PackedScene.new()
 #warning-ignore: return_value_discarded
 	package.pack(_node)
 	return package
