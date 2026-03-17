@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://cgsfdbl40fwq8"]
+
+[ext_resource type="Texture2D" uid="uid://bdfavkjmwj7vn" path="res://GUI/PlayerHud/Health_hud_quadrants.png" id="1_b3t6q"]
+[ext_resource type="Script" uid="uid://cie2oji3h3ln5" path="res://GUI/PlayerHud/health_example.gd" id="1_cmd2q"]
+[ext_resource type="Script" uid="uid://birffxvaqmnuh" path="res://frame_texture.gd" id="3_uocnu"]
+
+[sub_resource type="GDScript" id="GDScript_j2b07"]
+script/source = "#class_name PlayerHud
+extends CanvasLayer
+
+#static var instance : PlayerHud
+#
+#func _init() -> void:
+	#instance = self
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3elj"]
+atlas = ExtResource("1_b3t6q")
+region = Rect2(0, 0, 36, 34)
+script = ExtResource("3_uocnu")
+metadata/_custom_type_script = "uid://birffxvaqmnuh"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q6s86"]
+load_path = "res://.godot/imported/Health_hud_quadrants.png-5f3089ae564af0af0923a70bf70553c1.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkvi6"]
+atlas = SubResource("CompressedTexture2D_q6s86")
+region = Rect2(0, 0, 36, 34)
+script = ExtResource("3_uocnu")
+metadata/_custom_type_script = "uid://birffxvaqmnuh"
+
+[node name="PlayerHud" type="CanvasLayer" unique_id=1532401522]
+process_mode = 3
+script = SubResource("GDScript_j2b07")
+
+[node name="Control" type="Control" parent="." unique_id=740252798]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_cmd2q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=922034727]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 34)
+layout_direction = 2
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 86.0
+offset_bottom = 44.0
+mouse_filter = 2
+
+[node name="HealthQuadPanel0" type="Panel" parent="Control/HBoxContainer" unique_id=2001148913]
+custom_minimum_size = Vector2(36, 34)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HSpriteTexture0" type="TextureRect" parent="Control/HBoxContainer/HealthQuadPanel0" unique_id=1124853166]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 34)
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 34.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_s3elj")
+
+[node name="HealthQuadPanel1" type="Panel" parent="Control/HBoxContainer" unique_id=1931626077]
+custom_minimum_size = Vector2(36, 34)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HSpriteTexture1" type="TextureRect" parent="Control/HBoxContainer/HealthQuadPanel1" unique_id=2142609935]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 34)
+layout_mode = 1
+offset_right = 36.0
+offset_bottom = 34.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_fkvi6")

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cepwkqqc6s3dp" path="res://levels/KewbTest2.tscn" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://dsjr2e3n05mnb" path="res://GUI/GUI.tscn" id="3_m1504"]
 [ext_resource type="PackedScene" uid="uid://lc0p06eyckk2" path="res://game_management/TransitionController.tscn" id="4_m1504"]
+[ext_resource type="PackedScene" uid="uid://cgsfdbl40fwq8" path="res://GUI/PlayerHud/PlayerHud.tscn" id="7_jw1n3"]
 [ext_resource type="Script" uid="uid://byfwftw4s2gg6" path="res://game_management/SaveManager.gd" id="7_qy63d"]
 [ext_resource type="Script" uid="uid://6cdocq3nrno7" path="res://game_management/LevelPackUser.gd" id="8_6et1j"]
 [ext_resource type="Script" uid="uid://d0rcv207qxs6h" path="res://game_management/MessageBus.gd" id="9_etqu2"]
@@ -56,6 +57,8 @@ offset_bottom = 0.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
+
+[node name="PlayerHud" parent="." unique_id=1532401522 instance=ExtResource("7_jw1n3")]
 
 [node name="SaveManager" type="Node" parent="." unique_id=542018000 node_paths=PackedStringArray("player_char")]
 script = ExtResource("7_qy63d")
