@@ -88,6 +88,7 @@ func change_level2D(new_level : String,
 	#Condition to run a scene-transition.
 	if transition == true:
 		print_debug("We shall run a transition")
+		Player.instance.move_locked = true #If we're transitioning we lock the player.
 		TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
 	#End transition-condition.
@@ -104,6 +105,7 @@ func change_level2D(new_level : String,
 	
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
+		Player.instance.move_locked = false #We unlock the player again once we've transitioned.
 	
 func load_level2D(
 	_save_game : SaveGame,

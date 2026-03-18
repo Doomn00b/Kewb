@@ -35,7 +35,7 @@ func load_package(): #Instance_pressed (button) puts something up on screen, loa
 	if package_instance != null: #Before we unpack we check so there isn't already an instance, (somehow)...
 		package_instance.queue_free() #...remove it, since we don't need it.
 	#GameManager.instance.load_level2D(save_game, true)
-	##package_instance = created_package.instantiate() #We make the package-instance the newly created one.
+	#package_instance = created_package.instantiate() #We make the package-instance the newly created one.
 	
 	clone_parent.add_child(package_instance) #We make the packed scene a child of Main (clone_parent).
 	print_debug("Packed level loaded and unpacked.")

@@ -1,7 +1,3 @@
-#BEST PRACTICES:
-#Get input from 1. _input, and 2. _process_physics & save results to member variables.
-#→Detects input every frame for smooth controls.
-
 #TODO: 
 
 class_name Player
@@ -30,7 +26,7 @@ enum CameraLimits {
 	LDCAMLIM #Left-Direction Camera-Limits
 }
 
-const PCMAX_HEALTH = 10 #We make a new constant that defines the enemy has health.
+const PCMAX_HEALTH : int = 16 #We make a new constant that defines the player has health.
 const ACCELERATION : float = 9.8
 
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
@@ -39,7 +35,7 @@ const ACCELERATION : float = 9.8
 @export var walk_jump_vel: int = -400
 @export var run_jump_vel: int = -600
 
-var health = PCMAX_HEALTH #We make a new variable based on the Health-constant.
+var health :int = PCMAX_HEALTH #We make a new variable based on the Health-constant.
 var SPEED: int = 0
 var JUMP_VELOCITY: int = 0
 

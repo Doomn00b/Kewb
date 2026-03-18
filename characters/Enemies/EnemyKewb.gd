@@ -15,7 +15,7 @@ extends Enemy
 
 static var enemies_spawned : int = 0 #This variable determines how many enemies have spawned.
 
-const EK_MAX_HEALTH = 10 #We make a new constant that defines the enemy has health.
+const EK_MAX_HEALTH = 8 #We make a new constant that defines the enemy has health.
 
 var health = EK_MAX_HEALTH #We make a new variable based on the Health-constant.
 var move_dir : Vector2 :
@@ -28,7 +28,6 @@ func _ready() -> void:
 	velocity_x = Vector2(-velocity.x, velocity.y) #We "preserve" y, aka remove it from the velocity, so we can use it for flipping.
 	enemies_spawned += 1 #When we start the scene, enemy-count will go up.
 	
-	#WHAT triggers the Take-damage function?? Nothing at the moment...
 func take_damage(damage : int):
 	health -= damage #Enemy's health decreases by 5, per punch that connects.
 	print("Enemy Took Damage!")
@@ -54,7 +53,7 @@ func flip():
 func wall_collide(delta):
 	#We make a variable based on the y-preserved velocity * change over time.
 	var wall_collision = self.move_and_collide(self.velocity_x * delta)
-	if wall_collision :
+	if wall_collision : #If wall collision has a value,then...
 		var bounce_velocity = self.velocity_x.bounce(wall_collision.get_normal())
 		self.velocity = bounce_velocity
 	

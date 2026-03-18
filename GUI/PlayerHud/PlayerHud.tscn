@@ -1,18 +1,9 @@
 [gd_scene format=3 uid="uid://cgsfdbl40fwq8"]
 
 [ext_resource type="Texture2D" uid="uid://bdfavkjmwj7vn" path="res://GUI/PlayerHud/Health_hud_quadrants.png" id="1_b3t6q"]
-[ext_resource type="Script" uid="uid://cie2oji3h3ln5" path="res://GUI/PlayerHud/health_example.gd" id="1_cmd2q"]
+[ext_resource type="Script" uid="uid://cie2oji3h3ln5" path="res://GUI/PlayerHud/HealthHud.gd" id="1_cmd2q"]
+[ext_resource type="Script" uid="uid://d4jc03sq8hua8" path="res://GUI/PlayerHud/player_hud.gd" id="1_s3elj"]
 [ext_resource type="Script" uid="uid://birffxvaqmnuh" path="res://frame_texture.gd" id="3_uocnu"]
-
-[sub_resource type="GDScript" id="GDScript_j2b07"]
-script/source = "#class_name PlayerHud
-extends CanvasLayer
-
-#static var instance : PlayerHud
-#
-#func _init() -> void:
-	#instance = self
-"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3elj"]
 atlas = ExtResource("1_b3t6q")
@@ -31,7 +22,7 @@ metadata/_custom_type_script = "uid://birffxvaqmnuh"
 
 [node name="PlayerHud" type="CanvasLayer" unique_id=1532401522]
 process_mode = 3
-script = SubResource("GDScript_j2b07")
+script = ExtResource("1_s3elj")
 
 [node name="Control" type="Control" parent="." unique_id=740252798]
 layout_mode = 3
