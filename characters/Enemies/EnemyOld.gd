@@ -35,11 +35,11 @@ func _ready() -> void:
 	print_debug("Got the player from Tree.")
 	enemies_spawned += 1 #When we start the scene, enemy-count will go up.
 	EDmgArea.body_entered.connect(on_pbody_ent_dmg) #Connecting Give-Damage-area.
-	atk_raycast = $FlipEk/EkAtkRC #We give the raycast-object (from the node-tree) to our nmy-raycast variable.
-	edge_rayL = $FlipEk/EkEdgeL #Give the variable the left edge ray-cast
-	edge_rayR = $FlipEk/EkEdgeR #Give the variable the Right edge ray-cast
-	EFlip = $FlipEk
-	backoff_time = $EbackTimer
+	atk_raycast = %FlipEk/EkAtkRC #We give the raycast-object (from the node-tree) to our nmy-raycast variable.
+	edge_rayL = %FlipEk/EkEdgeL #Give the variable the left edge ray-cast
+	edge_rayR = %FlipEk/EkEdgeR #Give the variable the Right edge ray-cast
+	EFlip = %FlipEk
+	backoff_time = %EbackTimer
 	
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta) # Add the gravity.

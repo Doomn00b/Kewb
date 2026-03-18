@@ -10,29 +10,31 @@
 [ext_resource type="Script" uid="uid://byfwftw4s2gg6" path="res://game_management/SaveManager.gd" id="7_qy63d"]
 [ext_resource type="Script" uid="uid://6cdocq3nrno7" path="res://game_management/LevelPackUser.gd" id="8_6et1j"]
 [ext_resource type="Script" uid="uid://d0rcv207qxs6h" path="res://game_management/MessageBus.gd" id="9_etqu2"]
+[ext_resource type="Script" uid="uid://bxgpyf6pshwbn" path="res://game_management/World.gd" id="11_xdh4e"]
 
 [node name="Main" type="Node2D" unique_id=518110699]
 
 [node name="GameManager" type="Node" parent="." unique_id=1162974979 node_paths=PackedStringArray("level_2D", "gui")]
 script = ExtResource("1_qy63d")
-level_2D = NodePath("../LevelTest1")
-gui = NodePath("../CanvasLayer/GUI")
+level_2D = NodePath("../World/LevelTest1")
+gui = NodePath("../GuiCanvas/GUI")
 
-[node name="Player" parent="." unique_id=1236161566 instance=ExtResource("2_5k4jt")]
+[node name="World" type="Node" parent="." unique_id=61738201]
+script = ExtResource("11_xdh4e")
+metadata/_custom_type_script = "uid://bxgpyf6pshwbn"
+
+[node name="Player" parent="World" unique_id=1236161566 instance=ExtResource("2_5k4jt")]
+unique_name_in_owner = true
 position = Vector2(-336, 200)
-walking_speed = 150
-running_speed = 300
-walk_jump_vel = -400
-run_jump_vel = -600
 
-[node name="LevelTest1" parent="." unique_id=2143603366 node_paths=PackedStringArray("entry_dict") instance=ExtResource("2_jyhfs")]
+[node name="LevelTest1" parent="World" unique_id=2143603366 node_paths=PackedStringArray("entry_dict") instance=ExtResource("2_jyhfs")]
 unique_name_in_owner = true
 entry_dict = {
 0: NodePath("EPLeftLvl1"),
 1: NodePath("EPRightLvl1")
 }
 
-[node name="LevelTest2" parent="." unique_id=1236755543 node_paths=PackedStringArray("entry_dict") instance=ExtResource("3_ifaiv")]
+[node name="LevelTest2" parent="World" unique_id=1236755543 node_paths=PackedStringArray("entry_dict") instance=ExtResource("3_ifaiv")]
 unique_name_in_owner = true
 process_mode = 4
 visible = false
@@ -40,29 +42,30 @@ entry_dict = {
 0: NodePath("EPleftLvl2")
 }
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1438152076]
+[node name="PlayerHud" parent="World" unique_id=1532401522 instance=ExtResource("7_jw1n3")]
 
-[node name="GUI" parent="CanvasLayer" unique_id=2074600678 instance=ExtResource("3_m1504")]
+[node name="GuiCanvas" type="CanvasLayer" parent="." unique_id=1438152076]
 unique_name_in_owner = true
 
-[node name="PauseMenu" type="Control" parent="CanvasLayer/GUI" unique_id=389244657]
+[node name="GUI" parent="GuiCanvas" unique_id=2074600678 instance=ExtResource("3_m1504")]
+unique_name_in_owner = true
+
+[node name="PauseMenu" type="Control" parent="GuiCanvas/GUI" unique_id=389244657]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TransitionController" parent="CanvasLayer" unique_id=1899625543 instance=ExtResource("4_m1504")]
+[node name="TransitionController" parent="GuiCanvas" unique_id=1899625543 instance=ExtResource("4_m1504")]
 offset_top = 0.0
 offset_bottom = 0.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayerHud" parent="." unique_id=1532401522 instance=ExtResource("7_jw1n3")]
-
 [node name="SaveManager" type="Node" parent="." unique_id=542018000 node_paths=PackedStringArray("player_char")]
 script = ExtResource("7_qy63d")
-player_char = NodePath("../Player")
+player_char = NodePath("../World/Player")
 
 [node name="LevelPackUser" type="Node" parent="." unique_id=619941219]
 script = ExtResource("8_6et1j")

@@ -46,6 +46,7 @@ tile_map_data = PackedByteArray("AAD8//7/AQAIAAEAAAD9//7/AQABAAEAAAD+//7/AQACAAE
 tile_set = ExtResource("4_prie1")
 collision_enabled = false
 physics_quadrant_size = 8
+navigation_enabled = false
 
 [node name="BlueTilesGBot" type="TileMapLayer" parent="." unique_id=704312989]
 position = Vector2(72, 232)
@@ -53,6 +54,7 @@ tile_map_data = PackedByteArray("AAD8/wAAAQAIAAMAAAD9/wAAAQAJAAMAAAD+/wAAAQACAAM
 tile_set = ExtResource("4_prie1")
 collision_visibility_mode = 1
 physics_quadrant_size = 32
+navigation_enabled = false
 
 [node name="BlueTilesRTop" type="TileMapLayer" parent="." unique_id=93408046]
 position = Vector2(72, 232)
@@ -60,6 +62,7 @@ tile_map_data = PackedByteArray("AAAVAPv/AQAJAAMAAAAUAPv/AQAIAAMAAAATAPv/AQAHAAM
 tile_set = ExtResource("4_prie1")
 collision_visibility_mode = 1
 physics_quadrant_size = 8
+navigation_enabled = false
 
 [node name="BlueTilesRBot" type="TileMapLayer" parent="." unique_id=54769152]
 z_index = 1
@@ -68,6 +71,7 @@ tile_map_data = PackedByteArray("AADs//r/AQAJAAMAAADr//r/AQAIAAMAAADq//r/AQAHAAM
 tile_set = ExtResource("4_prie1")
 collision_visibility_mode = 1
 physics_quadrant_size = 32
+navigation_enabled = false
 
 [node name="BrownTilesStart-left" type="TileMapLayer" parent="." unique_id=2001272196]
 z_index = 1
@@ -75,6 +79,7 @@ y_sort_enabled = true
 position = Vector2(0, -8)
 tile_map_data = PackedByteArray("AADj/w8AAAABAAcAAADi/w8AAAAAAAcAAADj/w4AAAABAAYAAADi/w4AAAAAAAYAAADj/w0AAAABAAUAAADi/w0AAAAAAAUAAADj/wwAAAABAAQAAADi/wwAAAAAAAQAAADj/wsAAAABAAMAAADi/wsAAAAAAAMAAADj/woAAAABAAIAAADi/woAAAAAAAIAAADj/wkAAAABAAEAAADi/wkAAAAAAAEAAADj/wgAAAABAAMAAADi/wgAAAAAAAMAAADj/wcAAAABAAIAAADi/wcAAAAAAAIAAADj/wYAAAABAAQAAADi/wYAAAAAAAQAAADj/wUAAAABAAMAAADi/wUAAAAAAAMAAADj/wQAAAABAAIAAADi/wQAAAAAAAIAAADj/wMAAAABAAEAAADi/wMAAAAAAAEAAADj/wIAAAABAAAAAADi/wIAAAAAAAAAAAA=")
 tile_set = ExtResource("9_prie1")
+navigation_enabled = false
 
 [node name="BrownTilesEnd-right" type="TileMapLayer" parent="." unique_id=633128645]
 z_index = -2
@@ -82,6 +87,7 @@ y_sort_enabled = true
 position = Vector2(896, -8)
 tile_map_data = PackedByteArray("AADj/w8AAAABAAcAAADi/w8AAAAAAAcAAADj/w4AAAABAAYAAADi/w4AAAAAAAYAAADj/w0AAAABAAUAAADi/w0AAAAAAAUAAADj/wwAAAABAAQAAADi/wwAAAAAAAQAAADj/wsAAAABAAMAAADi/wsAAAAAAAMAAADj/woAAAABAAIAAADi/woAAAAAAAIAAADj/wkAAAABAAEAAADi/wkAAAAAAAEAAADj/wgAAAABAAMAAADi/wgAAAAAAAMAAADj/wcAAAABAAIAAADi/wcAAAAAAAIAAADj/wYAAAABAAQAAADi/wYAAAAAAAQAAADj/wUAAAABAAMAAADi/wUAAAAAAAMAAADj/wQAAAABAAIAAADi/wQAAAAAAAIAAADj/wMAAAABAAEAAADi/wMAAAAAAAEAAADj/wIAAAABAAAAAADi/wIAAAAAAAAAAAA=")
 tile_set = ExtResource("9_prie1")
+navigation_enabled = false
 
 [node name="DoorSideways" parent="." unique_id=81813317 instance=ExtResource("5_j8rsw")]
 z_index = 1

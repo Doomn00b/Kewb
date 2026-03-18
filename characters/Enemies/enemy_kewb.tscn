@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://mvqp0ch8vr7d" path="res://characters/Enemies/EnemyKewb.gd" id="1_vcfko"]
 [ext_resource type="Texture2D" uid="uid://bfltmihxlpttx" path="res://characters/Enemies/EnemyKewb.png" id="2_vcfko"]
-[ext_resource type="Script" uid="uid://cdqs8btxrwkmb" path="res://characters/Enemies/enemy_state_machine.gd" id="3_ouuic"]
+[ext_resource type="Script" uid="uid://cdqs8btxrwkmb" path="res://characters/Enemies/EnemyStateMachine.gd" id="3_ouuic"]
 [ext_resource type="Script" uid="uid://lsb5g3ng2uin" path="res://characters/Enemies/EkRoamingState.gd" id="5_icoxl"]
+[ext_resource type="Script" uid="uid://bs2blt1eo7w6c" path="res://characters/Enemies/EkBackingState.gd" id="5_l43yn"]
 [ext_resource type="Script" uid="uid://b05t1b3r143i1" path="res://characters/Enemies/EkRushState.gd" id="5_ouuic"]
 [ext_resource type="Script" uid="uid://d233he44s01xw" path="res://characters/Enemies/EkDeathState.gd" id="6_ouuic"]
 
@@ -102,6 +103,12 @@ script = ExtResource("5_ouuic")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://b05t1b3r143i1"
 
+[node name="EkBackingState" type="Node" parent="EkStateMachine" unique_id=2131964315 node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("5_l43yn")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://bs2blt1eo7w6c"
+
 [node name="EkDeathState" type="Node" parent="EkStateMachine" unique_id=955960929 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("6_ouuic")
@@ -114,11 +121,13 @@ wait_time = 0.8
 one_shot = true
 
 [node name="DirTimer" type="Timer" parent="." unique_id=1800211472]
+unique_name_in_owner = true
 wait_time = 0.8
 one_shot = true
 autostart = true
 
 [node name="EbackTimer" type="Timer" parent="." unique_id=1088373937]
+unique_name_in_owner = true
 wait_time = 0.6
 one_shot = true
 
@@ -128,6 +137,7 @@ shape = SubResource("RectangleShape2D_78frg")
 
 [node name="EHurtArea" type="Area2D" parent="." unique_id=1378704572 groups=["enemyGroup"]]
 position = Vector2(0, 2)
+collision_layer = 2
 
 [node name="EHurtZone" type="CollisionShape2D" parent="EHurtArea" unique_id=72357732 groups=["enemyGroup"]]
 shape = SubResource("RectangleShape2D_ouuic")
@@ -143,9 +153,10 @@ unique_name_in_owner = true
 [node name="EkSprite2D" type="Sprite2D" parent="FlipEk" unique_id=1626493624]
 texture = ExtResource("2_vcfko")
 hframes = 3
+frame = 1
 
 [node name="EDmgArea" type="Area2D" parent="FlipEk" unique_id=389465481 groups=["enemyDmgGroup"]]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 4
 
 [node name="EDmgZone" type="CollisionShape2D" parent="FlipEk/EDmgArea" unique_id=485172445 groups=["enemyDmgGroup"]]
@@ -171,3 +182,4 @@ target_position = Vector2(0, 16)
 
 [connection signal="timeout" from="DirTimer" to="." method="_on_dir_timer_timeout"]
 [connection signal="timeout" from="EbackTimer" to="." method="_on_dir_timer_timeout"]
+[connection signal="body_entered" from="FlipEk/EDmgArea" to="." method="on_pbody_ent_dmg"]

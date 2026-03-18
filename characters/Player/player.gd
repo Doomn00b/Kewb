@@ -28,14 +28,14 @@ enum CameraLimits {
 
 const PCMAX_HEALTH : int = 16 #We make a new constant that defines the player has health.
 const ACCELERATION : float = 9.8
-
+signal health_updated(new_health : int)
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
 @export var walking_speed: int = 150
 @export var running_speed: int = 300
 @export var walk_jump_vel: int = -400
 @export var run_jump_vel: int = -600
 
-var health :int = PCMAX_HEALTH #We make a new variable based on the Health-constant.
+var health : int = PCMAX_HEALTH #We make a new variable based on the Health-constant.
 var SPEED: int = 0
 var JUMP_VELOCITY: int = 0
 
@@ -63,6 +63,8 @@ func _ready() -> void:
 	#Wait... do I need to connect this to an animation-state as well?? YES! >:( 
 	#We set the direction the player is facing, at the start of the game (to be right).
 	current_direction = -1 
+	await get_tree().process_frame
+	health_updated.emit(health)
 
 func _input(event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
@@ -193,6 +195,7 @@ func _apply_gravity(delta : float):
 func take_damage(damage : int):
 	health -= damage #Player's health decreases according to variable, per punch that connects.
 	print("Player Took Damage!")
+	health_updated.emit(health)
 	if health <= 0: #If you run out of health, or if it goes negative, then...
 		current_anim_state = AnimationState.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
 		#Do I need a TIMER here, and an AWAIT?

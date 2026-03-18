@@ -2,7 +2,7 @@ extends State
 class_name EkRushState
 @export_category("Put Actor, aka Enemy-prefab here")
 @export var actor: EnemyKewb #We put our "Actor" here, in this case, our enemy-Kewb.
-@export var Erunspeed: int = 50 #The walking, aka Roaming -speed.
+#@export var Erunspeed: int = 50 #The running, aka rushing-speed.
 
 var delay_rush : Timer #This variable is the time between spotting the player and attacking.
 
@@ -41,7 +41,7 @@ func _rush_player(_delta : float):
 		if actor.is_on_floor() and GameManager.instance.is_game_over == false : #If the actor (EnemyKewb) is on the floor and it's not game over, then...
 			actor.animator.play("ek_rush") #We play the rush-animation
 			actor.move_dir = (actor.playerChr.position - actor.position).normalized()
-			actor.velocity.x = actor.move_dir.x * Erunspeed
+			actor.velocity.x = actor.move_dir.x * actor.acceleration
 			return
 	elif !actor.atk_raycast.is_colliding(): #If the raycast can't see the player, then...
 		lost_player.emit() #...emit the signal to change state.

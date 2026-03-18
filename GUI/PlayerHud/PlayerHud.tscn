@@ -45,12 +45,12 @@ offset_right = 86.0
 offset_bottom = 44.0
 mouse_filter = 2
 
-[node name="HealthQuadPanel0" type="Panel" parent="Control/HBoxContainer" unique_id=2001148913]
+[node name="HealthQuad0" type="Control" parent="Control/HBoxContainer" unique_id=1940021972]
 custom_minimum_size = Vector2(36, 34)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="HSpriteTexture0" type="TextureRect" parent="Control/HBoxContainer/HealthQuadPanel0" unique_id=1124853166]
+[node name="HSpriteTexture0" type="TextureRect" parent="Control/HBoxContainer/HealthQuad0" unique_id=1124853166]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 34)
 layout_mode = 0
@@ -59,12 +59,12 @@ offset_bottom = 34.0
 mouse_filter = 2
 texture = SubResource("AtlasTexture_s3elj")
 
-[node name="HealthQuadPanel1" type="Panel" parent="Control/HBoxContainer" unique_id=1931626077]
+[node name="HealthQuad1" type="Control" parent="Control/HBoxContainer" unique_id=2038467641]
 custom_minimum_size = Vector2(36, 34)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="HSpriteTexture1" type="TextureRect" parent="Control/HBoxContainer/HealthQuadPanel1" unique_id=2142609935]
+[node name="HSpriteTexture1" type="TextureRect" parent="Control/HBoxContainer/HealthQuad1" unique_id=2142609935]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 34)
 layout_mode = 1

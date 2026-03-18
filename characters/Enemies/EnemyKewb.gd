@@ -1,8 +1,9 @@
 class_name EnemyKewb
 extends Enemy
 
-@export var max_speed : int = 40
-@export var acceleration : int = 50
+signal damaged_player()
+@export var max_walk_speed : int = 40
+@export var acceleration : int = 100
 @export var base_damage : int = 1
 #Below variables are created when the Ready-function is run.
 @onready var fin_sm = %EkStateMachine #The moment we start we get the State-Machine
@@ -12,6 +13,8 @@ extends Enemy
 @onready var edge_rayL : RayCast2D = %EkEdgeL
 @onready var edge_rayR : RayCast2D = %EkEdgeR
 @onready var animator : AnimationPlayer = %AnimationPlayer
+#@onready var backoff_time : Timer = %EbackTimer
+@onready var dir_timer: Timer = %DirTimer
 
 static var enemies_spawned : int = 0 #This variable determines how many enemies have spawned.
 
@@ -34,8 +37,22 @@ func take_damage(damage : int):
 	if health <= 0: #If the enemy gets zero or less health,then...
 		enemy_died.emit() #...we emit the enemy-died signal.
 		print("Enemy died, start death-state.")
+	
+#Giving damage to player.
+func on_pbody_ent_dmg(node : Node2D) -> void:
+	if node is Player:
+		node.take_damage(base_damage)
+		damaged_player.emit()
 
-		
+#func back_off() -> void:
+	#backoff_time.start()
+	#print_debug("running backoff-timer")
+	#while !backoff_time.is_stopped(): #For as long as the back-off-timer is running...
+		##Make the enemy back off after damaging the player.
+		#self.velocity.x = Ewspeed #Enemy moves backwards at walk-speed.
+		#print_debug("Enemy back-speed:", velocity)
+	
+	
 func apply_gravity(delta : float):
 	if not is_on_floor() : #Do I need MORE in the condition?
 		var gravity = get_gravity() #We make a new temp-var, and base it on the get-gravity-function.

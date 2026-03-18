@@ -54,11 +54,13 @@ func _process(delta: float) -> void:
 	_game_over_check(delta)
 
 func _game_over_check(_delta) -> void:
+	#is_game_over is set by the Player if it gets zero health.
 	if is_game_over == true and Input.is_action_just_pressed("ui_accept") :
 		print_debug("enter has been pressed")
-		#Reload the scene.
-		get_tree().reload_current_scene() #We get the whole tree, everything in every scene & then we reload the current scene, aka level.
-		reset_values() #And reset the values too.
+		#Insert a function for saving potential score to a resource.
+		#Start the Game-over screen - it shall then run either 
+		#reset_game or load_level2D
+		reset_game() #We run the reset-game function.
 
 func override_runtime_from_save():
 	for level_data_name in save_game.level_data_dict.keys():
@@ -139,36 +141,6 @@ func load_level2D(
 	
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) 
-
-#Below is the OLD load-function.
-#func load_level2D(save_game : SaveGame = SaveGame.new(),
-	#transition: bool = true,
-	#seconds: float = 0.8) -> void:
-	#
-	##Condition to run a scene-transition.
-	#if transition == true:
-		#print_debug("We shall run a transition")
-		#TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
-		#await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
-	##End transition-condition.
-	##OLD LEVEL TURN OFF
-	#current_level2d.visible = false
-	#current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
-	#current_level2d = level_dict[save_game.current_level]
-	#
-	##NEW LEVEL TURN ON
-	##current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
-	#var player : Player = Player.instance
-	#player.global_position = save_game.player_glob_pos
-	#if !save_game.is_facing_right:
-		#player.flip()
-	#await get_tree().process_frame
-	#current_level2d.visible = true
-	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
-	#
-	#if transition == true:
-		#TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
-	
 	
 #This function manages GUI-scenes/prefabs
 func change_gui_scene(
@@ -206,7 +178,10 @@ func change_gui_scene(
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 
-func reset_values(): #Because you died, but you're restarting...
-	#score = 0
+func reset_game(): #Because you died, but you're restarting...
+	#This function is run by the _check_game_over function, which runs in process-update. Every frame of the game it checks this.
+	#score = 0 #We need some lines here for loa
 	is_game_over = false
+	get_tree().reload_current_scene() #We get the whole tree, everything in every scene & then we reload the current scene, aka level.
+	get_groups()
 	print_debug("Restarting game.")
