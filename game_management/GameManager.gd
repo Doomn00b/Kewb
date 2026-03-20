@@ -60,10 +60,15 @@ func _process(delta: float) -> void:
 
 func _set_rst_bool():
 	reset_req = true #If the restart_now signal has been emitted, this function will run, and set the reset_req -bool to true.
-
+	print_debug("Set Reset_Req to TRUE.")
+	
 func _game_over_check(_delta) -> void:
 	#is_game_over is set by the Player if it gets zero health.
 	#if is_game_over == true and Input.is_action_just_pressed("ui_accept") :
+	#The below code loops the transition constantly, so now the player runs it instead.
+	#if is_game_over == true:
+		#change_gui_scene("GameOverScreen", false, false, true) #If we're game over, run the game-over-screen.
+	
 	if is_game_over == true and reset_req == true:
 		print_debug("We shall reset.")
 		#Insert a function for saving potential score to a resource.

@@ -201,6 +201,7 @@ func take_damage(damage : int):
 		#Do I need a TIMER here, and an AWAIT?
 		print_debug("Player died.")
 		GameManager.instance.is_game_over = true
+		GameManager.instance.change_gui_scene("GameOverScreen", false, false, true) #Run the game-over screen
 		self.queue_free() #...destroy the Player by removing from memory.
 		
 #Code to flip the character when walking.

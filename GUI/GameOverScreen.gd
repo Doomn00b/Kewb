@@ -23,11 +23,14 @@ func _process(delta: float) -> void:
 
 func _on_load_pressed(_save_game):
 	GameManager.instance.load_level2D(_save_game, true)
-	#Clear game over screen -- we'll use GameManager again.
+	#Run the load_level2D function from GameManager, to load a previous savegame.
 	
 func _on_back_pressed():
-	pass
 	#Clear game over screen -- we'll use GameManager again.
-func _on_rst_pressed():
-	MessageBus.instance.restart_now.emit() #We tell the MessageBus to send the request to reset.
+	#Load the main menu, do not delete game-overscreen, make it invisible but disable processing, run a transition.
+	GameManager.instance.change_gui_scene("MainMenu", false, false, true)
 	
+func _on_rst_pressed():
+	MessageBus.instance.restart_now.emit() 
+	#We tell the MessageBus to send the request to reset.
+	#This will then be picked up by gameManager and it will set a bool to reset scenes.
