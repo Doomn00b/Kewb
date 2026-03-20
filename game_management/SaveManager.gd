@@ -56,8 +56,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("save_test"):
 		write_save()
 	#F9 for loading
-	if Input.is_action_just_pressed("reset_test"):
-		save_game.reset_all()
+	if Input.is_action_just_pressed("reset_savegame"):
+		save_game.reset_all_save()
 		var error_code:= ResourceSaver.save(save_game, SAVE_GAME_PATH)
 		if error_code != OK:
 			push_error("Failed to save game: " + error_string(error_code))

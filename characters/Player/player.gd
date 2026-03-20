@@ -85,10 +85,10 @@ func _input(event: InputEvent) -> void:
 		#print_debug("player is running")
 		current_move_state = MovementState.RUNNING #...we start running.
 		
-	#Message-stuff
-	#if event.is_action_pressed("action"):
-		##Insert message-signal here!
-		#MessageBus.instance.player_interacted.emit(self) #Emit a reference to the player when action happens.
+	#Debug-stuff
+	if event.is_action_pressed("kill_player"):
+		health = 0
+		print_debug("Debug-Killed player.")
 	
 func _player_attack():
 	if !Input.is_action_just_pressed("attack"): #Nothing will happen if an attack command did not happen

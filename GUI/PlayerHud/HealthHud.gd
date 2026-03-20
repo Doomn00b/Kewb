@@ -19,3 +19,7 @@ func update_health_bar(hp : int) -> void:
 	print("Frame")
 	self.frame = max_hp - hp
 	
+	#If the players health drops to zero, then turn off the hud.
+	if max_hp <= 0:
+		await get_tree().process_frame #Wait for one frame before...
+		self.visible = false

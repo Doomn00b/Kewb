@@ -53,16 +53,19 @@ grow_vertical = 0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+button_mask = 3
 text = "Load last save"
 
 [node name="BackToTitleButton" type="Button" parent="HBoxContainer" unique_id=1762191701]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+button_mask = 3
 text = "Return to title"
 
 [node name="RestartButton" type="Button" parent="HBoxContainer" unique_id=791642605]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+button_mask = 3
 text = "Restart game"
