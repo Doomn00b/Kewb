@@ -1,5 +1,5 @@
 class_name MainMenu
-extends CenterContainer
+extends Control
 
 
 func _on_new_game_pressed() -> void:
@@ -7,11 +7,13 @@ func _on_new_game_pressed() -> void:
 	pass
 
 func _on_continue_pressed() -> void:
-	pass # Replace with function body.
+	pass 
+	# Replace with load_level2d from GameManager
 
 
 func _on_settings_pressed() -> void:
-	pass # Replace with function body.
+	pass 
+	# Replace with function body.
 
 
 func _on_quit_pressed() -> void:

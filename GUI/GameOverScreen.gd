@@ -27,5 +27,7 @@ func _on_load_pressed(_save_game):
 	
 func _on_back_pressed():
 	pass
+	#Clear game over screen -- we'll use GameManager again.
 func _on_rst_pressed():
 	MessageBus.instance.restart_now.emit() #We tell the MessageBus to send the request to reset.
+	

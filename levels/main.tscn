@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cgsfdbl40fwq8" path="res://GUI/PlayerHud/PlayerHud.tscn" id="7_jw1n3"]
 [ext_resource type="Script" uid="uid://byfwftw4s2gg6" path="res://game_management/SaveManager.gd" id="7_qy63d"]
 [ext_resource type="Script" uid="uid://6cdocq3nrno7" path="res://game_management/LevelPackUser.gd" id="8_6et1j"]
+[ext_resource type="PackedScene" uid="uid://b7yx6t23u4bg8" path="res://GUI/GameOverScreen.tscn" id="8_c7dyn"]
+[ext_resource type="PackedScene" uid="uid://bshbqbc6jx1xm" path="res://GUI/MainMenu.tscn" id="9_1fput"]
 [ext_resource type="Script" uid="uid://d0rcv207qxs6h" path="res://game_management/MessageBus.gd" id="9_etqu2"]
 [ext_resource type="Script" uid="uid://bxgpyf6pshwbn" path="res://game_management/World.gd" id="11_xdh4e"]
 
@@ -56,6 +58,16 @@ visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="GameOverScreen" parent="GuiCanvas/GUI" unique_id=1900945847 instance=ExtResource("8_c7dyn")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="MainMenu" parent="GuiCanvas/GUI" unique_id=1758113947 instance=ExtResource("9_1fput")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
 
 [node name="TransitionController" parent="GuiCanvas" unique_id=1899625543 instance=ExtResource("4_m1504")]
 offset_top = 0.0

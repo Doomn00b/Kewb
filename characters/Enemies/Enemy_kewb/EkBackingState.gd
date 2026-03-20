@@ -32,7 +32,7 @@ func _back_off():
 		#Make the enemy back off after damaging the player.
 		actor.velocity.x = actor.max_walk_speed #Enemy moves backwards at walk-speed.
 		await get_tree().process_frame
-		print_debug("Enemy back-speed:", actor.velocity_x)
+		#print_debug("Enemy back-speed:", actor.velocity_x)
 	done_backing.emit() #emit the signal that takes us to the next state.
 
 func exit_state() -> void:

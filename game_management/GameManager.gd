@@ -32,6 +32,8 @@ func _ready() -> void:
 	#When you start, the current Level2D should just be the preset one.
 	#We define entries in the Gui and Level -dictionaries.
 	gui_dict["PauseMenu"] = %PauseMenu
+	gui_dict["GameOverScreen"] = %GameOverScreen
+	gui_dict["MainMenu"] = %MainMenu
 	
 	#DEFAULTS TO RUNTIME DICT
 	level_dict["Level1"] = %LevelTest1
@@ -151,7 +153,7 @@ func load_level2D(
 	
 #This function manages GUI-scenes/prefabs
 func change_gui_scene(
-	#Local variables (WHY do I need to make these local?? seems like extra text.)
+	#Local variables (I still don't know why these have to be local)
 	new_guiscene: String,
 	delete: bool,
 	keep_running: bool,
