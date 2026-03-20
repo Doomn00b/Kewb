@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_j4r5f"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="2_3nsg6"]
 [ext_resource type="Script" uid="uid://csryygu8ef6y5" path="res://characters/Enemies/EnemySpawner.gd" id="3_21j3a"]
-[ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/enemy_kewb.tscn" id="4_o2fof"]
+[ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="4_o2fof"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="5_cc8f0"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="6_45o3a"]
 [ext_resource type="Script" uid="uid://b0tcwj47yq257" path="res://interactables/Doors/Doors.gd" id="7_kaxu5"]

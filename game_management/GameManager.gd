@@ -16,6 +16,7 @@ var current_gui : Control
 var level_dict : Dictionary[String, Node2D] = {}
 var gui_dict : Dictionary[String, Control] = {} #Store loaded scenes by path. We make a dictionary for our scenes, so we don't overload memory.
 var is_game_over : bool = false #Boolean that controls if the game is over or not.
+var reset_req : bool = false #This bool will be set, when the reset_now signal is emitted by any object, via the MessageBus.
 #var score: int = 0 #We have a variable for score, which of course starts at zero.
 static var instance : GameManager
 
@@ -47,16 +48,22 @@ func _ready() -> void:
 			save_game.level_data_dict[level_name] = level_pack
 	if save_game.clean_save == false:
 		load_level2D(save_game, false)
-		
+	#End new Defaults to save game	
+	
+	MessageBus.instance.restart_now.connect(_set_rst_bool) #We connect the restart_now signal to our set-bool function
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	_game_over_check(delta)
 
+func _set_rst_bool():
+	reset_req = true #If the restart_now signal has been emitted, this function will run, and set the reset_req -bool to true.
+
 func _game_over_check(_delta) -> void:
 	#is_game_over is set by the Player if it gets zero health.
-	if is_game_over == true and Input.is_action_just_pressed("ui_accept") :
-		print_debug("enter has been pressed")
+	#if is_game_over == true and Input.is_action_just_pressed("ui_accept") :
+	if is_game_over == true and reset_req == true:
+		print_debug("We shall reset.")
 		#Insert a function for saving potential score to a resource.
 		#Start the Game-over screen - it shall then run either 
 		#reset_game or load_level2D
@@ -182,6 +189,7 @@ func reset_game(): #Because you died, but you're restarting...
 	#This function is run by the _check_game_over function, which runs in process-update. Every frame of the game it checks this.
 	#score = 0 #We need some lines here for loa
 	is_game_over = false
+	reset_req = false
 	get_tree().reload_current_scene() #We get the whole tree, everything in every scene & then we reload the current scene, aka level.
-	get_groups()
+	#get_groups() #Get the groups that shall be reset.
 	print_debug("Restarting game.")

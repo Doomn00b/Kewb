@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5i4n3o3tmsvf"
-path="res://.godot/imported/EnemyKewb_dead.png-203dbb30b0d047a974ada303b53c4b1e.ctex"
+uid="uid://4mlk2rrfj2cu"
+path="res://.godot/imported/levelpack_symbol.png-e00211d68aa5cff08b7098cb911ba7a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://characters/Enemies/EnemyKewb_dead.png"
-dest_files=["res://.godot/imported/EnemyKewb_dead.png-203dbb30b0d047a974ada303b53c4b1e.ctex"]
+source_file="res://game_management/levelpack_symbol.png"
+dest_files=["res://.godot/imported/levelpack_symbol.png-e00211d68aa5cff08b7098cb911ba7a3.ctex"]
 
 [params]
 

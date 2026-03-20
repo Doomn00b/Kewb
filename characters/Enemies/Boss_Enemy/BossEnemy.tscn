@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://c5858a2o7dwsx"]
+
+[ext_resource type="Script" uid="uid://t6b4fwqh2ul5" path="res://characters/Enemies/Boss_Enemy/BossEnemy.gd" id="1_kmttv"]
+[ext_resource type="Texture2D" uid="uid://bm1fkc1yk6qm8" path="res://characters/Enemies/Boss_Enemy/Boss_enemy.png" id="2_ife0u"]
+[ext_resource type="Script" uid="uid://1axv5delrplo" path="res://characters/Enemies/Boss_Enemy/BeStateMachine.gd" id="3_uhyta"]
+[ext_resource type="Script" uid="uid://b7x7u6fk6fjcy" path="res://characters/Enemies/Boss_Enemy/BeIdlingState.gd" id="4_cv660"]
+[ext_resource type="Script" uid="uid://blrt8bnf6om54" path="res://characters/Enemies/Boss_Enemy/BeAttackState.gd" id="5_8whbs"]
+[ext_resource type="Script" uid="uid://cf3uq8bbkiib3" path="res://characters/Enemies/Boss_Enemy/BeDeadState.gd" id="6_jodin"]
+[ext_resource type="Script" uid="uid://csvjqorewwhlv" path="res://characters/Enemies/Boss_Enemy/BeBackState.gd" id="7_dvtu8"]
+[ext_resource type="Script" uid="uid://0kkl3mqafarr" path="res://characters/Enemies/Boss_Enemy/BeStunState.gd" id="8_q33qb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmttv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ife0u"]
+
+[node name="BossEnemy" type="CharacterBody2D" unique_id=2030049102]
+script = ExtResource("1_kmttv")
+
+[node name="BHurtArea" type="Area2D" parent="." unique_id=1689316625]
+
+[node name="BHurtZone" type="CollisionShape2D" parent="BHurtArea" unique_id=29824418]
+shape = SubResource("RectangleShape2D_kmttv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1182738398]
+shape = SubResource("RectangleShape2D_ife0u")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1286476428]
+texture = ExtResource("2_ife0u")
+
+[node name="BeStateMachine" type="Node" parent="." unique_id=649877092 node_paths=PackedStringArray("actor", "state")]
+script = ExtResource("3_uhyta")
+actor = NodePath("..")
+state = NodePath("BeIdlingState")
+metadata/_custom_type_script = "uid://1axv5delrplo"
+
+[node name="BeIdlingState" type="Node" parent="BeStateMachine" unique_id=592889836]
+unique_name_in_owner = true
+script = ExtResource("4_cv660")
+metadata/_custom_type_script = "uid://b7x7u6fk6fjcy"
+
+[node name="BeAttackState" type="Node" parent="BeStateMachine" unique_id=1358257663]
+unique_name_in_owner = true
+script = ExtResource("5_8whbs")
+metadata/_custom_type_script = "uid://blrt8bnf6om54"
+
+[node name="BeDeadState" type="Node" parent="BeStateMachine" unique_id=2017618071]
+unique_name_in_owner = true
+script = ExtResource("6_jodin")
+metadata/_custom_type_script = "uid://cf3uq8bbkiib3"
+
+[node name="BeBackState" type="Node" parent="BeStateMachine" unique_id=1064730937]
+unique_name_in_owner = true
+script = ExtResource("7_dvtu8")
+metadata/_custom_type_script = "uid://csvjqorewwhlv"
+
+[node name="BeStunState" type="Node" parent="BeStateMachine" unique_id=1707215155]
+unique_name_in_owner = true
+script = ExtResource("8_q33qb")
+metadata/_custom_type_script = "uid://0kkl3mqafarr"

@@ -1,0 +1,16 @@
+class_name BeStateMachine
+extends FiniteStateMachine
+
+@export var actor: BossEnemy
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	state_dict["Idling"] = %BeIdlingState
+	state_dict["Attacking"] = %BeAttackState
+	state_dict["Death"] = %BeDeadState
+	state_dict["Stunned"] = %BeStunState
+	state_dict["Backing"] = %BeBackState
+	
+	actor.enemy_died.connect(change_state.bind("Death")) #We connect the signal for when enemy goes into death-state.
+	actor.damaged_player.connect(change_state.bind("Backing"))
+	super() #Run same code as in overriden function

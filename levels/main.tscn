@@ -19,22 +19,22 @@ script = ExtResource("1_qy63d")
 level_2D = NodePath("../World/LevelTest1")
 gui = NodePath("../GuiCanvas/GUI")
 
-[node name="World" type="Node" parent="." unique_id=61738201]
+[node name="World" type="Node" parent="." unique_id=61738201 groups=["World"]]
 script = ExtResource("11_xdh4e")
 metadata/_custom_type_script = "uid://bxgpyf6pshwbn"
 
-[node name="Player" parent="World" unique_id=1236161566 instance=ExtResource("2_5k4jt")]
+[node name="Player" parent="World" unique_id=1236161566 groups=["World"] instance=ExtResource("2_5k4jt")]
 unique_name_in_owner = true
 position = Vector2(-336, 200)
 
-[node name="LevelTest1" parent="World" unique_id=2143603366 node_paths=PackedStringArray("entry_dict") instance=ExtResource("2_jyhfs")]
+[node name="LevelTest1" parent="World" unique_id=2143603366 node_paths=PackedStringArray("entry_dict") groups=["World"] instance=ExtResource("2_jyhfs")]
 unique_name_in_owner = true
 entry_dict = {
 0: NodePath("EPLeftLvl1"),
 1: NodePath("EPRightLvl1")
 }
 
-[node name="LevelTest2" parent="World" unique_id=1236755543 node_paths=PackedStringArray("entry_dict") instance=ExtResource("3_ifaiv")]
+[node name="LevelTest2" parent="World" unique_id=1236755543 node_paths=PackedStringArray("entry_dict") groups=["World"] instance=ExtResource("3_ifaiv")]
 unique_name_in_owner = true
 process_mode = 4
 visible = false
@@ -52,6 +52,7 @@ unique_name_in_owner = true
 
 [node name="PauseMenu" type="Control" parent="GuiCanvas/GUI" unique_id=389244657]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

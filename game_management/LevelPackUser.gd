@@ -1,11 +1,10 @@
 #TODO:
 	#Integrate this script into SaveManager.
 	#How do I combine it with the current variables in SaveManager?
+@icon("res://game_management/levelpack_symbol.png")
 class_name LevelPackUser
 extends Node
 
-#var created_package
-#var package_instance
 const SAVE_PATH := "res://SavedPackage.tscn"
 
 @onready var ori_lvl = GameManager.instance.current_level2d #The original level (that shall be packed), is the current one.
