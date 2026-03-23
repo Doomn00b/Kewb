@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://bshbqbc6jx1xm"]
+
+[ext_resource type="Script" uid="uid://c2h1lyiyd11fj" path="res://GUI/Main Menu/MainMenu.gd" id="1_38be4"]
+[ext_resource type="Theme" uid="uid://pt8vsbdh07pr" path="res://GUI/Main Menu/MainMenuResources/kewb_menu_theme.tres" id="1_kf0uv"]
+
+[node name="MainMenu" type="Control" unique_id=396991790]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 512.0
+offset_bottom = 288.0
+mouse_filter = 2
+script = ExtResource("1_38be4")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=2037112242]
+layout_mode = 0
+offset_left = 193.0
+offset_top = 46.0
+offset_right = 318.0
+offset_bottom = 241.0
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1115769516]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_kf0uv")
+
+[node name="MainMenu" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=547291516]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MainMenuLabel" type="Label" parent="CenterContainer/PanelContainer/MainMenu" unique_id=1501998747]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="NewGameButton" type="Button" parent="CenterContainer/PanelContainer/MainMenu" unique_id=164352739]
+layout_mode = 2
+theme = ExtResource("1_kf0uv")
+text = "New Game"
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/PanelContainer/MainMenu" unique_id=1561273899]
+layout_mode = 2
+text = "Continue"
+
+[node name="SettingsButton" type="Button" parent="CenterContainer/PanelContainer/MainMenu" unique_id=1090631786]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/PanelContainer/MainMenu" unique_id=1216471140]
+layout_mode = 2
+text = "Quit"
+
+[node name="NewGameMenu" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=418873145]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NewGameLabel" type="Label" parent="CenterContainer/PanelContainer/NewGameMenu" unique_id=1232657591]
+layout_mode = 2
+text = "Create New Game"
+
+[node name="NgSlot1" type="Button" parent="CenterContainer/PanelContainer/NewGameMenu" unique_id=1570158883]
+layout_mode = 2
+theme = ExtResource("1_kf0uv")
+text = "Slot 1"
+
+[node name="NgSlot2" type="Button" parent="CenterContainer/PanelContainer/NewGameMenu" unique_id=644581656]
+layout_mode = 2
+text = "Slot 2"
+
+[node name="NgSlot3" type="Button" parent="CenterContainer/PanelContainer/NewGameMenu" unique_id=1638840751]
+layout_mode = 2
+text = "Slot 3"
+
+[node name="BackgroundContainer" type="Control" parent="." unique_id=466855005]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Insert some background here" type="Label" parent="BackgroundContainer" unique_id=1793992318]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Insert cool background with sprite-rotation and or parallax-scrolling here."
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MainMenu/NewGameButton" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MainMenu/ContinueButton" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MainMenu/SettingsButton" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MainMenu/QuitButton" to="." method="_on_quit_pressed"]

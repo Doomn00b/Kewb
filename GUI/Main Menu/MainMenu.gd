@@ -3,16 +3,18 @@ extends Control
 
 
 func _on_new_game_pressed() -> void:
-	#GameManager.instance.change_level2D()
-	pass
+	GameManager.instance.new_game() #We get the GM instance and run its new-game function.
+	print_debug("Started a new game.")
 
 func _on_continue_pressed() -> void:
-	pass 
+	var gm : GameManager = GameManager.instance
+	gm.load_level2D(gm.save_game, true)
+	#Run the load_level2D function from GameManager, to load a previous savegame.
+	print_debug("Pressed Continue, aka Load game.") 
 	# Replace with load_level2d from GameManager
 
-
 func _on_settings_pressed() -> void:
-	pass 
+	print_debug("Pressed settings, but we don't have any settings. Heh.") 
 	# Replace with function body.
 
 

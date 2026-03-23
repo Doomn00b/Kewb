@@ -192,18 +192,15 @@ func change_gui_scene(
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 
+func new_game(): #We run this function when we want to start a new game.
+	save_game.reset_all_save()
+	change_level2D("Level1", 0, true)
+
 func reset_game(): #Because you died, but you're restarting...
 	#This function is run by the _check_game_over function, which runs in process-update. Every frame of the game it checks this.
 	#score = 0 #We need some lines here for loa
 	is_game_over = false
 	reset_req = false
-	#get_tree().reload_current_scene() #We get the whole tree, everything in every scene & then we reload the current scene, aka level.
-	#Get the groups that shall be reset.
 	save_game.reset_all_save()
 	get_tree().reload_current_scene()
-	#World.instance
-	#var nodes_to_reset: Array[World] = []
-	#for child: Node in node.get_children():
-		#if child is World:
-			
 	print_debug("Restarting game.")

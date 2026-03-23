@@ -44,6 +44,10 @@ Floors="Standable floor, with no other effects."
 Obstacle=""
 World=""
 
+[gui]
+
+theme/custom_font="uid://xt2goxkjnbaf"
+
 [input]
 
 jump={
