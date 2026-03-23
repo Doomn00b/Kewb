@@ -22,6 +22,7 @@ level_2D = NodePath("../World/LevelTest1")
 gui = NodePath("../GuiCanvas/GUI")
 
 [node name="World" type="Node" parent="." unique_id=61738201 groups=["World"]]
+unique_name_in_owner = true
 script = ExtResource("11_xdh4e")
 metadata/_custom_type_script = "uid://bxgpyf6pshwbn"
 
@@ -44,7 +45,7 @@ entry_dict = {
 0: NodePath("EPleftLvl2")
 }
 
-[node name="PlayerHud" parent="World" unique_id=1532401522 instance=ExtResource("7_jw1n3")]
+[node name="PlayerHud" parent="World" unique_id=1532401522 groups=["World"] instance=ExtResource("7_jw1n3")]
 
 [node name="GuiCanvas" type="CanvasLayer" parent="." unique_id=1438152076]
 unique_name_in_owner = true
@@ -74,6 +75,7 @@ offset_top = 0.0
 offset_bottom = 0.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="SaveManager" type="Node" parent="." unique_id=542018000 node_paths=PackedStringArray("player_char")]
@@ -83,5 +85,5 @@ player_char = NodePath("../World/Player")
 [node name="LevelPackUser" type="Node" parent="." unique_id=619941219]
 script = ExtResource("8_6et1j")
 
-[node name="Messager" type="Node" parent="." unique_id=1375714332]
+[node name="MessageBus" type="Node" parent="." unique_id=1375714332]
 script = ExtResource("9_etqu2")

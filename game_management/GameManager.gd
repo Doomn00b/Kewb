@@ -188,7 +188,7 @@ func change_gui_scene(
 		new_gui = gui_dict[new_guiscene]
 		new_gui.visible = true
 		new_gui.process_mode = Node.PROCESS_MODE_INHERIT
-		
+		current_gui = new_gui
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 
@@ -197,6 +197,13 @@ func reset_game(): #Because you died, but you're restarting...
 	#score = 0 #We need some lines here for loa
 	is_game_over = false
 	reset_req = false
-	get_tree().reload_current_scene() #We get the whole tree, everything in every scene & then we reload the current scene, aka level.
-	#get_groups() #Get the groups that shall be reset.
+	#get_tree().reload_current_scene() #We get the whole tree, everything in every scene & then we reload the current scene, aka level.
+	#Get the groups that shall be reset.
+	save_game.reset_all_save()
+	get_tree().reload_current_scene()
+	#World.instance
+	#var nodes_to_reset: Array[World] = []
+	#for child: Node in node.get_children():
+		#if child is World:
+			
 	print_debug("Restarting game.")

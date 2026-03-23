@@ -2,3 +2,8 @@
 @icon("res://game_management/world_symbol.png")
 class_name World
 extends Node
+
+static var instance : World
+
+func _init() -> void:
+	instance = self
