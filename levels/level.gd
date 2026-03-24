@@ -14,4 +14,5 @@ func _ready():
 	player = Player.instance
 	
 func place_player(player, entry_point : int):
-	player.global_position = entry_dict[entry_point].global_position
+	GameManager.instance.show_player() #We make sure the player is active and visible.
+	player.global_position = entry_dict[entry_point].global_position #Changes the players position to the first entry-point.

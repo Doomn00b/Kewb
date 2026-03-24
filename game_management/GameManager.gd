@@ -17,6 +17,7 @@ var level_dict : Dictionary[String, Node2D] = {}
 var gui_dict : Dictionary[String, Control] = {} #Store loaded scenes by path. We make a dictionary for our scenes, so we don't overload memory.
 var is_game_over : bool = false #Boolean that controls if the game is over or not.
 var reset_req : bool = false #This bool will be set, when the reset_now signal is emitted by any object, via the MessageBus.
+#var player_hidden : bool = false
 #var score: int = 0 #We have a variable for score, which of course starts at zero.
 static var instance : GameManager
 
@@ -24,12 +25,13 @@ func _init() -> void:
 	instance = self
 
 func _ready() -> void:
+	hide_player() #We run this before everything else, so we don't have a frame where the player is visible.
 	await get_tree().process_frame
 	save_game = SaveManager.instance.save_game
 	current_gui = null
 	current_level2d = level_2D 
 	
-	#When you start, the current Level2D should just be the preset one.
+	#When you start, the current Level2D should just be the present one.
 	#We define entries in the Gui and Level -dictionaries.
 	gui_dict["PauseMenu"] = %PauseMenu
 	gui_dict["GameOverScreen"] = %GameOverScreen
@@ -42,7 +44,7 @@ func _ready() -> void:
 	#OVERRIDE RUNTIME DICT
 	override_runtime_from_save()
 	
-	#SAVE NEW DEFAULTS TO SAVE GAME
+	#region SAVE NEW DEFAULTS TO SAVE GAME
 	for level_name in level_dict.keys():
 		if !save_game.level_data_dict.has(level_name):
 			var level : Node2D = level_dict[level_name]
@@ -50,10 +52,14 @@ func _ready() -> void:
 			save_game.level_data_dict[level_name] = level_pack
 	if save_game.clean_save == false:
 		load_level2D(save_game, false)
-	#End new Defaults to save game	
+	#endregion
 	
 	MessageBus.instance.restart_now.connect(_set_rst_bool) #We connect the restart_now signal to our set-bool function
-		
+	#TODO: 
+		#DO I INSERT CODE TO MAKE MAIN MENU THE ACTIVE GUI AT THE END OF READY?
+	#Making sure the main menu works correctly.
+	change_gui_scene("MainMenu", false, false, false) #Make the Main Menu the current GUI.
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	_game_over_check(delta)
@@ -92,9 +98,13 @@ func override_runtime_from_save():
 		level_instance.process_mode = Node.PROCESS_MODE_DISABLED
 		owner.add_child(level_instance)
 	
+	#TURNING OFF TEMPORARILY
+	#current_level2d.show()
+	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
+	#END TURNOFF
+	current_level2d.hide()
+	current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
 	
-	current_level2d.show()
-	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
 			
 func change_level2D(new_level : String,
 	entry_point : int,
@@ -165,6 +175,10 @@ func change_gui_scene(
 	transition: bool,
 	seconds: float = 0.8 ) -> void:
 	
+	#region Turn off things that shouldn't be visible with a GUI.
+	hide_player()
+	#endregion
+	
 	#Condition to run a gui scene-transition.
 	if transition == true:
 		print_debug("We shall run a transition")
@@ -191,6 +205,20 @@ func change_gui_scene(
 		current_gui = new_gui
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
+
+func hide_player():
+	Player.instance.hide()
+	Player.instance.process_mode = Node.PROCESS_MODE_DISABLED
+	PlayerHud.instance.hide()
+	PlayerHud.instance.process_mode = Node.PROCESS_MODE_DISABLED
+	print_debug("Hid the player.")
+
+func show_player():
+	Player.instance.process_mode = Node.PROCESS_MODE_ALWAYS
+	Player.instance.show()
+	PlayerHud.instance.process_mode = Node.PROCESS_MODE_ALWAYS
+	PlayerHud.instance.show()
+	print_debug("Showed Player.")
 
 func new_game(): #We run this function when we want to start a new game.
 	save_game.reset_all_save()

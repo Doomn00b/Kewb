@@ -3,6 +3,7 @@
 @abstract 
 class_name State
 extends Node
+@warning_ignore("unused_signal")
 signal state_finished #We give the script the ability to send a signal, that it's done.
 
 @abstract 

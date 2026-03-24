@@ -25,10 +25,11 @@ mouse_filter = 2
 theme = ExtResource("1_kf0uv")
 
 [node name="MainMenu" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=547291516]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MainMenuLabel" type="Label" parent="CenterContainer/PanelContainer/MainMenu" unique_id=1501998747]
+[node name="MainMenuL" type="Label" parent="CenterContainer/PanelContainer/MainMenu" unique_id=1501998747]
 layout_mode = 2
 text = "Main Menu"
 
@@ -50,11 +51,12 @@ layout_mode = 2
 text = "Quit"
 
 [node name="NewGameMenu" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=418873145]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="NewGameLabel" type="Label" parent="CenterContainer/PanelContainer/NewGameMenu" unique_id=1232657591]
+[node name="CreateGameL" type="Label" parent="CenterContainer/PanelContainer/NewGameMenu" unique_id=1232657591]
 layout_mode = 2
 text = "Create New Game"
 
@@ -70,6 +72,21 @@ text = "Slot 2"
 [node name="NgSlot3" type="Button" parent="CenterContainer/PanelContainer/NewGameMenu" unique_id=1638840751]
 layout_mode = 2
 text = "Slot 3"
+
+[node name="SettingsMenu" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1703795397]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SettingsL" type="Label" parent="CenterContainer/PanelContainer/SettingsMenu" unique_id=1812445749]
+layout_mode = 2
+text = "Settings"
+
+[node name="DefConButt" type="Button" parent="CenterContainer/PanelContainer/SettingsMenu" unique_id=1006546401]
+layout_mode = 2
+theme = ExtResource("1_kf0uv")
+text = "Define Controls"
 
 [node name="BackgroundContainer" type="Control" parent="." unique_id=466855005]
 anchors_preset = 0
@@ -87,3 +104,6 @@ text = "Insert cool background with sprite-rotation and or parallax-scrolling he
 [connection signal="pressed" from="CenterContainer/PanelContainer/MainMenu/ContinueButton" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/MainMenu/SettingsButton" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/MainMenu/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/NewGameMenu/NgSlot1" to="." method="_on_slot_1_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/NewGameMenu/NgSlot2" to="." method="_on_slot_2_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/NewGameMenu/NgSlot3" to="." method="_on_slot_3_pressed"]

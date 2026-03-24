@@ -19,7 +19,6 @@ func _init() -> void:
 func _ready() -> void:
 	get_screens()
 	fade()
-
 #This function goes through the texture-rects of the Splash-Screen-container,
 #thereby letting us set properties of the screens. (such as making them invisible) 
 func get_screens() -> void:

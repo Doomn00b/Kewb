@@ -32,6 +32,7 @@ position = Vector2(-336, 200)
 
 [node name="LevelTest1" parent="World" unique_id=2143603366 node_paths=PackedStringArray("entry_dict") groups=["World"] instance=ExtResource("2_jyhfs")]
 unique_name_in_owner = true
+visible = false
 entry_dict = {
 0: NodePath("EPLeftLvl1"),
 1: NodePath("EPRightLvl1")
@@ -46,6 +47,7 @@ entry_dict = {
 }
 
 [node name="PlayerHud" parent="World" unique_id=1532401522 groups=["World"] instance=ExtResource("7_jw1n3")]
+unique_name_in_owner = true
 
 [node name="GuiCanvas" type="CanvasLayer" parent="." unique_id=1438152076]
 unique_name_in_owner = true

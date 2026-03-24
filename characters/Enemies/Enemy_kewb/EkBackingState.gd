@@ -18,7 +18,7 @@ func enter_state() -> void:
 	_back_off()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func update_state(delta : float) -> void:
+func update_state(_delta : float) -> void:
 	pass
 	#actor.take_damage(delta)
 	#actor.apply_gravity(delta)
