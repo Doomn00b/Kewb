@@ -4,7 +4,6 @@ extends State #We inherit from our old abstract class, making what's in here a S
 @export_category("Put Actor, aka Enemy-prefab here")
 @export var actor: EnemyKewb #We put our "Actor" here, in this case, our enemy-Kewb.
 
-
 signal found_player #Signal that sends to rush-state.
 signal hurt_roam #Signal that sends to stun-state or dead-state.
 

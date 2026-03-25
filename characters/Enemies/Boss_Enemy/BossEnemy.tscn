@@ -5,8 +5,10 @@
 [ext_resource type="Script" uid="uid://1axv5delrplo" path="res://characters/Enemies/Boss_Enemy/BeStateMachine.gd" id="3_uhyta"]
 [ext_resource type="Script" uid="uid://b7x7u6fk6fjcy" path="res://characters/Enemies/Boss_Enemy/BeIdlingState.gd" id="4_cv660"]
 [ext_resource type="Script" uid="uid://blrt8bnf6om54" path="res://characters/Enemies/Boss_Enemy/BeAttackState.gd" id="5_8whbs"]
+[ext_resource type="Script" uid="uid://hbl087b20d6c" path="res://characters/Enemies/Boss_Enemy/BeChargeState.gd" id="5_815es"]
 [ext_resource type="Script" uid="uid://cf3uq8bbkiib3" path="res://characters/Enemies/Boss_Enemy/BeDeadState.gd" id="6_jodin"]
 [ext_resource type="Script" uid="uid://csvjqorewwhlv" path="res://characters/Enemies/Boss_Enemy/BeBackState.gd" id="7_dvtu8"]
+[ext_resource type="Script" uid="uid://cu18r1po0w6hj" path="res://characters/Enemies/Boss_Enemy/BeAggroState.gd" id="8_72vpn"]
 [ext_resource type="Script" uid="uid://0kkl3mqafarr" path="res://characters/Enemies/Boss_Enemy/BeStunState.gd" id="8_q33qb"]
 
 [sub_resource type="Animation" id="Animation_pldee"]
@@ -151,6 +153,7 @@ size = Vector2(18, 4)
 script = ExtResource("1_kmttv")
 
 [node name="BeStateMachine" type="Node" parent="." unique_id=649877092 node_paths=PackedStringArray("actor", "state")]
+unique_name_in_owner = true
 script = ExtResource("3_uhyta")
 actor = NodePath("..")
 state = NodePath("BeIdlingState")
@@ -161,15 +164,20 @@ unique_name_in_owner = true
 script = ExtResource("4_cv660")
 metadata/_custom_type_script = "uid://b7x7u6fk6fjcy"
 
+[node name="BeAggroState" type="Node" parent="BeStateMachine" unique_id=856398286]
+unique_name_in_owner = true
+script = ExtResource("8_72vpn")
+metadata/_custom_type_script = "uid://cu18r1po0w6hj"
+
+[node name="BeChargeState" type="Node" parent="BeStateMachine" unique_id=170819510]
+unique_name_in_owner = true
+script = ExtResource("5_815es")
+metadata/_custom_type_script = "uid://hbl087b20d6c"
+
 [node name="BeAttackState" type="Node" parent="BeStateMachine" unique_id=1358257663]
 unique_name_in_owner = true
 script = ExtResource("5_8whbs")
 metadata/_custom_type_script = "uid://blrt8bnf6om54"
-
-[node name="BeDeadState" type="Node" parent="BeStateMachine" unique_id=2017618071]
-unique_name_in_owner = true
-script = ExtResource("6_jodin")
-metadata/_custom_type_script = "uid://cf3uq8bbkiib3"
 
 [node name="BeBackState" type="Node" parent="BeStateMachine" unique_id=1064730937]
 unique_name_in_owner = true
@@ -180,6 +188,11 @@ metadata/_custom_type_script = "uid://csvjqorewwhlv"
 unique_name_in_owner = true
 script = ExtResource("8_q33qb")
 metadata/_custom_type_script = "uid://0kkl3mqafarr"
+
+[node name="BeDeadState" type="Node" parent="BeStateMachine" unique_id=2017618071]
+unique_name_in_owner = true
+script = ExtResource("6_jodin")
+metadata/_custom_type_script = "uid://cf3uq8bbkiib3"
 
 [node name="BossSprite" type="Sprite2D" parent="." unique_id=1286476428]
 texture = ExtResource("2_ife0u")
