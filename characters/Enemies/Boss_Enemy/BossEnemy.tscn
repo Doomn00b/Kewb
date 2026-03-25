@@ -9,23 +9,146 @@
 [ext_resource type="Script" uid="uid://csvjqorewwhlv" path="res://characters/Enemies/Boss_Enemy/BeBackState.gd" id="7_dvtu8"]
 [ext_resource type="Script" uid="uid://0kkl3mqafarr" path="res://characters/Enemies/Boss_Enemy/BeStunState.gd" id="8_q33qb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmttv"]
+[sub_resource type="Animation" id="Animation_pldee"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_q33qb"]
+resource_name = "b_attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BDmgArea/BDmgZone:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BDmgArea/BDmgZone:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-47, -60)]
+}
+
+[sub_resource type="Animation" id="Animation_72vpn"]
+resource_name = "b_dead"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BDmgArea/BDmgZone:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_815es"]
+resource_name = "b_hurt"
+
+[sub_resource type="Animation" id="Animation_3506i"]
+resource_name = "b_idling"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BDmgArea/BDmgZone:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8ag6i"]
+resource_name = "b_laugh"
+
+[sub_resource type="Animation" id="Animation_tqpp3"]
+resource_name = "b_stunned"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pldee"]
+_data = {
+&"RESET": SubResource("Animation_pldee"),
+&"b_attack": SubResource("Animation_q33qb"),
+&"b_dead": SubResource("Animation_72vpn"),
+&"b_hurt": SubResource("Animation_815es"),
+&"b_idling": SubResource("Animation_3506i"),
+&"b_laugh": SubResource("Animation_8ag6i"),
+&"b_stunned": SubResource("Animation_tqpp3")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ife0u"]
+size = Vector2(72, 75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmttv"]
+size = Vector2(18, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q33qb"]
+size = Vector2(18, 4)
 
 [node name="BossEnemy" type="CharacterBody2D" unique_id=2030049102]
 script = ExtResource("1_kmttv")
-
-[node name="BHurtArea" type="Area2D" parent="." unique_id=1689316625]
-
-[node name="BHurtZone" type="CollisionShape2D" parent="BHurtArea" unique_id=29824418]
-shape = SubResource("RectangleShape2D_kmttv")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1182738398]
-shape = SubResource("RectangleShape2D_ife0u")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1286476428]
-texture = ExtResource("2_ife0u")
 
 [node name="BeStateMachine" type="Node" parent="." unique_id=649877092 node_paths=PackedStringArray("actor", "state")]
 script = ExtResource("3_uhyta")
@@ -57,3 +180,30 @@ metadata/_custom_type_script = "uid://csvjqorewwhlv"
 unique_name_in_owner = true
 script = ExtResource("8_q33qb")
 metadata/_custom_type_script = "uid://0kkl3mqafarr"
+
+[node name="BossSprite" type="Sprite2D" parent="." unique_id=1286476428]
+texture = ExtResource("2_ife0u")
+hframes = 3
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1722699440]
+libraries/ = SubResource("AnimationLibrary_pldee")
+
+[node name="BCollShape" type="CollisionShape2D" parent="." unique_id=1182738398]
+position = Vector2(4, 0.5)
+shape = SubResource("RectangleShape2D_ife0u")
+debug_color = Color(0, 0.6386965, 0.3794457, 0.41960785)
+
+[node name="BHurtArea" type="Area2D" parent="." unique_id=1689316625]
+
+[node name="BHurtZone" type="CollisionShape2D" parent="BHurtArea" unique_id=29824418]
+position = Vector2(8, -32)
+shape = SubResource("RectangleShape2D_kmttv")
+debug_color = Color(0.91491103, 0.17892787, 0.5732176, 0.41960785)
+
+[node name="BDmgArea" type="Area2D" parent="." unique_id=1049933938]
+
+[node name="BDmgZone" type="CollisionShape2D" parent="BDmgArea" unique_id=1751793644]
+position = Vector2(-47, -60)
+shape = SubResource("RectangleShape2D_q33qb")
+debug_color = Color(0.91491103, 0.17892787, 0.5732176, 0.41960785)
