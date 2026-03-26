@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://df32owiq5jjp"]
 
 [ext_resource type="Texture2D" uid="uid://bg7n8yeiv4pfp" path="res://interactables/Buttons/kewb-door_vert-button.png" id="1_ecsuh"]
-[ext_resource type="Script" uid="uid://b150fx1ctel3q" path="res://interactables/Buttons/Buttons.gd" id="1_f7n2h"]
+[ext_resource type="Script" uid="uid://b150fx1ctel3q" path="res://interactables/Buttons/PunchButtons.gd" id="1_f7n2h"]
 
 [sub_resource type="Animation" id="Animation_ecsuh"]
 length = 0.001

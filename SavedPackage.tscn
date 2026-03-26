@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://b0tcwj47yq257" path="res://interactables/Doors/Doors.gd" id="7_kaxu5"]
 [ext_resource type="Texture2D" uid="uid://d3dhj0wq2s6oq" path="res://interactables/Doors/kewb-door_sideways.png" id="8_shl00"]
 [ext_resource type="PackedScene" uid="uid://df32owiq5jjp" path="res://interactables/Buttons/VertButton.tscn" id="9_6d2jm"]
-[ext_resource type="Script" uid="uid://b150fx1ctel3q" path="res://interactables/Buttons/Buttons.gd" id="10_es1qo"]
+[ext_resource type="Script" uid="uid://b150fx1ctel3q" path="res://interactables/Buttons/PunchButtons.gd" id="10_es1qo"]
 [ext_resource type="Texture2D" uid="uid://bg7n8yeiv4pfp" path="res://interactables/Buttons/kewb-door_vert-button.png" id="11_qa7f4"]
 [ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/Door.tscn" id="12_46it7"]
 [ext_resource type="Texture2D" uid="uid://du4ip7qhs16o" path="res://interactables/Doors/kewb-door_arch.png" id="13_7fbdo"]

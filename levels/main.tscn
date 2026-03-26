@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cepwkqqc6s3dp" path="res://levels/KewbTest2.tscn" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://dsjr2e3n05mnb" path="res://GUI/GUI.tscn" id="3_m1504"]
 [ext_resource type="PackedScene" uid="uid://lc0p06eyckk2" path="res://game_management/TransitionController.tscn" id="4_m1504"]
+[ext_resource type="PackedScene" uid="uid://7fcyoo4g7o4k" path="res://levels/BossLevTest.tscn" id="6_6yxbg"]
 [ext_resource type="PackedScene" uid="uid://cgsfdbl40fwq8" path="res://GUI/PlayerHud/PlayerHud.tscn" id="7_jw1n3"]
 [ext_resource type="Script" uid="uid://byfwftw4s2gg6" path="res://game_management/SaveManager.gd" id="7_qy63d"]
 [ext_resource type="Script" uid="uid://6cdocq3nrno7" path="res://game_management/LevelPackUser.gd" id="8_6et1j"]
@@ -28,6 +29,7 @@ metadata/_custom_type_script = "uid://bxgpyf6pshwbn"
 
 [node name="Player" parent="World" unique_id=1236161566 groups=["World"] instance=ExtResource("2_5k4jt")]
 unique_name_in_owner = true
+visible = false
 position = Vector2(-336, 200)
 
 [node name="LevelTest1" parent="World" unique_id=2143603366 node_paths=PackedStringArray("entry_dict") groups=["World"] instance=ExtResource("2_jyhfs")]
@@ -44,6 +46,12 @@ process_mode = 4
 visible = false
 entry_dict = {
 0: NodePath("EPleftLvl2")
+}
+
+[node name="BossLevTest" parent="World" unique_id=432425589 node_paths=PackedStringArray("entry_dict") groups=["World"] instance=ExtResource("6_6yxbg")]
+visible = false
+entry_dict = {
+0: NodePath("EPleftLvl3")
 }
 
 [node name="PlayerHud" parent="World" unique_id=1532401522 groups=["World"] instance=ExtResource("7_jw1n3")]

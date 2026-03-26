@@ -14,5 +14,5 @@ func _ready() -> void:
 	state_dict["Backing"] = %BeBackState
 	
 	actor.enemy_died.connect(change_state.bind("Death")) #We connect the signal for when enemy goes into death-state.
-	actor.damaged_player.connect(change_state.bind("Backing"))
+	actor.b_damaged_player.connect(change_state.bind("Backing"))
 	super() #Run same code as in overriden function

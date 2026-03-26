@@ -1,6 +1,6 @@
 @tool
 @icon("res://interactables/Buttons/switch_symbol.png")
-class_name Buttons
+class_name PunchButtons
 extends Node2D
 
 signal button_activated
@@ -25,11 +25,11 @@ func _ready() -> void:
 		
 		
 func _on_player_entered(_node: Node2D) -> void: #When the player walks next to the buttons collider.
-	MessageBus.instance.input_hint_changed.emit(GameEnums.HintMsg.INTERACT) #When the player enters, the hint-message INTERACT should be emitted.
+	MessageBus.instance.input_hint_changed.emit(GameEnums.HintMsg.INTERACTMSG) #When the player enters, the hint-message INTERACT should be emitted.
 	print_debug("Player entered button-range.")
 	
 func _on_player_exited(_node: Node2D) -> void: #Maybe ON-FIST-EXITED?
-	MessageBus.instance.input_hint_changed.emit(GameEnums.HintMsg.NOTHING) #When the player exits, the hint-message NOTHING makes the pop-up invisible.
+	MessageBus.instance.input_hint_changed.emit(GameEnums.HintMsg.NO_HINT) #When the player exits, the hint-message NO_HINT makes the pop-up invisible.
 	print_debug("Player EXITED Button-range.")
 
 func _on_player_punched(area: Area2D) -> void: #This is what happens if you punch the button.

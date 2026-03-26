@@ -40,6 +40,7 @@ func _ready() -> void:
 	#DEFAULTS TO RUNTIME DICT
 	level_dict["Level1"] = %LevelTest1
 	level_dict["Level2"] = %LevelTest2
+	level_dict["Level3"] = %LevelTest2
 	
 	#OVERRIDE RUNTIME DICT
 	override_runtime_from_save()

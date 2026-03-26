@@ -12,7 +12,7 @@ func _ready():
 		return
 	#This connects the door to the button.
 	for children in get_children():
-		if children is Buttons: #If there's a child that's a Button, then...
+		if children is PunchButtons: #If there's a child that's a Button, then...
 			children.button_activated.connect(_on_button_activated) #Connect the button_activated signal to the On-button-activated function.
 			if children.is_open == true: #If our is-open bool in button has been set, then...
 				_on_button_remain() #...make sure the door remains open.
@@ -37,6 +37,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func _check_for_button() -> bool: #This function checks if the door has a button connected to it. (so it can be opened)
 	for children in get_children():
-		if children is Buttons: #Maybe add: or OTHER way of opening...?
+		if children is PunchButtons: #Maybe add: or OTHER way of opening...?
 			return true
 	return false

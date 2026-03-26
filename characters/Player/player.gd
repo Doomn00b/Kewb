@@ -69,7 +69,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
 	#input from our movement-actions.
-	move_dir.x = Input.get_axis("move_back", "move_forward")
+	move_dir.x = Input.get_axis("move_left", "move_right")
 	move_dir.y = Input.get_axis("move_up", "move_down")
 	#STATE CHECK, IF MOVE DIR STATE IS WALKING; ELSE IDLE
 	if move_dir.x != 0.0:

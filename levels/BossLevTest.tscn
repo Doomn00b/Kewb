@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_wte1x"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="2_2lamh"]
-[ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="3_p5nx4"]
+[ext_resource type="PackedScene" uid="uid://c5858a2o7dwsx" path="res://characters/Enemies/Boss_Enemy/BossEnemy.tscn" id="3_wte1x"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="4_6ip4h"]
 [ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/Door.tscn" id="5_dg7s0"]
 [ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="6_te63e"]
@@ -86,15 +86,14 @@ metadata/_edit_group_ = true
 position = Vector2(23, 33.75)
 shape = SubResource("RectangleShape2D_mg0xd")
 
-[node name="EnemySpawner3" parent="." unique_id=562540624 node_paths=PackedStringArray("spawn_points") instance=ExtResource("2_2lamh")]
-enemy_tscn = ExtResource("3_p5nx4")
-spawn_points = [NodePath("Point"), NodePath("")]
+[node name="EnemySpawner3" parent="." unique_id=562540624 instance=ExtResource("2_2lamh")]
+enemy_tscn = ExtResource("3_wte1x")
 
 [node name="SpawnCooldown" parent="EnemySpawner3" index="0" unique_id=1656349062]
 wait_time = 0.5
 
 [node name="Point" parent="EnemySpawner3" index="1" unique_id=251681297]
-position = Vector2(352, 120)
+position = Vector2(-65, 157)
 
 [node name="BlueTilesTop" type="TileMapLayer" parent="." unique_id=1119523911]
 modulate = Color(1, 0.3795921, 0.29548228, 1)
