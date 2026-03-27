@@ -71,7 +71,7 @@ entry_dict = {
 position = Vector2(-296, 200)
 
 [node name="TestBlock" type="StaticBody2D" parent="." unique_id=1762496683 groups=["Obstacle", "Walls"]]
-position = Vector2(-392, 88)
+position = Vector2(-479, 88)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestBlock" unique_id=843593661]

@@ -1,6 +1,10 @@
 class_name BeAggroState
 extends State
 
+@export_category("Put Actor, aka Boss-prefab here")
+@export var actor: BossEnemy #We put our "Actor" here, in this case, our Boss-enemy-kewb.
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -12,10 +16,10 @@ func _process(_delta: float) -> void:
 
  
 func enter_state() -> void:
-	pass
+	print_debug("Boss entered AGGRO!")
 
 func update_state(_delta : float) -> void:
 	pass
 
 func exit_state() -> void:
-	pass
+	print_debug("Boss exited Aggro")

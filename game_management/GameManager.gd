@@ -12,6 +12,11 @@ var current_level2d : Node2D
 var current_level_name : String :
 	get():
 		return level_dict.find_key(current_level2d)
+
+#var current_level_value: Node2D :
+	#get():
+		#return level_dict.values(current_level2d)
+
 var current_gui : Control
 var level_dict : Dictionary[String, Node2D] = {}
 var gui_dict : Dictionary[String, Control] = {} #Store loaded scenes by path. We make a dictionary for our scenes, so we don't overload memory.
@@ -40,7 +45,7 @@ func _ready() -> void:
 	#DEFAULTS TO RUNTIME DICT
 	level_dict["Level1"] = %LevelTest1
 	level_dict["Level2"] = %LevelTest2
-	level_dict["Level3"] = %LevelTest2
+	level_dict["Level3"] = %BossLevTest
 	
 	#OVERRIDE RUNTIME DICT
 	override_runtime_from_save()
@@ -56,8 +61,6 @@ func _ready() -> void:
 	#endregion
 	
 	MessageBus.instance.restart_now.connect(_set_rst_bool) #We connect the restart_now signal to our set-bool function
-	#TODO: 
-		#DO I INSERT CODE TO MAKE MAIN MENU THE ACTIVE GUI AT THE END OF READY?
 	#Making sure the main menu works correctly.
 	change_gui_scene("MainMenu", false, false, false) #Make the Main Menu the current GUI.
 	
@@ -71,16 +74,13 @@ func _set_rst_bool():
 	
 func _game_over_check(_delta) -> void:
 	#is_game_over is set by the Player if it gets zero health.
-	#if is_game_over == true and Input.is_action_just_pressed("ui_accept") :
 	#The below code loops the transition constantly, so now the player runs it instead.
 	#if is_game_over == true:
 		#change_gui_scene("GameOverScreen", false, false, true) #If we're game over, run the game-over-screen.
-	
 	if is_game_over == true and reset_req == true:
 		print_debug("We shall reset.")
 		#Insert a function for saving potential score to a resource.
-		#Start the Game-over screen - it shall then run either 
-		#reset_game or load_level2D
+		#Start the Game-over screen - it shall then run either reset_game or load_level2D
 		reset_game() #We run the reset-game function.
 
 func override_runtime_from_save():
@@ -225,11 +225,20 @@ func new_game(): #We run this function when we want to start a new game.
 	save_game.reset_all_save()
 	change_level2D("Level1", 0, true)
 
+func disable_lvls():
+	#if !current_level2d:
+	for level in level_dict.values(): #For all of the levels in the values(Node2D's) of the level-dict...
+		if !current_level2d:
+			level.hide()
+			level.process_mode = PROCESS_MODE_DISABLED
+		
+		#print_debug("These levels were turned off:" level.)
+
 func reset_game(): #Because you died, but you're restarting...
 	#This function is run by the _check_game_over function, which runs in process-update. Every frame of the game it checks this.
 	#score = 0 #We need some lines here for loa
 	is_game_over = false
 	reset_req = false
 	save_game.reset_all_save()
-	get_tree().reload_current_scene()
 	print_debug("Restarting game.")
+	get_tree().reload_current_scene()

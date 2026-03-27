@@ -3,10 +3,15 @@ extends Enemy
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -400.0
-
+const B_MAX_HEALTH = 16
 signal b_damaged_player()
 @export var base_damage : int = 2
 @onready var spot_p_shapecast : ShapeCast2D = %SpotPlaySC
+@onready var animator: AnimationPlayer = %AnimationPlayer
+
+var health = B_MAX_HEALTH #We make a new variable based on the Health-constant.
+
+static var enemies_spawned : int = 0 #This variable determines how many enemies have spawned.
 
 func _ready() -> void:
 	pass
@@ -32,3 +37,10 @@ func _on_pbody_ent_dmg(node: Node2D) -> void:
 	if node is Player:
 		node.take_damage(base_damage)
 		b_damaged_player.emit()
+		
+func take_damage(damage : int):
+	health -= damage #Enemy's health decreases by 5, per punch that connects.
+	print("Boss Took Damage!")
+	if health <= 0: #If the enemy gets zero or less health,then...
+		enemy_died.emit() #...we emit the enemy-died signal.
+		print("Boss-Enemy died, start death-state.")

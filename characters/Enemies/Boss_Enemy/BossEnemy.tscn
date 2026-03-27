@@ -162,39 +162,46 @@ actor = NodePath("..")
 state = NodePath("BeIdlingState")
 metadata/_custom_type_script = "uid://1axv5delrplo"
 
-[node name="BeIdlingState" type="Node" parent="BeStateMachine" unique_id=592889836]
+[node name="BeIdlingState" type="Node" parent="BeStateMachine" unique_id=592889836 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("4_cv660")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://b7x7u6fk6fjcy"
 
-[node name="BeAggroState" type="Node" parent="BeStateMachine" unique_id=856398286]
+[node name="BeAggroState" type="Node" parent="BeStateMachine" unique_id=856398286 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("8_72vpn")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://cu18r1po0w6hj"
 
-[node name="BeChargeState" type="Node" parent="BeStateMachine" unique_id=170819510]
+[node name="BeChargeState" type="Node" parent="BeStateMachine" unique_id=170819510 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("5_815es")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://hbl087b20d6c"
 
-[node name="BeAttackState" type="Node" parent="BeStateMachine" unique_id=1358257663]
+[node name="BeAttackState" type="Node" parent="BeStateMachine" unique_id=1358257663 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("5_8whbs")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://blrt8bnf6om54"
 
-[node name="BeBackState" type="Node" parent="BeStateMachine" unique_id=1064730937]
+[node name="BeBackState" type="Node" parent="BeStateMachine" unique_id=1064730937 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("7_dvtu8")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://csvjqorewwhlv"
 
-[node name="BeStunState" type="Node" parent="BeStateMachine" unique_id=1707215155]
+[node name="BeStunState" type="Node" parent="BeStateMachine" unique_id=1707215155 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("8_q33qb")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://0kkl3mqafarr"
 
-[node name="BeDeadState" type="Node" parent="BeStateMachine" unique_id=2017618071]
+[node name="BeDeadState" type="Node" parent="BeStateMachine" unique_id=2017618071 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("6_jodin")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://cf3uq8bbkiib3"
 
 [node name="BossSprite" type="Sprite2D" parent="." unique_id=1286476428]
@@ -203,6 +210,7 @@ hframes = 3
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1722699440]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_pldee")
 
 [node name="BCollShape" type="CollisionShape2D" parent="." unique_id=1182738398]

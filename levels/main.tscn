@@ -49,6 +49,7 @@ entry_dict = {
 }
 
 [node name="BossLevTest" parent="World" unique_id=432425589 node_paths=PackedStringArray("entry_dict") groups=["World"] instance=ExtResource("6_6yxbg")]
+unique_name_in_owner = true
 visible = false
 entry_dict = {
 0: NodePath("EPleftLvl3")
@@ -56,6 +57,7 @@ entry_dict = {
 
 [node name="PlayerHud" parent="World" unique_id=1532401522 groups=["World"] instance=ExtResource("7_jw1n3")]
 unique_name_in_owner = true
+visible = false
 
 [node name="GuiCanvas" type="CanvasLayer" parent="." unique_id=1438152076]
 unique_name_in_owner = true
