@@ -27,7 +27,6 @@ theme = ExtResource("1_kf0uv")
 
 [node name="MainMenu" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=547291516]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
@@ -116,8 +115,9 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/ControlsMenu/ScrollContainer" unique_id=1635170268]
+custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 20
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/ControlsMenu/ScrollContainer/VBoxContainer" unique_id=959337473]
 layout_mode = 2
@@ -143,6 +143,7 @@ layout_mode = 2
 
 [node name="HSeparator2" type="HSeparator" parent="CenterContainer/PanelContainer/ControlsMenu/ScrollContainer/VBoxContainer" unique_id=574458568]
 layout_mode = 2
+theme_override_constants/separation = 4
 
 [node name="BackgroundContainer" type="Control" parent="." unique_id=466855005]
 anchors_preset = 0
@@ -163,3 +164,4 @@ text = "Insert cool background with sprite-rotation and or parallax-scrolling he
 [connection signal="pressed" from="CenterContainer/PanelContainer/NewGameMenu/NgSlot1" to="." method="_on_slot_1_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/NewGameMenu/NgSlot2" to="." method="_on_slot_2_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/NewGameMenu/NgSlot3" to="." method="_on_slot_3_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/SettingsMenu/ConButt" to="." method="_on_controls_pressed"]

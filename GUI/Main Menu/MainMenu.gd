@@ -7,6 +7,8 @@ extends Control
 @onready var main_menu : VBoxContainer = %MainMenu #We get the menu-boxes, so we can turn them on/off.
 @onready var new_game_menu : VBoxContainer = %NewGameMenu
 @onready var settings_menu : VBoxContainer = %SettingsMenu
+@onready var controls_menu : VBoxContainer = %ControlsMenu
+
 @onready var gm : GameManager = GameManager.instance
 var menu_dict : Dictionary[String, VBoxContainer]
 var current_menu : VBoxContainer
@@ -16,6 +18,7 @@ func _ready() -> void:
 	menu_dict["Main"] = main_menu
 	menu_dict["NewGame"] = new_game_menu
 	menu_dict["Settings"] = settings_menu
+	menu_dict["Controls"] = controls_menu
 	
 	_hide_menus() #First we turn everything off...
 	current_menu = main_menu #We make main menu the current menu we want.
@@ -33,10 +36,12 @@ func _show_menu():
 #region Main Menu Buttons
 func _on_new_game_pressed() -> void:
 	_hide_menus() #Hide everything first.
+	previous_menu = current_menu
 	current_menu = new_game_menu
 	_show_menu()
 
 func _on_continue_pressed() -> void:
+	_hide_menus()
 	gm.load_level2D(gm.save_game, true)
 	#Run the load_level2D function from GameManager, to load a previous savegame.
 	print_debug("Pressed Continue, aka Load game.") 
@@ -44,9 +49,10 @@ func _on_continue_pressed() -> void:
 
 func _on_settings_pressed() -> void:
 	_hide_menus()
+	previous_menu = current_menu
 	current_menu = settings_menu
 	_show_menu()
-	print_debug("Pressed settings, but we don't have any settings. Heh.") 
+	print_debug("Pressed settings.") 
 
 func _on_quit_pressed() -> void:
 	#Put in something to make a box pop up that double-checks if you want to quit.
@@ -59,20 +65,33 @@ func _on_quit_pressed() -> void:
 func _on_slot_1_pressed() -> void: 
 	#TODO: Add some code here for making a new save game and stuff
 	gm.instance.new_game() #We get the GM instance and run its new-game function.
-	gm.instance.current_gui.hide() #Make the Main Menu invisible.
 	print_debug("Started a new game in slot1.")
 	
 func _on_slot_2_pressed() -> void:
-	#gm.instance.current_gui.hide() #Make the Main Menu invisible.
+	#Make the Main Menu invisible.
 	pass # Replace with function body.
 	
 func _on_slot_3_pressed() -> void:
-	#gm.instance.current_gui.hide() #Make the Main Menu invisible.
+	#Make the Main Menu invisible.
 	pass # Replace with function body.
 #endregion
 
+func _on_controls_pressed() -> void:
+	_hide_menus()
+	previous_menu = current_menu
+	current_menu = controls_menu
+	_show_menu()
+	print_debug("Pressed settings.") 
+
+
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	#region Go back in menu Guard-clause!
+	if self.process_mode == PROCESS_MODE_DISABLED:
+		return
+	#endregion
+	elif event.is_action_pressed("ui_cancel"):
+		if previous_menu == null:
+			return
 		#Audio-cue.
 		_hide_menus() #First we turn everything off...
 		current_menu = previous_menu

@@ -130,13 +130,13 @@ func _jumping(_delta: float) -> void:
 		velocity.y = walk_jump_vel
 		current_anim_state = AnimationState.PAJUMP
 		_unground_player() #We make sure to say the player isn't grounded.
-		print_debug("Player jumped")
+		#print_debug("Player jumped")
 	#Jump higher
 	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("charge") and is_on_floor(): #If we're also holding charge...
 		velocity.y = run_jump_vel 
 		current_anim_state = AnimationState.PAJUMP
 		_unground_player()
-		print_debug("Player jumped higher")
+		#print_debug("Player jumped higher")
 
 
 func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.

@@ -35,7 +35,7 @@ func _on_lt_area_body_entered(body: Node2D) -> void: #Check if the player enters
 
 func _transition_level(): #Transition to a different level, runs when signal is emitted.
 	GameManager.instance.change_level2D(target_level, entry_point) #We run the change-level function in the GameManager, and designate a level and an entry-point
-	GameManager.instance.disable_lvls() #We turn off the other levels in the dictionary, to make sure.
+	#GameManager.instance.disable_lvls() #We turn off the other levels in the dictionary, to make sure.
 	
 func apply_area_settings(): #This function changes the size et c properties of the transition-zone.
 	area_2d = get_node_or_null("")

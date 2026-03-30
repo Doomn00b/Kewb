@@ -4,7 +4,7 @@ extends State
 @export_category("Put Actor, aka Boss-prefab here")
 @export var actor: BossEnemy #We put our "Actor" here, in this case, our Boss-enemy-kewb.
 
-signal b_found_player #Signal that sends to charging-state.
+signal b_found_player #Signal that sends to aggro-state.
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void: #Start
@@ -14,8 +14,9 @@ func _ready() -> void: #Start
 func enter_state() -> void:
 	print_debug("Boss entered Idling.")
 
-func update_state(_delta : float) -> void:
+func update_state(delta : float) -> void:
 	_idling()
+	_seek_player(delta)
 
 func _idling():
 	actor.animator.play("b_idling") #We play the walking-animation, using the Actors animator.

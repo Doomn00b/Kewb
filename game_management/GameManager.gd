@@ -13,10 +13,6 @@ var current_level_name : String :
 	get():
 		return level_dict.find_key(current_level2d)
 
-#var current_level_value: Node2D :
-	#get():
-		#return level_dict.values(current_level2d)
-
 var current_gui : Control
 var level_dict : Dictionary[String, Node2D] = {}
 var gui_dict : Dictionary[String, Control] = {} #Store loaded scenes by path. We make a dictionary for our scenes, so we don't overload memory.
@@ -47,6 +43,9 @@ func _ready() -> void:
 	level_dict["Level2"] = %LevelTest2
 	level_dict["Level3"] = %BossLevTest
 	
+	#disable_lvls()
+	#current_level2d.show()
+	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
 	#OVERRIDE RUNTIME DICT
 	override_runtime_from_save()
 	
@@ -99,13 +98,6 @@ func override_runtime_from_save():
 		level_instance.process_mode = Node.PROCESS_MODE_DISABLED
 		owner.add_child(level_instance)
 	
-	#TURNING OFF TEMPORARILY
-	#current_level2d.show()
-	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
-	#END TURNOFF
-	current_level2d.hide()
-	current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
-	
 			
 func change_level2D(new_level : String,
 	entry_point : int,
@@ -120,8 +112,7 @@ func change_level2D(new_level : String,
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
 	#End transition-condition.
 	#OLD LEVEL TURN OFF
-	current_level2d.visible = false
-	current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
+	disable_lvls()
 	current_level2d = level_dict[new_level] #Rewrite here
 	
 	#NEW LEVEL TURN ON
@@ -150,8 +141,9 @@ func load_level2D(
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
 	#End transition-condition.
 	#OLD LEVEL TURN OFF
-	current_level2d.visible = false
-	current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
+	disable_lvls()
+	#current_level2d.visible = false
+	#current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
 	current_level2d = level_dict[save_game.current_level]
 	
 	#NEW LEVEL TURN ON
@@ -195,8 +187,7 @@ func change_gui_scene(
 			current_gui.queue_free() #Remove from memory.
 			gui_dict.erase(gui_dict.find_key(current_gui)) #remove it from dictionary.
 		elif keep_running:
-			current_gui.visible = false #Keeps the gui in memory and running.
-			current_gui.process_mode = Node.PROCESS_MODE_DISABLED
+			hide_current_gui() #Hides and then turns off processing.
 
 	var new_gui: Control
 	if gui_dict.has(new_guiscene):
@@ -224,13 +215,23 @@ func show_player():
 func new_game(): #We run this function when we want to start a new game.
 	save_game.reset_all_save()
 	change_level2D("Level1", 0, true)
+	disable_guis()
+
+func disable_guis():
+	for _gui in gui_dict.values():
+		_gui.hide()
+		gui.process_mode = Node.PROCESS_MODE_DISABLED
+
+func hide_current_gui():
+	current_gui.visible = false #Keeps the gui in memory and running.
+	current_gui.process_mode = Node.PROCESS_MODE_DISABLED
+	
 
 func disable_lvls():
 	#if !current_level2d:
 	for level in level_dict.values(): #For all of the levels in the values(Node2D's) of the level-dict...
-		if !current_level2d:
-			level.hide()
-			level.process_mode = PROCESS_MODE_DISABLED
+		level.hide()
+		level.process_mode = PROCESS_MODE_DISABLED
 		
 		#print_debug("These levels were turned off:" level.)
 

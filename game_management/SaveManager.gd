@@ -8,7 +8,7 @@ var save_game: SaveGame = null
 @export var player_char: Player #THIS is an issue! My player is not based on a resource.
 @export var upgrades: Resource
 #@export var health
-@export var level_name := ""
+@export var level_name : String = ""
 @export var player_glob_pos := Vector2.ZERO 
 
 static var instance : SaveManager
