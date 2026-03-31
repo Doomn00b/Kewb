@@ -128,7 +128,7 @@ size = Vector2(7, 27)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_btoix"]
 size = Vector2(4, 24)
 
-[node name="DoorSideways" type="Node2D" unique_id=81813317]
+[node name="DoorSideways" type="Node2D" unique_id=81813317 groups=["Walls", "World"]]
 script = ExtResource("1_8p8p1")
 
 [node name="KewbDoorSideways" type="Sprite2D" parent="." unique_id=400005428]

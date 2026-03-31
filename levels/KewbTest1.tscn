@@ -73,7 +73,7 @@ collision_visibility_mode = 1
 physics_quadrant_size = 32
 navigation_enabled = false
 
-[node name="BrownTilesStart-left" type="TileMapLayer" parent="." unique_id=2001272196]
+[node name="BrownTilesStart-left" type="TileMapLayer" parent="." unique_id=2001272196 groups=["Walls"]]
 z_index = 1
 y_sort_enabled = true
 position = Vector2(0, -8)
@@ -81,7 +81,7 @@ tile_map_data = PackedByteArray("AADj/w8AAAABAAcAAADi/w8AAAAAAAcAAADj/w4AAAABAAY
 tile_set = ExtResource("9_prie1")
 navigation_enabled = false
 
-[node name="BrownTilesEnd-right" type="TileMapLayer" parent="." unique_id=633128645]
+[node name="BrownTilesEnd-right" type="TileMapLayer" parent="." unique_id=633128645 groups=["Walls"]]
 z_index = -2
 y_sort_enabled = true
 position = Vector2(896, -8)

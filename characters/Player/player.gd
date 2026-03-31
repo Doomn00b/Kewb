@@ -233,7 +233,7 @@ func _ground_player():
 	
 func _unground_player():
 	is_grounded = false
-	print_debug("Ungrounded player.")
+	#print_debug("Ungrounded player.")
 	
 	#Pseudo-code: 
 	#Constant acceleration

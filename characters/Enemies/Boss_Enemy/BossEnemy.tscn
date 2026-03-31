@@ -26,6 +26,33 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_ebq0b"]
+resource_name = "b_aggro"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BDmgArea/BDmgZone:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_q33qb"]
 resource_name = "b_attack"
 tracks/0/type = "value"
@@ -38,7 +65,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [2]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -62,8 +89,48 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-47, -60)]
+"values": [Vector2(-56, 53)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BDmgArea/BDmgZone:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.2025318546240926]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BCollHead:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3.5, -29)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BCollHead:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.12217304763960307]
+}
+
+[sub_resource type="Animation" id="Animation_uquiv"]
+resource_name = "b_charging"
+length = 1.8
 
 [sub_resource type="Animation" id="Animation_72vpn"]
 resource_name = "b_dead"
@@ -78,7 +145,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [2]
+"values": [3]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -132,7 +199,9 @@ resource_name = "b_stunned"
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pldee"]
 _data = {
 &"RESET": SubResource("Animation_pldee"),
+&"b_aggro": SubResource("Animation_ebq0b"),
 &"b_attack": SubResource("Animation_q33qb"),
+&"b_charging": SubResource("Animation_uquiv"),
 &"b_dead": SubResource("Animation_72vpn"),
 &"b_hurt": SubResource("Animation_815es"),
 &"b_idling": SubResource("Animation_3506i"),
@@ -141,16 +210,19 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ife0u"]
-size = Vector2(72, 75)
+size = Vector2(71, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmttv"]
 size = Vector2(18, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q33qb"]
-size = Vector2(18, 4)
+size = Vector2(15.6777115, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_815es"]
 size = Vector2(34, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ag6i"]
+size = Vector2(15, 4)
 
 [node name="BossEnemy" type="CharacterBody2D" unique_id=2030049102]
 script = ExtResource("1_kmttv")
@@ -168,17 +240,30 @@ script = ExtResource("4_cv660")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://b7x7u6fk6fjcy"
 
+[node name="BeDelayIdle" type="Timer" parent="BeStateMachine/BeIdlingState" unique_id=1933485509]
+unique_name_in_owner = true
+wait_time = 1.2
+one_shot = true
+
 [node name="BeAggroState" type="Node" parent="BeStateMachine" unique_id=856398286 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("8_72vpn")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://cu18r1po0w6hj"
 
+[node name="BeAggroDelay" type="Timer" parent="BeStateMachine/BeAggroState" unique_id=1012504771]
+unique_name_in_owner = true
+wait_time = 0.8
+one_shot = true
+
 [node name="BeChargeState" type="Node" parent="BeStateMachine" unique_id=170819510 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("5_815es")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://hbl087b20d6c"
+
+[node name="BeDelayCharge" type="Timer" parent="BeStateMachine/BeChargeState" unique_id=439516887]
+unique_name_in_owner = true
 
 [node name="BeAttackState" type="Node" parent="BeStateMachine" unique_id=1358257663 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
@@ -206,14 +291,15 @@ metadata/_custom_type_script = "uid://cf3uq8bbkiib3"
 
 [node name="BossSprite" type="Sprite2D" parent="." unique_id=1286476428]
 texture = ExtResource("2_ife0u")
-hframes = 3
+hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1722699440]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_pldee")
 
-[node name="BCollShape" type="CollisionShape2D" parent="." unique_id=1182738398]
-position = Vector2(4, 0.5)
+[node name="BCollHead" type="CollisionShape2D" parent="." unique_id=1182738398]
+position = Vector2(3.5, -29)
+rotation = -0.12217305
 shape = SubResource("RectangleShape2D_ife0u")
 debug_color = Color(0, 0.6386965, 0.3794457, 0.41960785)
 
@@ -225,9 +311,12 @@ shape = SubResource("RectangleShape2D_kmttv")
 debug_color = Color(0.91491103, 0.17892787, 0.5732176, 0.41960785)
 
 [node name="BDmgArea" type="Area2D" parent="." unique_id=1049933938]
+collision_layer = 2
+collision_mask = 4
 
 [node name="BDmgZone" type="CollisionShape2D" parent="BDmgArea" unique_id=1751793644]
-position = Vector2(-47, -60)
+position = Vector2(-56, 53)
+rotation = 1.2025318
 shape = SubResource("RectangleShape2D_q33qb")
 debug_color = Color(0.91491103, 0.17892787, 0.5732176, 0.41960785)
 
@@ -236,5 +325,9 @@ unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_815es")
 target_position = Vector2(-360, 0)
 collision_mask = 4
+
+[node name="BCollFoot" type="CollisionShape2D" parent="." unique_id=2004000902]
+position = Vector2(-7.5, 60)
+shape = SubResource("RectangleShape2D_8ag6i")
 
 [connection signal="body_entered" from="BDmgArea" to="." method="_on_pbody_ent_dmg"]

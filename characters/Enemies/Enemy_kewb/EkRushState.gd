@@ -27,13 +27,13 @@ func update_state(delta : float) -> void:
 	actor.move_and_slide()
 	
 func _rush_player(_delta : float):
-	#Guardclause, to prevent attacking without player.x
+	#region Guardclause, to prevent attacking without player.x
 	if actor.playerChr == null or GameManager.instance.is_game_over == true: #But if there is no player and game is over, then...
 		#print_debug("Player is dead, Enemy won't attack.")
 		return #...We don't do anything.
 	if !delay_rush.is_stopped():
 		return
-	#END guard-clause
+	#endregion
 	
 	if actor.atk_raycast.is_colliding(): #If the raycast hits the player...
 		delay_rush.start() #...we start a timer to delay the 1st attack.

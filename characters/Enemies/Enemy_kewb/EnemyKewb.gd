@@ -1,7 +1,7 @@
 class_name EnemyKewb
 extends Enemy
 
-signal damaged_player()
+signal damaged_player
 @export var max_walk_speed : int = 40
 @export var acceleration : int = 100
 @export var base_damage : int = 1

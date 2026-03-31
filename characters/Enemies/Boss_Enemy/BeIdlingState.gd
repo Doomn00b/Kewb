@@ -3,6 +3,7 @@ extends State
 
 @export_category("Put Actor, aka Boss-prefab here")
 @export var actor: BossEnemy #We put our "Actor" here, in this case, our Boss-enemy-kewb.
+@onready var delay_idle : Timer = %BeDelayIdle
 
 signal b_found_player #Signal that sends to aggro-state.
 
@@ -13,8 +14,10 @@ func _ready() -> void: #Start
 	
 func enter_state() -> void:
 	print_debug("Boss entered Idling.")
-
+	delay_idle.start()
 func update_state(delta : float) -> void:
+	if !delay_idle.is_stopped():
+		return
 	_idling()
 	_seek_player(delta)
 
@@ -23,6 +26,9 @@ func _idling():
 	
 func _seek_player(_delta):
 	if actor.spot_p_shapecast.is_colliding(): #If our attack-raycast is colliding, then...
+		#Insert timer to give time until aggro starts.
+		#aggro_delay.start()
+		#await aggro_delay.timeout
 		b_found_player.emit() #...emit the signal that we've found the player.
 		print_debug("Boss saw player.")
 
