@@ -36,7 +36,7 @@ func set_text_for_key() -> void:
 	var action_events = InputMap.action_get_events(action_name) #We store all of the actions into action_events.
 	var action_event = action_events[0] #we store a single action-event, by grabbing the first action-event in the action-events array.
 	#HOW THE *FUCK* do I get Unicode instead of Physical, in the  below VAR?!
-	var action_keycode = OS.get_keycode_string(action_event.physical_keycode)
+	var _action_keycode = OS.get_keycode_string(action_event.physical_keycode)
 	#print(action_keycode) #Turn this on later.
 	
 	#EXAMPLE FROM DOCS:
