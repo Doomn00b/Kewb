@@ -27,8 +27,8 @@ func write_save() -> void:
 	save_game.is_facing_right = player_char.facing_right
 	save_game.current_level = GameManager.instance.current_level_name
 	var level_dict : Dictionary[String, Node2D] = GameManager.instance.level_dict
-	for level_name in level_dict.keys():
-		var level : Node2D = level_dict[level_name]
+	for level in level_dict.keys():
+		level = level_dict[level_name]
 		var level_pack : PackedScene = LevelPacker.create_package(level)
 		save_game.level_data_dict[level_name] = level_pack
 	#SAVE LEVEL STATES

@@ -8,7 +8,7 @@ extends Node
 signal player_interacted( player: Player)
 
 @warning_ignore("unused_signal")
-signal input_hint_changed( hint : GameEnums.HintMsg) #variable hint should be based on a hint-message ENUM.
+signal input_hint_changed( hint : HintMsgEnum.E) #variable hint should be based on a hint-message ENUM.
 
 @warning_ignore("unused_signal")
 signal player_health_changed() #Tells that the health has changed.

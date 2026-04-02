@@ -28,7 +28,7 @@ enum CameraLimits {
 
 const PCMAX_HEALTH : int = 16 #We make a new constant that defines the player has health.
 const ACCELERATION : float = 9.8
-signal health_updated(new_health : int)
+signal health_updated(new_health : int) #A signal that says our health has changed.
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
 @export var walking_speed: int = 150
 @export var running_speed: int = 300
@@ -53,6 +53,12 @@ var current_anim_state = AnimationState.PAIDLE
 var anim : AnimationPlayer
 var fist_time : Timer
 static var instance : Player
+
+#Ability Vars -- they decide if the player can access their abilities.
+var charge_jump : bool = false
+var power_punch : bool = false
+var upper_cut : bool = false
+
 
 func _init() -> void:
 	instance = self
@@ -91,14 +97,14 @@ func _input(event: InputEvent) -> void:
 		print_debug("Debug-Killed player.")
 	
 func _player_attack():
+	#region Guardclause
 	if !Input.is_action_just_pressed("attack"): #Nothing will happen if an attack command did not happen
 		return
+	#endregion
 	print_debug("Player attacked!")
-	if Input.is_action_pressed("charge"): #Release of charge attack, IMPORTANT DIFFERENCE
-		#Replace with power-punch!
-		print_debug("Power-punch!")
-		#CHARGE CODE HERE
+	if !Input.is_action_pressed("charge") and !power_punch: #Release of charge attack, IMPORTANT DIFFERENCE
 		return
+	print_debug("Power Punch!")	
 	# pseudocode - Player presses punch -> do punching-fist. (animation? Spawn arm?)
 	
 	if fist_time.is_stopped(): #If the player presses the attack-action, then...

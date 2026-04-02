@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://df32owiq5jjp" path="res://interactables/Buttons/VertButton.tscn" id="7_w8ycf"]
 [ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="8_kjfbt"]
 [ext_resource type="TileSet" uid="uid://t4kjdwcvb3x0" path="res://Tilesets/brown_tiles_hori.tres" id="9_prie1"]
+[ext_resource type="PackedScene" uid="uid://3jmguuhnft7s" path="res://interactables/Pickups/AbilityUpgrade.tscn" id="10_k1vye"]
 
 [node name="LevelTest1" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_dict")]
 y_sort_enabled = true
@@ -104,5 +105,8 @@ position = Vector2(112, 212)
 position = Vector2(-417, 214)
 size = 4
 target_level = "Level3"
+
+[node name="PowerPunchUpgrade" parent="." unique_id=947636966 instance=ExtResource("10_k1vye")]
+position = Vector2(-320, 200)
 
 [editable path="EnemySpawner2"]
