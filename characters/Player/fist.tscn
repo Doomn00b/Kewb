@@ -1,10 +1,134 @@
 [gd_scene format=3 uid="uid://58a8niagh30m"]
 
-[ext_resource type="Script" uid="uid://bcliilpxl0vs3" path="res://characters/Player/Fist.gd" id="1_1mvdj"]
-[ext_resource type="Texture2D" uid="uid://cnw8e2jeoxe6p" path="res://characters/Player/kewb_fist.png" id="1_xnp1h"]
+[ext_resource type="Script" uid="uid://bcliilpxl0vs3" path="res://characters/Player/fist.gd" id="1_1mvdj"]
+[ext_resource type="Texture2D" uid="uid://d3khiq2ek8phy" path="res://characters/Player/kewb_punch.png" id="2_1mvdj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xnp1h"]
 size = Vector2(9, 6)
+
+[sub_resource type="Animation" id="Animation_1mvdj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FistSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FistDMGzone:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FistDMGzone:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0d13k"]
+resource_name = "norm_fist"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FistSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FistDMGzone:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FistDMGzone:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r324q"]
+resource_name = "power_fist"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FistSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FistDMGzone:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.9, 2.85)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FistDMGzone:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4.5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r324q"]
+_data = {
+&"RESET": SubResource("Animation_1mvdj"),
+&"norm_fist": SubResource("Animation_0d13k"),
+&"power_fist": SubResource("Animation_r324q")
+}
 
 [node name="Fist" type="Area2D" unique_id=319108046 groups=["playerDmgGroup"]]
 z_as_relative = false
@@ -14,14 +138,16 @@ collision_mask = 18
 script = ExtResource("1_1mvdj")
 
 [node name="FistSprite" type="Sprite2D" parent="." unique_id=1180202436]
-texture = ExtResource("1_xnp1h")
+position = Vector2(4, 0)
+texture = ExtResource("2_1mvdj")
+hframes = 2
 
 [node name="FistDMGzone" type="CollisionShape2D" parent="." unique_id=169405028 groups=["playerDmgGroup"]]
 z_as_relative = false
-position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_xnp1h")
 
 [node name="FistAnim" type="AnimationPlayer" parent="." unique_id=1064970011]
 unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_r324q")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

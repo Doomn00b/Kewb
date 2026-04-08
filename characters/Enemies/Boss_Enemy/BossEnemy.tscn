@@ -225,6 +225,7 @@ size = Vector2(34, 128)
 size = Vector2(15, 4)
 
 [node name="BossEnemy" type="CharacterBody2D" unique_id=2030049102]
+collision_layer = 2
 script = ExtResource("1_kmttv")
 
 [node name="BeStateMachine" type="Node" parent="." unique_id=649877092 node_paths=PackedStringArray("actor", "state")]

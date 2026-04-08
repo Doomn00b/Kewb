@@ -52,6 +52,7 @@ var current_move_state = MovementState.IDLE #We make a new var to describe the b
 var current_anim_state = AnimationState.PAIDLE
 var anim : AnimationPlayer
 var fist_time : Timer
+var fist_point : Marker2D
 static var instance : Player
 
 #Ability Vars -- they decide if the player can access their abilities.
@@ -66,6 +67,7 @@ func _init() -> void:
 func _ready() -> void:
 	anim = %AnimationPlayer
 	fist_time = %FistTime #We get the timer that decides how long our fist is visible
+	fist_point = %FistPoint
 	#Wait... do I need to connect this to an animation-state as well?? YES! >:( 
 	#We set the direction the player is facing, at the start of the game (to be right).
 	current_direction = -1 
@@ -101,19 +103,41 @@ func _player_attack():
 	if !Input.is_action_just_pressed("attack"): #Nothing will happen if an attack command did not happen
 		return
 	#endregion
-	print_debug("Player attacked!")
-	if !Input.is_action_pressed("charge") and !power_punch: #Release of charge attack, IMPORTANT DIFFERENCE
-		return
-	print_debug("Power Punch!")	
-	# pseudocode - Player presses punch -> do punching-fist. (animation? Spawn arm?)
+	#Old code -- this is strange and written in reverse.
+	#print_debug("Player attacked!")
+	#if !Input.is_action_pressed("charge") and !power_punch: #Release of charge attack, IMPORTANT DIFFERENCE
+		#return
+	#print_debug("Power Punch!")	
+	## pseudocode - Player presses punch -> do punching-fist. (animation? Spawn arm?)
+	#
+	#if fist_time.is_stopped(): #If the player presses the attack-action, then...
+		##And the fist-timer has run out...
+		#var fist = fist_tscn.instantiate() #Instantiate the fist.
+		#%FistPoint.add_child(fist)
+		#fist_time.start()
+		#await fist_time.timeout
+		#fist.queue_free()
 	
-	if fist_time.is_stopped(): #If the player presses the attack-action, then...
-		#And the fist-timer has run out...
-		var fist = fist_tscn.instantiate() #Instantiate the fist.
-		%FistPoint.add_child(fist)
+	#Regular attack
+	if Input.is_action_just_pressed("attack") and fist_time.is_stopped(): #If the player just pressed attack, and the fist-timer hasn't started...
+		var fist = fist_tscn.instantiate()
+		fist_point.add_child(fist)
 		fist_time.start()
+		fist.fist_anim.play("norm_fist") #We make the fists animator play the normal punch-animation.
+		print_debug("Player attacked!")
 		await fist_time.timeout
 		fist.queue_free()
+		
+	#Power Punch
+	#If we pressed attack while holding charge and we have the power-punch upgrade and we haven't started punching before...
+	elif Input.is_action_just_pressed("attack") and Input.is_action_pressed("charge") and power_punch == true and fist_time.is_stopped(): 
+		var power_fist = fist_tscn.instantiate()
+		fist_point.add_child(power_fist)
+		fist_time.start()
+		power_fist.fist_anim.play("power_fist")
+		print_debug("Power-Punch!")
+		await fist_time.timeout
+		power_fist.queue_free()
 		
 #Physics Process Delta is a fixed Update, happens 60/1.
 func _physics_process(delta: float) -> void: #I picked physics, since this is movement.
@@ -241,6 +265,19 @@ func _unground_player():
 	is_grounded = false
 	#print_debug("Ungrounded player.")
 	
+#region the below functions enables the upgrade-abilities
+func enable_powerpunch():
+	power_punch = true
+	print_debug("Player got the Power-Punch!")
+	
+func enable_chargejump():
+	charge_jump = true
+	print_debug("Player got the Charge-jump!")
+	
+func enable_uppercut():
+	upper_cut = true
+	print_debug("Player got the Upper-Cut!")
+
 	#Pseudo-code: 
 	#Constant acceleration
 	#pos += velocity * delta-time + 1/2 acceleration * delta-time * delta-time

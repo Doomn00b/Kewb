@@ -42,8 +42,8 @@ func _picked_up(): #Is this even a thing...? The tutorial has orbs you break and
 func _reward_ability() -> void: #This function matches the upgrade-enums with the player bools. (for activating them)
 	match upgrade_type:
 		UpgradeEnum.E.POWER_PUNCH:
-			player.power_punch = true
+			player.enable_powerpunch()
 		UpgradeEnum.E.UPPERCUT:
-			player.upper_cut = true
+			player.enable_uppercut()
 		UpgradeEnum.E.CHARGE_JUMP:
-			player.charge_jump = true
+			player.enable_chargejump()

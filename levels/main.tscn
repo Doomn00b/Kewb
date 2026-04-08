@@ -31,6 +31,10 @@ metadata/_custom_type_script = "uid://bxgpyf6pshwbn"
 unique_name_in_owner = true
 visible = false
 position = Vector2(-336, 200)
+walking_speed = 150
+running_speed = 300
+walk_jump_vel = -400
+run_jump_vel = -600
 
 [node name="LevelTest1" parent="World" unique_id=2143603366 node_paths=PackedStringArray("entry_dict") groups=["World"] instance=ExtResource("2_jyhfs")]
 unique_name_in_owner = true
