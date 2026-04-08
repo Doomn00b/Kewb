@@ -119,7 +119,8 @@ func _player_attack():
 		#fist.queue_free()
 	
 	#Regular attack
-	if Input.is_action_just_pressed("attack") and fist_time.is_stopped(): #If the player just pressed attack, and the fist-timer hasn't started...
+	#if Input.is_action_just_pressed("attack") and fist_time.is_stopped(): #If the player just pressed attack, and the fist-timer hasn't started...
+	if Input.is_action_just_pressed("attack") and !Input.is_action_pressed("charge") and fist_time.is_stopped():
 		var fist = fist_tscn.instantiate()
 		fist_point.add_child(fist)
 		fist_time.start()
@@ -130,14 +131,14 @@ func _player_attack():
 		
 	#Power Punch
 	#If we pressed attack while holding charge and we have the power-punch upgrade and we haven't started punching before...
-	elif Input.is_action_just_pressed("attack") and Input.is_action_pressed("charge") and power_punch == true and fist_time.is_stopped(): 
-		var power_fist = fist_tscn.instantiate()
-		fist_point.add_child(power_fist)
+	if power_punch == true and Input.is_action_pressed("charge") and Input.is_action_just_pressed("attack") and fist_time.is_stopped(): 
+		var pow_fist = fist_tscn.instantiate()
+		fist_point.add_child(pow_fist)
 		fist_time.start()
-		power_fist.fist_anim.play("power_fist")
+		pow_fist.fist_anim.play("power_fist")
 		print_debug("Power-Punch!")
 		await fist_time.timeout
-		power_fist.queue_free()
+		pow_fist.queue_free()
 		
 #Physics Process Delta is a fixed Update, happens 60/1.
 func _physics_process(delta: float) -> void: #I picked physics, since this is movement.
