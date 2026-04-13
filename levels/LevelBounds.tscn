@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://6srpiqm3noij"]
+
+[ext_resource type="Script" uid="uid://dxwra8d7trjkg" path="res://levels/LevelBounds.gd" id="1_jm0dq"]
+
+[node name="LevelBounds" type="Node2D" unique_id=90060770]
+script = ExtResource("1_jm0dq")
+x_position = null
+y_position = null

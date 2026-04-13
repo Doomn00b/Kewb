@@ -10,6 +10,8 @@ extends Resource
 @export var is_facing_right : bool #Whether the player will face left or right, when loaded.
 @export var player_health : int = 10
 @export var level_data_dict : Dictionary[String, PackedScene] = {} #Example of how to do persistent level data
+@export var upgrade_data_dict : Dictionary[UpgradeEnum.E, PackedScene] = {} #A dictionary based on enums for Upgrades and the actual world-item.
+
 @export var clean_save : bool = true
 #We need:
 	#Global Position
@@ -22,4 +24,5 @@ func reset_all_save():
 	is_facing_right = false
 	player_health = 10
 	level_data_dict = {}
+	upgrade_data_dict = {}
 	clean_save = true

@@ -22,6 +22,8 @@ func _ready() -> void:
 	
 	_set_animation()
 	#Add PERSISTENCE
+	#if SaveManager.instance.upgrades.get_or_add() #Not sure how to write this... I don't use JSON.
+	
 	#Connect destroy on pickup.
 
 func _set_animation():
@@ -33,9 +35,10 @@ func _on_body_entered(body: Node2D) -> void: #When something walks into the pick
 	if body.is_in_group("playerGroup"): #If the body that enters the area is the Player, then...
 		_picked_up() #...we pick up the item.
 
-func _picked_up(): #Is this even a thing...? The tutorial has orbs you break and then pick up, I just pick up.
+func _picked_up(): #The tutorial has orbs you break and then pick up, I just pick up.
 	#Add persistence
-	#Reward ability
+	#SaveManager.persistent_data[ get_ability_name() ] = "acquired" #Tutorial-style, with JSON, use a function to match entries.
+	#SaveManager.instance.upgrades #How do I complete this line??
 	_reward_ability()
 	self.queue_free()
 	

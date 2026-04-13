@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="8_kjfbt"]
 [ext_resource type="TileSet" uid="uid://t4kjdwcvb3x0" path="res://Tilesets/brown_tiles_hori.tres" id="9_prie1"]
 [ext_resource type="PackedScene" uid="uid://3jmguuhnft7s" path="res://interactables/Pickups/AbilityUpgrade.tscn" id="10_k1vye"]
+[ext_resource type="Script" uid="uid://dxwra8d7trjkg" path="res://levels/LevelBounds.gd" id="11_3brdd"]
 
 [node name="LevelTest1" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_dict")]
 y_sort_enabled = true
@@ -18,6 +19,13 @@ entry_dict = {
 0: NodePath("EPLeftLvl1"),
 1: NodePath("EPRightLvl1")
 }
+
+[node name="LevelBounds" type="Node2D" parent="." unique_id=1749401695]
+z_index = 256
+position = Vector2(-480, 0)
+script = ExtResource("11_3brdd")
+width = 928
+metadata/_custom_type_script = "uid://dxwra8d7trjkg"
 
 [node name="EPLeftLvl1" type="Marker2D" parent="." unique_id=153490671]
 position = Vector2(-368, 198)

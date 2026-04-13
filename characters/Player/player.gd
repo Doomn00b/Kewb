@@ -3,10 +3,10 @@
 class_name Player
 extends CharacterBody2D
 
-enum CameraLimits {
-	RDCAMLIM, #Right-Direction Camera-Limits 
-	LDCAMLIM #Left-Direction Camera-Limits
-}
+#enum CameraLimits {
+	#RDCAMLIM, #Right-Direction Camera-Limits 
+	#LDCAMLIM #Left-Direction Camera-Limits
+#}
 
 const PCMAX_HEALTH : int = 16 #We make a new constant that defines the player has health.
 const ACCELERATION : float = 9.8
@@ -29,32 +29,38 @@ var move_locked : bool = false #Boolean that says if the player can move.
 var last_direction = 1.0 #Value that show the direction the player was moving in, last.
 var current_direction = 1.0 #Check for the player's current moving direction.
 var facing_right: bool = true #This is only for save-games.
-var current_cam_limit = CamLimEnum.E.RDCAMLIM #Right-facing player is default, so camera-limits Right is also default.
+#var current_cam_limit = CamLimEnum.E.RDCAMLIM #Right-facing player is default, so camera-limits Right is also default.
 var current_move_state = PcMoveStaEnum.E.IDLE #We make a new var to describe the basic state...Idle.
 var current_anim_state = PcAnimEnum.E.PAIDLE
 var anim : AnimationPlayer
 var fist_time : Timer
 var fist_point : Marker2D
-static var instance : Player
+var dead_time : Timer
+var player_cam : Camera2D
+
 
 #Ability Vars -- they decide if the player can access their abilities.
 var charge_jump : bool = false
 var power_punch : bool = false
 var upper_cut : bool = false
 
+static var instance : Player
+
 
 func _init() -> void:
 	instance = self
 	
 func _ready() -> void:
+	player_cam = %PlayerCamera
 	anim = %AnimationPlayer
 	fist_time = %FistTime #We get the timer that decides how long our fist is visible
 	fist_point = %FistPoint
+	dead_time = %PDeadTimer
 	#Wait... do I need to connect this to an animation-state as well?? YES! >:( 
-	#We set the direction the player is facing, at the start of the game (to be right).
-	current_direction = -1 
+	current_direction = -1 #We set the direction the player is facing, at the start of the game (to be right).
 	await get_tree().process_frame
 	health_updated.emit(health)
+	free_movement() #We unlock movement when the player loads in.
 
 func _input(event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
@@ -85,7 +91,7 @@ func _player_attack():
 	if !Input.is_action_just_pressed("attack"): #Nothing will happen if an attack command did not happen
 		return
 	#endregion
-	#Old code -- this is strange and written in reverse.
+	#region old attack code
 	#print_debug("Player attacked!")
 	#if !Input.is_action_pressed("charge") and !power_punch: #Release of charge attack, IMPORTANT DIFFERENCE
 		#return
@@ -99,6 +105,7 @@ func _player_attack():
 		#fist_time.start()
 		#await fist_time.timeout
 		#fist.queue_free()
+	#endregion
 	
 	#Regular attack
 	#if Input.is_action_just_pressed("attack") and fist_time.is_stopped(): #If the player just pressed attack, and the fist-timer hasn't started...
@@ -133,7 +140,7 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 	_apply_gravity(delta)
 	_jumping(delta)
 	apply_movement(delta) #We run the movement-state switch.
-	update_animation() #We update the animation.
+	update_animation(delta) #We update the animation.
 	#camera_control() #We adjust the camera.
 	move_and_slide()
 
@@ -172,12 +179,13 @@ func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 
 		PcMoveStaEnum.E.UNDERWATER:
 			pass
 
-func update_animation(): #This is where we change which anim we're in.
+func update_animation(_delta): #This is where we change which anim we're in.
 	match current_anim_state :
 		PcAnimEnum.E.PAIDLE: #This would be a "case" in Unity.
 			anim.play("player_idle")
 		PcAnimEnum.E.PAWALK:
 			anim.play("player_walk")
+			print_debug("Playing Walk-Animation.")
 		PcAnimEnum.E.PARUN:
 			pass
 		PcAnimEnum.E.PAJUMP:
@@ -210,8 +218,13 @@ func take_damage(damage : int):
 	print("Player Took Damage!")
 	health_updated.emit(health)
 	if health <= 0: #If you run out of health, or if it goes negative, then...
-		current_anim_state = PcAnimEnum.E.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
-		#Do I need a TIMER here, and an AWAIT?
+		lock_movement() #We lock the player, so it doesn't move around.
+		dead_time.start() #We start a timer that's supposed to let our DEATH-ANIMATION play.
+		print_debug("running dead-timer")
+		while !dead_time.is_stopped(): #For as long as the back-off-timer is running...
+			#Make the enemy back off after damaging the player.
+			current_anim_state = PcAnimEnum.E.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
+			await get_tree().process_frame
 		print_debug("Player died.")
 		GameManager.instance.is_game_over = true
 		GameManager.instance.change_gui_scene("GameOverScreen", false, false, true) #Run the game-over screen

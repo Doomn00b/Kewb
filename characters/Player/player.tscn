@@ -88,7 +88,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/path = NodePath("PlayerCamera:offset")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -103,7 +103,7 @@ resource_name = "cam_mov_left"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/path = NodePath("PlayerCamera:offset")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -118,7 +118,7 @@ resource_name = "cam_mov_right"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/path = NodePath("PlayerCamera:offset")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -173,7 +173,8 @@ shape = SubResource("RectangleShape2D_j7dd2")
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_j7dd2")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=2040663807]
+[node name="PlayerCamera" type="Camera2D" parent="." unique_id=2040663807]
+unique_name_in_owner = true
 offset = Vector2(80, -40)
 process_callback = 0
 position_smoothing_enabled = true
@@ -201,6 +202,11 @@ vframes = 4
 
 [node name="PpChargeTime" type="Timer" parent="." unique_id=119136187]
 wait_time = 0.8
+one_shot = true
+
+[node name="PDeadTimer" type="Timer" parent="." unique_id=1264444541]
+unique_name_in_owner = true
+wait_time = 2.0
 one_shot = true
 
 [connection signal="area_entered" from="PlayerHurtArea" to="." method="_on_detection_area_entered"]

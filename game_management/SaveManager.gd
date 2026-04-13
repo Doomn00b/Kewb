@@ -50,7 +50,7 @@ func load_save() -> void:
 	else:
 		print_debug("SHIT! Couldn't load!")
 
-#Function for testing the saving and loading, with keyboard shortcuts, instead of UI and checkpoints.
+#region Function for testing the saving and loading, with keyboard shortcuts, instead of UI and checkpoints.
 func _unhandled_input(_event: InputEvent) -> void:
 	#F5 for saving
 	if Input.is_action_just_pressed("save_test"):
@@ -66,4 +66,4 @@ func _unhandled_input(_event: InputEvent) -> void:
 	#F9 for loading
 	if Input.is_action_just_pressed("load_test"):
 		load_save()
-	
+#endregion
