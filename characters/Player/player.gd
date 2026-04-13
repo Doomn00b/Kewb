@@ -2,24 +2,6 @@
 
 class_name Player
 extends CharacterBody2D
-#These Enums define the different movement-states the player can have.
-enum MovementState {
-	IDLE,
-	WALKING,
-	RUNNING,
-	AIRBORNE,
-	UNDERWATER
-}
-
-enum AnimationState {
-	PAIDLE,
-	PAWALK,
-	PARUN,
-	PAJUMP,
-	PASWIM,
-	PADEAD,
-	PAPUNCH
-}
 
 enum CameraLimits {
 	RDCAMLIM, #Right-Direction Camera-Limits 
@@ -47,9 +29,9 @@ var move_locked : bool = false #Boolean that says if the player can move.
 var last_direction = 1.0 #Value that show the direction the player was moving in, last.
 var current_direction = 1.0 #Check for the player's current moving direction.
 var facing_right: bool = true #This is only for save-games.
-var current_cam_limit = CameraLimits.RDCAMLIM #Right-facing player is default, so camera-limits Right is also default.
-var current_move_state = MovementState.IDLE #We make a new var to describe the basic state...Idle.
-var current_anim_state = AnimationState.PAIDLE
+var current_cam_limit = CamLimEnum.E.RDCAMLIM #Right-facing player is default, so camera-limits Right is also default.
+var current_move_state = PcMoveStaEnum.E.IDLE #We make a new var to describe the basic state...Idle.
+var current_anim_state = PcAnimEnum.E.PAIDLE
 var anim : AnimationPlayer
 var fist_time : Timer
 var fist_point : Marker2D
@@ -81,9 +63,9 @@ func _input(event: InputEvent) -> void:
 	move_dir.y = Input.get_axis("move_up", "move_down")
 	#STATE CHECK, IF MOVE DIR STATE IS WALKING; ELSE IDLE
 	if move_dir.x != 0.0:
-		current_move_state = MovementState.WALKING
+		current_move_state = PcMoveStaEnum.E.WALKING
 	else:
-		current_move_state = MovementState.IDLE
+		current_move_state = PcMoveStaEnum.E.IDLE
 		
 	flip() #We run the flip-sprite function if we're moving.
 	_player_attack() #If we press attack we run the player attack function.
@@ -91,7 +73,7 @@ func _input(event: InputEvent) -> void:
 	#If we're holding charge while walking, and moving, then...
 	if Input.is_action_pressed("charge") and move_dir.x:
 		#print_debug("player is running")
-		current_move_state = MovementState.RUNNING #...we start running.
+		current_move_state = PcMoveStaEnum.E.RUNNING #...we start running.
 		
 	#Debug-stuff
 	if event.is_action_pressed("kill_player"):
@@ -159,52 +141,52 @@ func _jumping(_delta: float) -> void:
 		# Player presses jump -> Kewb jumps.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = walk_jump_vel
-		current_anim_state = AnimationState.PAJUMP
+		current_anim_state = PcAnimEnum.E.PAJUMP
 		_unground_player() #We make sure to say the player isn't grounded.
 		#print_debug("Player jumped")
 	#Jump higher
 	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("charge") and is_on_floor(): #If we're also holding charge...
 		velocity.y = run_jump_vel 
-		current_anim_state = AnimationState.PAJUMP
+		current_anim_state = PcAnimEnum.E.PAJUMP
 		_unground_player()
 		#print_debug("Player jumped higher")
 
 
 func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
 	match current_move_state :
-		MovementState.IDLE: #This would be a "case" in Unity.
+		PcMoveStaEnum.E.IDLE: #This would be a "case" in Unity.
 			velocity.x = (0.0)
 			_apply_gravity(delta)
-			current_anim_state = AnimationState.PAIDLE
-		MovementState.WALKING:
+			current_anim_state = PcAnimEnum.E.PAIDLE
+		PcMoveStaEnum.E.WALKING:
 			velocity.x = (move_dir * walking_speed).x #When walking our velocity should be the input from move_dir
 			_apply_gravity(delta)
-			current_anim_state = AnimationState.PAWALK
-		MovementState.RUNNING:
+			current_anim_state = PcAnimEnum.E.PAWALK
+		PcMoveStaEnum.E.RUNNING:
 			velocity.x = (move_dir * running_speed).x
 			_apply_gravity(delta)
-			current_anim_state = AnimationState.PARUN
+			current_anim_state = PcAnimEnum.E.PARUN
 			#print_debug("Running!")
-		MovementState.AIRBORNE:
+		PcMoveStaEnum.E.AIRBORNE:
 			pass
-		MovementState.UNDERWATER:
+		PcMoveStaEnum.E.UNDERWATER:
 			pass
 
 func update_animation(): #This is where we change which anim we're in.
 	match current_anim_state :
-		AnimationState.PAIDLE: #This would be a "case" in Unity.
+		PcAnimEnum.E.PAIDLE: #This would be a "case" in Unity.
 			anim.play("player_idle")
-		AnimationState.PAWALK:
+		PcAnimEnum.E.PAWALK:
 			anim.play("player_walk")
-		AnimationState.PARUN:
+		PcAnimEnum.E.PARUN:
 			pass
-		AnimationState.PAJUMP:
+		PcAnimEnum.E.PAJUMP:
 			pass
-		AnimationState.PASWIM:
+		PcAnimEnum.E.PASWIM:
 			pass
-		AnimationState.PAPUNCH:
+		PcAnimEnum.E.PAPUNCH:
 			pass
-		AnimationState.PADEAD:
+		PcAnimEnum.E.PADEAD:
 			anim.play("player_dead")
 	
 #These functions are called to turn on and off movement.
@@ -228,7 +210,7 @@ func take_damage(damage : int):
 	print("Player Took Damage!")
 	health_updated.emit(health)
 	if health <= 0: #If you run out of health, or if it goes negative, then...
-		current_anim_state = AnimationState.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
+		current_anim_state = PcAnimEnum.E.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
 		#Do I need a TIMER here, and an AWAIT?
 		print_debug("Player died.")
 		GameManager.instance.is_game_over = true
@@ -278,6 +260,8 @@ func enable_chargejump():
 func enable_uppercut():
 	upper_cut = true
 	print_debug("Player got the Upper-Cut!")
+
+#endregion
 
 	#Pseudo-code: 
 	#Constant acceleration
