@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://catv4gbu1rp2n"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_prie1"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_prie1"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="2_j8rsw"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
 [ext_resource type="TileSet" uid="uid://dd45pqydhigo8" path="res://Tilesets/blue_tiles_floating.tres" id="4_prie1"]

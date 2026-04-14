@@ -8,7 +8,7 @@ extends Node
 const SAVE_PATH := "res://SavedPackage.tscn"
 
 @onready var ori_lvl = GameManager.instance.current_level2d #The original level (that shall be packed), is the current one.
-@onready var clone_parent = $"." #Can't give Main a unique name to ref, since it's outside the tree, I guess?
+@onready var clone_parent = %World #Can't give Main a unique name to ref, since it's outside the tree, I guess?
 #Clone parent will hold the new packed-scene instance after it's been created.
 
 static var instance : LevelPackUser

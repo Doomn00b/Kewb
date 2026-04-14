@@ -8,7 +8,7 @@ var save_game: SaveGame = null
 @export var player_char: Player #THIS is an issue! My player is not based on a resource.
 @export var upgrades: Resource
 #@export var health
-@export var level_name : String = ""
+#@export var level_name : String = ""
 @export var player_glob_pos := Vector2.ZERO 
 
 static var instance : SaveManager
@@ -27,10 +27,10 @@ func write_save() -> void:
 	save_game.is_facing_right = player_char.facing_right
 	save_game.current_level = GameManager.instance.current_level_name
 	var level_dict : Dictionary[String, Node2D] = GameManager.instance.level_dict
-	for level in level_dict.keys():
-		level = level_dict[level_name]
+	for lv_name in level_dict.keys():
+		var level : Node2D = level_dict[lv_name]
 		var level_pack : PackedScene = LevelPacker.create_package(level)
-		save_game.level_data_dict[level_name] = level_pack
+		save_game.level_data_dict[lv_name] = level_pack
 	#SAVE LEVEL STATES
 	
 	var error_code:= ResourceSaver.save(save_game, SAVE_GAME_PATH)
@@ -62,7 +62,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 		if error_code != OK:
 			push_error("Failed to save game: " + error_string(error_code))
 		else:
-			print_debug("Saved game.")
+			print_debug("Reset save game.")
 	#F9 for loading
 	if Input.is_action_just_pressed("load_test"):
 		load_save()
