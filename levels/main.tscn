@@ -101,5 +101,5 @@ script = ExtResource("8_6et1j")
 [node name="MessageBus" type="Node" parent="." unique_id=1375714332]
 script = ExtResource("9_etqu2")
 
-[node name="Node" type="Node" parent="." unique_id=1047160673]
+[node name="RemoveSaveGame" type="Node" parent="." unique_id=1047160673]
 script = ExtResource("15_4fc0e")

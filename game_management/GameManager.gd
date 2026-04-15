@@ -77,8 +77,6 @@ func _set_rst_bool():
 func _game_over_check(_delta) -> void:
 	#is_game_over is set by the Player if it gets zero health.
 	#The below code loops the transition constantly, so now the player runs it instead.
-	#if is_game_over == true:
-		#change_gui_scene("GameOverScreen", false, false, true) #If we're game over, run the game-over-screen.
 	if is_game_over == true and reset_req == true:
 		print_debug("We shall reset.")
 		#Insert a function for saving potential score to a resource.
@@ -115,14 +113,15 @@ func change_level2D(new_level : String,
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
 	#End transition-condition.
 	#OLD LEVEL TURN OFF
-	disable_lvls()
-	current_level2d = level_dict[new_level] #Rewrite here
+	disable_lvls() #Turn off all of the levels, so we can make sure we only enable the level we want.
+	current_level2d = level_dict[new_level] #We check the dictionary for the new level, which is based on what the LevelTransition says it should be.
 	
 	#NEW LEVEL TURN ON
 	current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
 	await get_tree().process_frame
 	current_level2d.visible = true
-	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
+	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
+	current_level2d.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
@@ -236,7 +235,7 @@ func disable_lvls():
 	#if !current_level2d:
 	for level in level_dict.values(): #For all of the levels in the values(Node2D's) of the level-dict...
 		level.hide()
-		level.process_mode = PROCESS_MODE_DISABLED
+		level.process_mode = Node.PROCESS_MODE_DISABLED
 		
 		#print_debug("These levels were turned off:" level.)
 
