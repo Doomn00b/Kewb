@@ -7,8 +7,8 @@ extends Node2D
 func _ready() -> void:
 	#Add some stuff here, to make sure spawning happens?
 	#If game loaded, run spawn enemies anyway??
-	#if !GameManager.instance.new_game_made and GameManager.instance.game_loaded:
-	spawn_enemies() #If we haven't made a new game and we loaded a game, we run spawn enemies to make sure.
+	if !GameManager.instance.new_game_made and GameManager.instance.game_loaded:
+		spawn_enemies() #If we haven't made a new game and we loaded a game, we run spawn enemies to make sure.
 
 #Pseudo-code: Spawn new enemy every 1 second.
 func spawn_enemies(): #Our custom-function to spawn enemies.

@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://catv4gbu1rp2n"]
 
 [ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_prie1"]
-[ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="2_j8rsw"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
+[ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="4_3brdd"]
 [ext_resource type="TileSet" uid="uid://dd45pqydhigo8" path="res://Tilesets/blue_tiles_floating.tres" id="4_prie1"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="5_j8rsw"]
 [ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/Door.tscn" id="6_q3et8"]
@@ -33,12 +33,14 @@ position = Vector2(-368, 198)
 [node name="EPRightLvl1" type="Marker2D" parent="." unique_id=95239767]
 position = Vector2(174, 188)
 
-[node name="EnemySpawner2" parent="." unique_id=562540624 node_paths=PackedStringArray("spawn_points") instance=ExtResource("3_78frg")]
-enemy_tscn = ExtResource("2_j8rsw")
-spawn_points = [NodePath("Point"), NodePath("Point2")]
+[node name="EnemySpawner" parent="." unique_id=622893082 instance=ExtResource("3_78frg")]
+enemy_tscn = ExtResource("4_3brdd")
 
-[node name="Point2" type="Marker2D" parent="EnemySpawner2" unique_id=1148452854]
-position = Vector2(16, 192)
+[node name="SpawnCooldown" parent="EnemySpawner" index="0" unique_id=1656349062]
+wait_time = 0.5
+
+[node name="Point" parent="EnemySpawner" index="1" unique_id=251681297]
+position = Vector2(-120, 192)
 
 [node name="BlueTilesGTop" type="TileMapLayer" parent="." unique_id=1119523911]
 visibility_layer = 2
@@ -100,21 +102,15 @@ position = Vector2(-253, 219)
 [node name="VertButton" parent="DoorSideways" unique_id=1519454596 instance=ExtResource("7_w8ycf")]
 position = Vector2(-29, -23)
 
-[node name="Node2D" type="Node2D" parent="DoorSideways/VertButton" unique_id=98914077]
-
 [node name="Door" parent="." unique_id=100351584 instance=ExtResource("6_q3et8")]
 position = Vector2(112, 212)
-
-[node name="Node2D" type="Node2D" parent="Door" unique_id=83873218]
 
 [node name="LevelTransition" parent="." unique_id=1965396953 instance=ExtResource("8_kjfbt")]
 position = Vector2(-417, 214)
 size = 4
 target_level = "Level3"
 
-[node name="Node2D" type="Node2D" parent="LevelTransition" unique_id=1342958132]
-
 [node name="PowerPunchUpgrade" parent="." unique_id=947636966 instance=ExtResource("10_k1vye")]
 position = Vector2(-299, 167)
 
-[node name="Node2D" type="Node2D" parent="PowerPunchUpgrade" unique_id=1899758604]
+[editable path="EnemySpawner"]
