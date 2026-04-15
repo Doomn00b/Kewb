@@ -17,3 +17,9 @@ func place_player(_player, entry_point : int):
 	player = _player
 	GameManager.instance.show_player() #We make sure the player is active and visible.
 	_player.global_position = entry_dict[entry_point].global_position #Changes the players position to the first entry-point.
+
+#Pseudo-code:
+#If the Player starts a new game, it just does the above. 
+#But if the player LOADS/continues a game, it does not run the above code!
+#Use a bool in the game-manager for this?
+#

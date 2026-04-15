@@ -4,6 +4,7 @@ extends Node
 
 const SAVE_GAME_PATH:= "user://savegame.tres"
 var save_game: SaveGame = null
+#Fix so there's more than one save-game!
 
 @export var player_char: Player #THIS is an issue! My player is not based on a resource.
 @export var upgrades: Resource
@@ -57,7 +58,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 		write_save()
 	#F9 for loading
 	if Input.is_action_just_pressed("reset_savegame"):
-		save_game.reset_all_save()
+		save_game.reset_runtime_save()
 		var error_code:= ResourceSaver.save(save_game, SAVE_GAME_PATH)
 		if error_code != OK:
 			push_error("Failed to save game: " + error_string(error_code))

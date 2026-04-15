@@ -18,7 +18,7 @@ extends Resource
 	#Players current health. player/health
 	#Upgrades
 	#Direction the player was facing. player/current_direction
-func reset_all_save():
+func reset_runtime_save():
 	player_glob_pos = Vector2(0,0)
 	current_level = ""
 	is_facing_right = false

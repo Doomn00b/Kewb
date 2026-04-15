@@ -37,12 +37,6 @@ position = Vector2(174, 188)
 enemy_tscn = ExtResource("2_j8rsw")
 spawn_points = [NodePath("Point"), NodePath("Point2")]
 
-[node name="SpawnCooldown" parent="EnemySpawner2" index="0" unique_id=1656349062]
-wait_time = 0.5
-
-[node name="Point" parent="EnemySpawner2" index="1" unique_id=251681297]
-position = Vector2(352, 120)
-
 [node name="Point2" type="Marker2D" parent="EnemySpawner2" unique_id=1148452854]
 position = Vector2(16, 192)
 
@@ -106,15 +100,21 @@ position = Vector2(-253, 219)
 [node name="VertButton" parent="DoorSideways" unique_id=1519454596 instance=ExtResource("7_w8ycf")]
 position = Vector2(-29, -23)
 
+[node name="Node2D" type="Node2D" parent="DoorSideways/VertButton" unique_id=98914077]
+
 [node name="Door" parent="." unique_id=100351584 instance=ExtResource("6_q3et8")]
 position = Vector2(112, 212)
+
+[node name="Node2D" type="Node2D" parent="Door" unique_id=83873218]
 
 [node name="LevelTransition" parent="." unique_id=1965396953 instance=ExtResource("8_kjfbt")]
 position = Vector2(-417, 214)
 size = 4
 target_level = "Level3"
 
+[node name="Node2D" type="Node2D" parent="LevelTransition" unique_id=1342958132]
+
 [node name="PowerPunchUpgrade" parent="." unique_id=947636966 instance=ExtResource("10_k1vye")]
 position = Vector2(-299, 167)
 
-[editable path="EnemySpawner2"]
+[node name="Node2D" type="Node2D" parent="PowerPunchUpgrade" unique_id=1899758604]

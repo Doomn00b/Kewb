@@ -14,10 +14,10 @@ func _ready() -> void:
 	#Original code: 
 	#if SaveManager.persistent_data.get_or_add(unique_name(), "closed") == "open"
 	#original uses dictionaries function to get the name of the door and if it's closed or not...
-	if SaveManager.instance.save_game != null : #If there's a save,then...
-		is_open = true
-		set_open() # run set to open function, if there's save-data.
-	
+	#if SaveManager.instance.save_game != null : #If there's a save,then...
+		#is_open = true
+		#set_open() # run set to open function, if there's save-data.
+	#
 	#connect to signals
 	butt_area.body_entered.connect(_on_player_entered) #Used for tool-tip
 	butt_area.body_exited.connect(_on_player_exited) #Used for turning off tool-tip.

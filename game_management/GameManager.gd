@@ -18,6 +18,9 @@ var level_dict : Dictionary[String, Node2D] = {}
 var gui_dict : Dictionary[String, Control] = {} #Store loaded scenes by path. We make a dictionary for our scenes, so we don't overload memory.
 var is_game_over : bool = false #Boolean that controls if the game is over or not.
 var reset_req : bool = false #This bool will be set, when the reset_now signal is emitted by any object, via the MessageBus.
+var new_game_made: bool = false #Will be set when the user makes a new game.
+var game_loaded : bool = false
+
 #var player_hidden : bool = false
 #var score: int = 0 #We have a variable for score, which of course starts at zero.
 static var instance : GameManager
@@ -96,7 +99,7 @@ func override_runtime_from_save():
 		level_dict[level_data_name] = level_instance
 		level_instance.hide()
 		level_instance.process_mode = Node.PROCESS_MODE_DISABLED
-		owner.add_child(level_instance)
+		World.instance.add_child(level_instance)
 	
 			
 func change_level2D(new_level : String,
@@ -130,7 +133,8 @@ func load_level2D(
 	transition: bool = true,
 	seconds: float = 0.8
 	) -> void:
-	
+	new_game_made = false #We make sure we know we're not making a new game.
+	game_loaded = true
 	save_game = _save_game
 	override_runtime_from_save()
 	#save_game = LevelPackUser.instance.created_package #We turn our save into the level-pack.
@@ -213,7 +217,8 @@ func show_player():
 	print_debug("Showed Player.")
 
 func new_game(): #We run this function when we want to start a new game.
-	save_game.reset_all_save()
+	new_game_made = true
+	save_game.reset_runtime_save()
 	change_level2D("Level1", 0, true)
 	disable_guis()
 
@@ -237,9 +242,9 @@ func disable_lvls():
 
 func reset_game(): #Because you died, but you're restarting...
 	#This function is run by the _check_game_over function, which runs in process-update. Every frame of the game it checks this.
-	#score = 0 #We need some lines here for loa
+	#score = 0 #We need some lines here for score, and such.
 	is_game_over = false
 	reset_req = false
-	save_game.reset_all_save()
+	save_game.reset_runtime_save()
 	print_debug("Restarting game.")
 	get_tree().reload_current_scene()

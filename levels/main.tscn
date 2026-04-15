@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bshbqbc6jx1xm" path="res://GUI/Main Menu/MainMenu.tscn" id="9_1fput"]
 [ext_resource type="Script" uid="uid://d0rcv207qxs6h" path="res://game_management/MessageBus.gd" id="9_etqu2"]
 [ext_resource type="Script" uid="uid://bxgpyf6pshwbn" path="res://game_management/World.gd" id="11_xdh4e"]
+[ext_resource type="Script" uid="uid://bou707capy3nf" path="res://game_management/remove_save.gd" id="15_4fc0e"]
 
 [node name="Main" type="Node2D" unique_id=518110699]
 
@@ -99,3 +100,6 @@ script = ExtResource("8_6et1j")
 
 [node name="MessageBus" type="Node" parent="." unique_id=1375714332]
 script = ExtResource("9_etqu2")
+
+[node name="Node" type="Node" parent="." unique_id=1047160673]
+script = ExtResource("15_4fc0e")

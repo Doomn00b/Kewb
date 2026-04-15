@@ -185,7 +185,7 @@ func update_animation(_delta): #This is where we change which anim we're in.
 			anim.play("player_idle")
 		PcAnimEnum.E.PAWALK:
 			anim.play("player_walk")
-			print_debug("Playing Walk-Animation.")
+			#print_debug("Playing Walk-Animation.")
 		PcAnimEnum.E.PARUN:
 			pass
 		PcAnimEnum.E.PAJUMP:
@@ -196,6 +196,7 @@ func update_animation(_delta): #This is where we change which anim we're in.
 			pass
 		PcAnimEnum.E.PADEAD:
 			anim.play("player_dead")
+			print_debug("Playing Player Death-animation.")
 	
 #These functions are called to turn on and off movement.
 func lock_movement():
