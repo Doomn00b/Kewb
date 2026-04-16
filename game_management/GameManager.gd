@@ -107,13 +107,16 @@ func change_level2D(new_level : String,
 	
 	#Condition to run a scene-transition.
 	if transition == true:
-		print_debug("We shall run a transition")
-		Player.instance.move_locked = true #If we're transitioning we lock the player.
+		print_debug("We shall run a transition") 
+		Player.instance.lock_movement() #If we're transitioning we lock the player.
 		TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
 	#End transition-condition.
 	#OLD LEVEL TURN OFF
 	disable_lvls() #Turn off all of the levels, so we can make sure we only enable the level we want.
+	#disable_tiles() #Turn off all tilesets, since they run on a separate process from everything else in the levels.
+	World.instance._disable_tiles() #We run the function in world to turn off all tiles.
+	
 	current_level2d = level_dict[new_level] #We check the dictionary for the new level, which is based on what the LevelTransition says it should be.
 	
 	#NEW LEVEL TURN ON
@@ -122,10 +125,11 @@ func change_level2D(new_level : String,
 	current_level2d.visible = true
 	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
 	current_level2d.process_mode = Node.PROCESS_MODE_ALWAYS
+	enable_tileset() #We re-enable the tiles in the new level we're in.
 	
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
-		Player.instance.move_locked = false #We unlock the player again once we've transitioned.
+		Player.instance.free_movement() #We unlock the player again once we've transitioned.
 	
 func load_level2D(
 	_save_game : SaveGame,
@@ -238,6 +242,18 @@ func disable_lvls():
 		level.process_mode = Node.PROCESS_MODE_DISABLED
 		
 		#print_debug("These levels were turned off:" level.)
+
+#region managing tiles
+func disable_tiles():
+	#var _tiles: TileMapLayer #Make a var for tilemaplayers (so we can turn them off)
+	print_debug("Disabled tiles... maybe.")
+		
+func enable_tileset():
+	for tiles in current_level2d.get_tree().get_nodes_in_group("Tiles"):
+		tiles.enabled = true
+	print_debug("Enabled tiles. Maybe??")
+	
+#endregion 
 
 func reset_game(): #Because you died, but you're restarting...
 	#This function is run by the _check_game_over function, which runs in process-update. Every frame of the game it checks this.

@@ -143,7 +143,7 @@ wait_time = 0.5
 [node name="Point" parent="EnemySpawner3" index="1" unique_id=251681297]
 position = Vector2(-65, 157)
 
-[node name="BlueTilesTop" type="TileMapLayer" parent="." unique_id=1119523911]
+[node name="BlueTilesTop" type="TileMapLayer" parent="." unique_id=1119523911 groups=["Tiles"]]
 modulate = Color(1, 0.3795921, 0.29548228, 1)
 self_modulate = Color(0.9994424, 0.60536236, 0.564194, 1)
 visibility_layer = 2
@@ -155,7 +155,7 @@ tile_set = SubResource("TileSet_q3et8")
 collision_enabled = false
 physics_quadrant_size = 8
 
-[node name="BlueTilesBot" type="TileMapLayer" parent="." unique_id=704312989]
+[node name="BlueTilesBot" type="TileMapLayer" parent="." unique_id=704312989 groups=["Tiles"]]
 modulate = Color(1, 0.6348778, 0.57909364, 1)
 self_modulate = Color(1, 0.8, 0.28235295, 1)
 position = Vector2(72, 232)

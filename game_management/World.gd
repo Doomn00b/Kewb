@@ -7,3 +7,9 @@ static var instance : World
 
 func _init() -> void:
 	instance = self
+
+func _disable_tiles():
+	for tiles in get_tree().get_nodes_in_group("Tiles"):
+		tiles.enabled = false
+		print_debug("Turned off Tiles in World.")
+	
