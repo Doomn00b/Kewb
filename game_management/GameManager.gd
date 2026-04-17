@@ -46,7 +46,7 @@ func _ready() -> void:
 	level_dict["Level2"] = %LevelTest2
 	level_dict["Level3"] = %BossLevTest
 	
-	#disable_lvls()
+	disable_lvls()
 	#current_level2d.show()
 	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
 	#OVERRIDE RUNTIME DICT
@@ -112,20 +112,21 @@ func change_level2D(new_level : String,
 		TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
 	#End transition-condition.
+	
 	#OLD LEVEL TURN OFF
 	disable_lvls() #Turn off all of the levels, so we can make sure we only enable the level we want.
-	#disable_tiles() #Turn off all tilesets, since they run on a separate process from everything else in the levels.
-	World.instance._disable_tiles() #We run the function in world to turn off all tiles.
+	World.instance.disable_tiles() #We run the function in world to turn off all tiles.
 	
 	current_level2d = level_dict[new_level] #We check the dictionary for the new level, which is based on what the LevelTransition says it should be.
 	
 	#NEW LEVEL TURN ON
+	enable_tileset() #We re-enable the tiles in the new level we're in.
 	current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
 	await get_tree().process_frame
 	current_level2d.visible = true
-	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
-	current_level2d.process_mode = Node.PROCESS_MODE_ALWAYS
-	enable_tileset() #We re-enable the tiles in the new level we're in.
+	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
+	#current_level2d.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
@@ -240,18 +241,29 @@ func disable_lvls():
 	for level in level_dict.values(): #For all of the levels in the values(Node2D's) of the level-dict...
 		level.hide()
 		level.process_mode = Node.PROCESS_MODE_DISABLED
-		
-		#print_debug("These levels were turned off:" level.)
+	print_debug("The levels were turned off:")
 
 #region managing tiles
-func disable_tiles():
+func _disable_tiles():
 	#var _tiles: TileMapLayer #Make a var for tilemaplayers (so we can turn them off)
 	print_debug("Disabled tiles... maybe.")
-		
+	
 func enable_tileset():
-	for tiles in current_level2d.get_tree().get_nodes_in_group("Tiles"):
+	#for tiles in current_level2d.get_tree().get_nodes_in_group("Tiles"):
+		#tiles.enabled = true
+	#print_debug("Enabled tiles. Maybe??")
+	
+#Filtering out the tilemaplayers...
+	var filt_tiles : Array = []
+	for child in current_level2d.instance.get_children(): 
+		if child.is_in_group("Tiles"): 
+			filt_tiles.append(child)
+			print_debug("Found a tile.")
+	await get_tree().process_frame
+	for tiles in filt_tiles:
 		tiles.enabled = true
-	print_debug("Enabled tiles. Maybe??")
+		#filt_tiles.erase(tiles)
+	print_debug("Finished enabling tiles.")
 	
 #endregion 
 

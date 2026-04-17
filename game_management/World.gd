@@ -8,7 +8,7 @@ static var instance : World
 func _init() -> void:
 	instance = self
 
-func _disable_tiles():
+func disable_tiles(): #This function is run by the GameManager, to turn off all tiles in the levels
 	for tiles in get_tree().get_nodes_in_group("Tiles"):
 		tiles.enabled = false
 		print_debug("Turned off Tiles in World.")

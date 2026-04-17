@@ -15,6 +15,56 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5v0t7"]
+texture = ExtResource("6_4rd1o")
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0 = 0
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0 = 0
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:3/0 = 0
+2:3/0 = 0
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:3/0 = 0
+4:3/0 = 0
+6:2/0 = 0
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:2/0 = 0
+7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:3/0 = 0
+6:3/0 = 0
+8:2/0 = 0
+8:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:2/0 = 0
+9:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:3/0 = 0
+8:3/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_equ4s"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
+sources/1 = SubResource("TileSetAtlasSource_5v0t7")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qtnjo"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ttewl"]
 texture = ExtResource("6_4rd1o")
 0:2/0 = 0
@@ -60,7 +110,7 @@ texture = ExtResource("6_4rd1o")
 
 [sub_resource type="TileSet" id="TileSet_5v0t7"]
 physics_layer_0/collision_layer = 1
-physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_qtnjo")
 sources/1 = SubResource("TileSetAtlasSource_ttewl")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4rd1o"]
@@ -108,14 +158,14 @@ texture = ExtResource("6_4rd1o")
 
 [sub_resource type="TileSet" id="TileSet_ttewl"]
 physics_layer_0/collision_layer = 1
-physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_qtnjo")
 sources/1 = SubResource("TileSetAtlasSource_4rd1o")
 
 [node name="LevelTest1" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_dict")]
 y_sort_enabled = true
 script = ExtResource("1_prie1")
 entry_dict = {
-0: NodePath("EPLeftLvl1"),
+0: NodePath("EnemySpawner/Point"),
 1: NodePath("EPRightLvl1")
 }
 
@@ -147,7 +197,7 @@ z_index = -1
 y_sort_enabled = true
 position = Vector2(72, 232)
 tile_map_data = PackedByteArray("AAD8//7/AQAIAAEAAAD9//7/AQABAAEAAAD+//7/AQACAAEAAAD///7/AQADAAEAAAAAAP7/AQAEAAEAAAABAP7/AQAFAAEAAAACAP7/AQAGAAEAAAADAP7/AQAHAAEAAAAEAP7/AQAIAAEAAAAFAP7/AQABAAEAAAAMAP7/AQAIAAEAAAANAP7/AQABAAEAAAAOAP7/AQACAAEAAAAPAP7/AQADAAEAAAAQAP7/AQAEAAEAAAARAP7/AQAFAAEAAAASAP7/AQAGAAEAAAATAP7/AQAHAAEAAAAUAP7/AQAIAAEAAAAVAP7/AQAJAAEAAAAGAP7/AQACAAEAAAAHAP7/AQADAAEAAAAIAP7/AQAEAAEAAAAJAP7/AQAFAAEAAAAKAP7/AQAGAAEAAAALAP7/AQAHAAEAAAD7//7/AQAHAAEAAAD6//7/AQAGAAEAAAD5//7/AQAFAAEAAAD4//7/AQAEAAEAAAD3//7/AQADAAEAAAD2//7/AQACAAEAAAD1//7/AQABAAEAAAD0//7/AQAIAAEAAADz//7/AQACAAEAAADy//7/AQAGAAEAAADx//7/AQAFAAEAAADw//7/AQAEAAEAAADv//7/AQADAAEAAADu//7/AQACAAEAAADj//7/AQAHAAEAAADi//7/AQAGAAEAAADl//7/AQABAAEAAADm//7/AQACAAEAAADn//7/AQADAAEAAADo//7/AQAEAAEAAADp//7/AQAFAAEAAADq//7/AQAGAAEAAADr//7/AQAHAAEAAADs//7/AQAIAAEAAADt//7/AQABAAEAAADk//7/AQAIAAEAAADh//7/AQACAAEAAADg//7/AQABAAEAAADf//7/AQAAAAEAAAAVAPn/AQAJAAEAAAAUAPn/AQAIAAEAAAATAPn/AQAHAAEAAAASAPn/AQAGAAEAAAARAPn/AQAFAAEAAAAQAPn/AQAEAAEAAAAPAPn/AQADAAEAAAAOAPn/AQACAAEAAAANAPn/AQABAAEAAAAMAPn/AQAAAAEAAAA=")
-tile_set = ExtResource("4_prie1")
+tile_set = SubResource("TileSet_equ4s")
 collision_enabled = false
 physics_quadrant_size = 8
 navigation_enabled = false
