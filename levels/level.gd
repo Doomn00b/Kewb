@@ -4,7 +4,9 @@ extends Node2D
 #@export var entry_points : Array[Node2D]
 @export_category("Put Entry-points, Name & Marker, here")
 @export var entry_dict : Dictionary[int, Node2D]
+
 var player : Player
+
 static var instance : Level
 
 func _init() -> void:
@@ -18,6 +20,29 @@ func place_player(_player, entry_point : int):
 	GameManager.instance.show_player() #We make sure the player is active and visible.
 	_player.global_position = entry_dict[entry_point].global_position #Changes the players position to the first entry-point.
 
+#ENABLING TILES.
+func enable_tiles(in_level : Node2D, tile_array : Array):
+	in_level = self
+	get_tiles(in_level, tile_array)
+	activate_tiles()
+	pass
+	
+func get_tiles(in_level, tile_array := []):
+	tile_array.push_back(in_level)
+	for tiles in in_level.get_children(): 
+		tile_array = get_tiles(tiles, tile_array)
+	return tile_array
+
+func activate_tiles():	
+	for _tileMapLayer in get_tiles(get_tree().get_root()):
+		if _tileMapLayer is TileMapLayer:
+			_tileMapLayer.collision_enabled = true
+			#_tileMapLayer.enabled = true
+			#_tileMapLayer.show()
+			print_debug("Enabled a tileMapLayer.")
+	print_debug("Finished enabling tiles.")
+	
+	
 
 
 #Pseudo-code:

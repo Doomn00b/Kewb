@@ -165,7 +165,7 @@ sources/1 = SubResource("TileSetAtlasSource_4rd1o")
 y_sort_enabled = true
 script = ExtResource("1_prie1")
 entry_dict = {
-0: NodePath("EnemySpawner/Point"),
+0: NodePath("EPLeftLvl1"),
 1: NodePath("EPRightLvl1")
 }
 

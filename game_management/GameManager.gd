@@ -21,6 +21,9 @@ var reset_req : bool = false #This bool will be set, when the reset_now signal i
 var new_game_made: bool = false #Will be set when the user makes a new game.
 var game_loaded : bool = false
 
+var in_level : Node2D #Cloned var from Level-script, for filtering TileMapLayers
+var tile_array : Array #Cloned var from level-script, for enabling tiles.
+
 #var player_hidden : bool = false
 #var score: int = 0 #We have a variable for score, which of course starts at zero.
 static var instance : GameManager
@@ -116,13 +119,14 @@ func change_level2D(new_level : String,
 	#OLD LEVEL TURN OFF
 	disable_lvls() #Turn off all of the levels, so we can make sure we only enable the level we want.
 	World.instance.disable_tiles() #We run the function in world to turn off all tiles.
-	
 	current_level2d = level_dict[new_level] #We check the dictionary for the new level, which is based on what the LevelTransition says it should be.
 	
 	#NEW LEVEL TURN ON
-	enable_tileset() #We re-enable the tiles in the new level we're in.
-	current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
+	current_level2d.enable_tiles(in_level, tile_array) #We run the enable-tiles function in Level.
+	#enable_tileset() #We re-enable the tiles in the new level we're in.
 	await get_tree().process_frame
+	current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
+	#await get_tree().process_frame
 	current_level2d.visible = true
 	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
 	#current_level2d.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -249,20 +253,19 @@ func _disable_tiles():
 	print_debug("Disabled tiles... maybe.")
 	
 func enable_tileset():
-	#for tiles in current_level2d.get_tree().get_nodes_in_group("Tiles"):
-		#tiles.enabled = true
-	#print_debug("Enabled tiles. Maybe??")
-	
 #Filtering out the tilemaplayers...
 	var filt_tiles : Array = []
-	for child in current_level2d.instance.get_children(): 
+	for child in current_level2d.get_children(): 
 		if child.is_in_group("Tiles"): 
 			filt_tiles.append(child)
 			print_debug("Found a tile.")
-	await get_tree().process_frame
+	#await get_tree().process_frame
 	for tiles in filt_tiles:
-		tiles.enabled = true
-		#filt_tiles.erase(tiles)
+		tiles.collision_enabled = true
+		#tiles.enabled = true
+		#tiles.visible = true
+		#tiles.show()
+		filt_tiles.erase(tiles)
 	print_debug("Finished enabling tiles.")
 	
 #endregion 
