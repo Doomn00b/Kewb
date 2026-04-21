@@ -12,7 +12,6 @@ extends Node2D
 @export_range( -2016, 2016, 32) var y_position : int = 0 : set = _on_ypos_changed
 
 
-
 func _ready():
 	#region guard-clause, so we don't block if we're not playing game.
 	if Engine.is_editor_hint():
@@ -39,8 +38,6 @@ func _draw():
 		var bbox : Rect2 = Rect2( Vector2.ZERO, Vector2(width, height) )
 		draw_rect( bbox, Color(0.0, 0.157, 1.0, 0.6), false, 3 ) #We get the draw-function to draw  bbox blue, slightly transparent.
 		draw_rect( bbox, Color(0.157, 0.612, 1.0, 1.0), false, 1 )
-		
-	pass
 
 func _on_width_changed( new_width : int ):
 	width = new_width

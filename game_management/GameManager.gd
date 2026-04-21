@@ -50,10 +50,7 @@ func _ready() -> void:
 	level_dict["Level3"] = %BossLevTest
 	
 	disable_lvls()
-	#current_level2d.show()
-	#current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
-	#OVERRIDE RUNTIME DICT
-	override_runtime_from_save()
+	override_runtime_from_save() #OVERRIDE RUNTIME DICTIONARY
 	
 	#region SAVE NEW DEFAULTS TO SAVE GAME
 	for level_name in level_dict.keys():
@@ -66,6 +63,7 @@ func _ready() -> void:
 	#endregion
 	
 	MessageBus.instance.restart_now.connect(_set_rst_bool) #We connect the restart_now signal to our set-bool function
+	#MessageBus.instance.player_interacted.connect(pause_enemies) #Connect to pause enemies.
 	#Making sure the main menu works correctly.
 	change_gui_scene("MainMenu", false, false, false) #Make the Main Menu the current GUI.
 	
@@ -102,7 +100,6 @@ func override_runtime_from_save():
 		level_instance.process_mode = Node.PROCESS_MODE_DISABLED
 		World.instance.add_child(level_instance)
 	
-			
 func change_level2D(new_level : String,
 	entry_point : int,
 	transition: bool = true,
@@ -112,6 +109,7 @@ func change_level2D(new_level : String,
 	if transition == true:
 		print_debug("We shall run a transition") 
 		Player.instance.lock_movement() #If we're transitioning we lock the player.
+		pause_enemies() #If we're transitioning we also lock the enemies.
 		TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
 	#End transition-condition.
@@ -126,11 +124,8 @@ func change_level2D(new_level : String,
 	#enable_tileset() #We re-enable the tiles in the new level we're in.
 	await get_tree().process_frame
 	current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
-	#await get_tree().process_frame
 	current_level2d.visible = true
 	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
-	#current_level2d.process_mode = Node.PROCESS_MODE_ALWAYS
-	
 	
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
@@ -247,6 +242,19 @@ func disable_lvls():
 		level.process_mode = Node.PROCESS_MODE_DISABLED
 	print_debug("The levels were turned off:")
 
+func pause_enemies():
+	#If the player-interacted signal has been sent on the message-bus...
+	var enemy_array : Array = current_level2d.instance.get_tree().get_nodes_in_group("enemyGroup")
+	for enemies in enemy_array:
+		enemies.process_mode = Node.PROCESS_MODE_DISABLED
+	print_debug("Paused the enemies in the level.")
+	
+
+func un_pause_enemies():
+	
+	pass
+
+
 #region managing tiles
 func _disable_tiles():
 	#var _tiles: TileMapLayer #Make a var for tilemaplayers (so we can turn them off)
@@ -262,9 +270,6 @@ func enable_tileset():
 	#await get_tree().process_frame
 	for tiles in filt_tiles:
 		tiles.collision_enabled = true
-		#tiles.enabled = true
-		#tiles.visible = true
-		#tiles.show()
 		filt_tiles.erase(tiles)
 	print_debug("Finished enabling tiles.")
 	

@@ -25,20 +25,18 @@ func enable_tiles(in_level : Node2D, tile_array : Array):
 	in_level = self
 	get_tiles(in_level, tile_array)
 	activate_tiles()
-	pass
 	
 func get_tiles(in_level, tile_array := []):
 	tile_array.push_back(in_level)
 	for tiles in in_level.get_children(): 
 		tile_array = get_tiles(tiles, tile_array)
+	print_debug("Finished collecting tilemaplayers.")
 	return tile_array
 
 func activate_tiles():	
 	for _tileMapLayer in get_tiles(get_tree().get_root()):
 		if _tileMapLayer is TileMapLayer:
 			_tileMapLayer.collision_enabled = true
-			#_tileMapLayer.enabled = true
-			#_tileMapLayer.show()
 			print_debug("Enabled a tileMapLayer.")
 	print_debug("Finished enabling tiles.")
 	

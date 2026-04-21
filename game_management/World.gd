@@ -10,7 +10,6 @@ func _init() -> void:
 
 func disable_tiles(): #This function is run by the GameManager, to turn off all tiles in the levels
 	for tiles in get_tree().get_nodes_in_group("Tiles"):
-		#tiles.enabled = false
 		tiles.collision_enabled = false
 		print_debug("Turned off Tiles in World.")
 	

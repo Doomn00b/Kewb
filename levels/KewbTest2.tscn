@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_ndik7"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="2_62q5x"]
+[ext_resource type="PackedScene" uid="uid://6srpiqm3noij" path="res://levels/LevelBounds.tscn" id="2_ndik7"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="3_d4w2d"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="4_ikoun"]
-[ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/Door.tscn" id="5_aq4yf"]
+[ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/DoorFront.tscn" id="5_aq4yf"]
 [ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="7_ndik7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mg0xd"]
@@ -115,8 +116,15 @@ entry_dict = {
 0: NodePath("EPleftLvl2")
 }
 
+[node name="LevelBounds" parent="." unique_id=90060770 instance=ExtResource("2_ndik7")]
+z_index = 256
+position = Vector2(-480, 0)
+width = 928
+x_position = 0
+y_position = 0
+
 [node name="EPleftLvl2" type="Marker2D" parent="." unique_id=1872710426]
-position = Vector2(-296, 200)
+position = Vector2(-376, 200)
 
 [node name="TestBlock" type="StaticBody2D" parent="." unique_id=1762496683 groups=["Obstacle", "Walls"]]
 position = Vector2(-479, 88)
@@ -142,7 +150,7 @@ spawn_points = [NodePath("Point"), NodePath("Point2")]
 wait_time = 0.5
 
 [node name="Point" parent="EnemySpawner2" index="1" unique_id=251681297]
-position = Vector2(352, 120)
+position = Vector2(352, 192)
 
 [node name="Point2" type="Marker2D" parent="EnemySpawner2" unique_id=1148452854]
 position = Vector2(16, 192)
@@ -164,14 +172,16 @@ tile_set = SubResource("TileSet_ndik7")
 collision_visibility_mode = 1
 physics_quadrant_size = 32
 
-[node name="Door" parent="." unique_id=100351584 instance=ExtResource("5_aq4yf")]
-position = Vector2(-219, 212)
+[node name="DoorFrontLeft" parent="." unique_id=100351584 node_paths=PackedStringArray("level_transition") instance=ExtResource("5_aq4yf")]
+position = Vector2(-416, 212)
+level_transition = NodePath("../LTleftLvl2")
+preset_open = true
 
 [node name="LTleftLvl2" parent="." unique_id=1965396953 instance=ExtResource("7_ndik7")]
 unique_name_in_owner = true
-position = Vector2(-368, 208)
+position = Vector2(-429, 212)
 target_level = "Level1"
 entry_point = 1
 
 [editable path="EnemySpawner2"]
-[editable path="Door"]
+[editable path="DoorFrontLeft"]

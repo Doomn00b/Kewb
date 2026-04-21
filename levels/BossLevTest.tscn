@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_wte1x"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="2_2lamh"]
+[ext_resource type="PackedScene" uid="uid://6srpiqm3noij" path="res://levels/LevelBounds.tscn" id="2_p5nx4"]
 [ext_resource type="PackedScene" uid="uid://c5858a2o7dwsx" path="res://characters/Enemies/Boss_Enemy/BossEnemy.tscn" id="3_wte1x"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="4_6ip4h"]
-[ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/Door.tscn" id="5_dg7s0"]
+[ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/DoorFront.tscn" id="5_dg7s0"]
 [ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="6_te63e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mg0xd"]
@@ -115,6 +116,13 @@ entry_dict = {
 0: NodePath("EPleftLvl3")
 }
 
+[node name="LevelBounds" parent="." unique_id=90060770 instance=ExtResource("2_p5nx4")]
+z_index = 256
+position = Vector2(-480, 0)
+width = 608
+x_position = 0
+y_position = 0
+
 [node name="EPleftLvl3" type="Marker2D" parent="." unique_id=1872710426]
 position = Vector2(-296, 200)
 
@@ -166,6 +174,7 @@ physics_quadrant_size = 32
 
 [node name="Door" parent="." unique_id=100351584 instance=ExtResource("5_dg7s0")]
 position = Vector2(-336, 211)
+preset_open = false
 
 [node name="LTleftLvl3" parent="." unique_id=1965396953 instance=ExtResource("6_te63e")]
 unique_name_in_owner = true

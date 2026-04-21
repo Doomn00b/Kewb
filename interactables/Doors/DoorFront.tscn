@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cxhau404j4m7v"]
 
+[ext_resource type="Script" uid="uid://b0tcwj47yq257" path="res://interactables/Doors/Doors.gd" id="1_3io3i"]
 [ext_resource type="Texture2D" uid="uid://du4ip7qhs16o" path="res://interactables/Doors/kewb-door_arch.png" id="1_sl387"]
 [ext_resource type="Texture2D" uid="uid://b1qohwo8vl5qs" path="res://interactables/Doors/kewb-door_iron_compact.png" id="2_s7jw3"]
 
@@ -71,14 +72,16 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_j6dmf"),
 &"closed": SubResource("Animation_u31xj"),
-&"opened": SubResource("Animation_bt7ja"),
+&"open": SubResource("Animation_bt7ja"),
 &"opening": SubResource("Animation_s7jw3")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7jw3"]
 size = Vector2(58, 4)
 
-[node name="Door" type="Node2D" unique_id=100351584]
+[node name="DoorFront" type="Node2D" unique_id=100351584 groups=["World"]]
+script = ExtResource("1_3io3i")
+preset_open = null
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1258453598]
 z_index = -1
@@ -87,6 +90,7 @@ position = Vector2(0, -35)
 texture = ExtResource("1_sl387")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1759808285]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_u31xj")
 autoplay = &"closed"
 
@@ -105,8 +109,8 @@ patch_margin_bottom = 6
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1261347723]
+[node name="TopStandPlatform" type="StaticBody2D" parent="." unique_id=1261347723]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=83102821]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopStandPlatform" unique_id=83102821]
 position = Vector2(2, -64)
 shape = SubResource("RectangleShape2D_s7jw3")

@@ -1,4 +1,4 @@
-#@tool #A tool-script runs while we're in the editor.
+@tool #A tool-script runs while we're in the editor.
 @icon("res://levels/level_transition_symbol.png")
 class_name LevelTransition
 extends Node2D
