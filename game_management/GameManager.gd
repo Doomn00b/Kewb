@@ -24,6 +24,8 @@ var game_loaded : bool = false
 var in_level : Node2D #Cloned var from Level-script, for filtering TileMapLayers
 var tile_array : Array #Cloned var from level-script, for enabling tiles.
 
+var player_hidden : bool = true
+
 #var player_hidden : bool = false
 #var score: int = 0 #We have a variable for score, which of course starts at zero.
 static var instance : GameManager
@@ -206,6 +208,7 @@ func change_gui_scene(
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 
 func hide_player():
+	player_hidden = true
 	Player.instance.hide()
 	Player.instance.process_mode = Node.PROCESS_MODE_DISABLED
 	PlayerHud.instance.hide()
@@ -213,6 +216,7 @@ func hide_player():
 	print_debug("Hid the player.")
 
 func show_player():
+	player_hidden = false
 	Player.instance.process_mode = Node.PROCESS_MODE_ALWAYS
 	Player.instance.show()
 	PlayerHud.instance.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -250,9 +254,11 @@ func pause_enemies():
 	print_debug("Paused the enemies in the level.")
 	
 
-func un_pause_enemies():
-	
-	pass
+func un_pause_enemies(): #Not sure when to even use this?? The entire level gets re-enabled when you reload. Perhaps for unpausing after a cut-scene.
+	var nmy_array: Array = current_level2d.instance.get_tree().get_nodes_in_group("enemyGroup")
+	for enemies in nmy_array:
+		enemies.process_mode = Node.PROCESS_MODE_ALWAYS
+	print_debug("Unpaused the enemies.")
 
 
 #region managing tiles

@@ -22,7 +22,7 @@ func place_player(_player, entry_point : int):
 
 #ENABLING TILES.
 func enable_tiles(in_level : Node2D, tile_array : Array):
-	in_level = self
+	in_level = instance
 	get_tiles(in_level, tile_array)
 	activate_tiles()
 	
@@ -30,9 +30,9 @@ func get_tiles(in_level, tile_array := []):
 	tile_array.push_back(in_level)
 	for tiles in in_level.get_children(): 
 		tile_array = get_tiles(tiles, tile_array)
-	print_debug("Finished collecting tilemaplayers.")
+		print_debug("Got a tileMapLayer.")
 	return tile_array
-
+	
 func activate_tiles():	
 	for _tileMapLayer in get_tiles(get_tree().get_root()):
 		if _tileMapLayer is TileMapLayer:

@@ -16,6 +16,7 @@ signal health_updated(new_health : int) #A signal that says our health has chang
 @export var running_speed: int = 300
 @export var walk_jump_vel: int = -400
 @export var run_jump_vel: int = -600
+@export var ch_jump_vel: int = -900
 
 var health : int = PCMAX_HEALTH #We make a new variable based on the Health-constant.
 var SPEED: int = 0
@@ -37,6 +38,7 @@ var fist_time : Timer
 var fist_point : Marker2D
 var dead_time : Timer
 var player_cam : Camera2D
+var charge_jmp_time: Timer
 
 
 #Ability Vars -- they decide if the player can access their abilities.
@@ -56,11 +58,15 @@ func _ready() -> void:
 	fist_time = %FistTime #We get the timer that decides how long our fist is visible
 	fist_point = %FistPoint
 	dead_time = %PDeadTimer
+	charge_jmp_time = %ChaJmpTimer
 	#Wait... do I need to connect this to an animation-state as well?? YES! >:( 
 	current_direction = -1 #We set the direction the player is facing, at the start of the game (to be right).
 	await get_tree().process_frame
 	health_updated.emit(health)
-	free_movement() #We unlock movement when the player loads in.
+	if GameManager.instance.player_hidden == false:
+		free_movement() #We unlock movement when the player loads in.
+	else:
+		pass
 
 func _input(event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
@@ -90,21 +96,6 @@ func _player_attack():
 	#region Guardclause
 	if !Input.is_action_just_pressed("attack"): #Nothing will happen if an attack command did not happen
 		return
-	#endregion
-	#region old attack code
-	#print_debug("Player attacked!")
-	#if !Input.is_action_pressed("charge") and !power_punch: #Release of charge attack, IMPORTANT DIFFERENCE
-		#return
-	#print_debug("Power Punch!")	
-	## pseudocode - Player presses punch -> do punching-fist. (animation? Spawn arm?)
-	#
-	#if fist_time.is_stopped(): #If the player presses the attack-action, then...
-		##And the fist-timer has run out...
-		#var fist = fist_tscn.instantiate() #Instantiate the fist.
-		#%FistPoint.add_child(fist)
-		#fist_time.start()
-		#await fist_time.timeout
-		#fist.queue_free()
 	#endregion
 	
 	#Regular attack
@@ -157,7 +148,14 @@ func _jumping(_delta: float) -> void:
 		current_anim_state = PcAnimEnum.E.PAJUMP
 		_unground_player()
 		#print_debug("Player jumped higher")
-
+	
+	if charge_jump == true and Input.is_action_pressed("charge") and Input.is_action_pressed("jump") and charge_jmp_time.is_stopped(): 
+		charge_jmp_time.start()
+		print_debug("Charging Jump!")
+		current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
+		await charge_jmp_time.timeout #...until the charging is done
+		velocity.y = run_jump_vel #Then we increase jump-velocity tons
+		current_anim_state = PcAnimEnum.E.PAJUMP
 
 func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
 	match current_move_state :
@@ -189,11 +187,13 @@ func update_animation(_delta): #This is where we change which anim we're in.
 		PcAnimEnum.E.PARUN:
 			pass
 		PcAnimEnum.E.PAJUMP:
-			pass
+			anim.play("player_jump")
 		PcAnimEnum.E.PASWIM:
 			pass
 		PcAnimEnum.E.PAPUNCH:
 			pass
+		PcAnimEnum.E.PACHJMP:
+			anim.play("player_charge_jump")
 		PcAnimEnum.E.PADEAD:
 			anim.play("player_dead")
 			print_debug("Playing Player Death-animation.")

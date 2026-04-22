@@ -181,7 +181,6 @@ unique_name_in_owner = true
 position = Vector2(65, 214)
 location = 1
 target_level = "Level1"
-entry_point = 1
 
 [editable path="EnemySpawner3"]
 [editable path="Door"]
