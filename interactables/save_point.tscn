@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://ctpljjy4g34v1"]
+
+[node name="SavePoint" type="Node2D" unique_id=1020067152]
+
+[node name="SpSprite" type="Sprite2D" parent="." unique_id=642763307]
