@@ -1,5 +1,201 @@
 [gd_scene format=3 uid="uid://ctpljjy4g34v1"]
 
+[ext_resource type="Script" uid="uid://dq1g1o61r4b3p" path="res://interactables/save_point.gd" id="1_5eg5m"]
+[ext_resource type="Texture2D" uid="uid://byc4hnbmi5b5w" path="res://interactables/SavePoint_sprite.png" id="1_n8gu5"]
+
+[sub_resource type="Animation" id="Animation_5eg5m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_n8gu5"]
+resource_name = "save_computer"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 0.23333333, 0.43333334, 0.6333333, 0.8333333, 1.0666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5eg5m"]
+_data = {
+&"RESET": SubResource("Animation_5eg5m"),
+&"save_computer": SubResource("Animation_n8gu5")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8gu5"]
+size = Vector2(31, 32)
+
+[sub_resource type="Animation" id="Animation_5phh7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameSavedText:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameSavedText:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-43.5, -28)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SaveGameText:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_gx4pd"]
+resource_name = "game_saved"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameSavedText:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameSavedText:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 1.2666667, 1.4333333, 1.6),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(-43.5, -28), Vector2(-43, -32), Vector2(-43, -36), Vector2(-43, -40), Vector2(-43.5, -44)]
+}
+
+[sub_resource type="Animation" id="Animation_eouvy"]
+resource_name = "sp_save_game"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SaveGameText:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5phh7"]
+_data = {
+&"RESET": SubResource("Animation_5phh7"),
+&"sp_game_saved": SubResource("Animation_gx4pd"),
+&"sp_save_game": SubResource("Animation_eouvy")
+}
+
 [node name="SavePoint" type="Node2D" unique_id=1020067152]
+script = ExtResource("1_5eg5m")
 
 [node name="SpSprite" type="Sprite2D" parent="." unique_id=642763307]
+texture = ExtResource("1_n8gu5")
+hframes = 6
+
+[node name="SpriteAnimPlayer" type="AnimationPlayer" parent="." unique_id=1343721418]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_5eg5m")
+
+[node name="SaveArea" type="Area2D" parent="." unique_id=475457877]
+unique_name_in_owner = true
+collision_layer = 16
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SaveArea" unique_id=1349137574]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_n8gu5")
+debug_color = Color(0.9943945, 0.39966324, 0.6033866, 0.41960785)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=240962658]
+
+[node name="SaveGameText" type="Label" parent="Node2D" unique_id=907416298]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.0
+offset_top = -28.0
+offset_right = 39.0
+offset_bottom = -14.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0.15686275, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 0
+text = "Press Up to 
+SAVE GAME"
+horizontal_alignment = 1
+
+[node name="GameSavedText" type="Label" parent="Node2D" unique_id=1829802875]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.5
+offset_top = -28.0
+offset_right = 43.5
+offset_bottom = -14.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0.15686275, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 0
+text = "GAME SAVED"
+horizontal_alignment = 1
+
+[node name="LabelAnimPlayer" type="AnimationPlayer" parent="Node2D" unique_id=291870217]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_5phh7")
+
+[connection signal="body_entered" from="SaveArea" to="." method="_on_area_2d_body_entered"]

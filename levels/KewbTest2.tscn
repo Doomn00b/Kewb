@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c43x0cd85xsal" path="res://Tilesets/kewb-tiles_vert.png" id="8_bcrt1"]
 [ext_resource type="TileSet" uid="uid://dd45pqydhigo8" path="res://Tilesets/blue_tiles_floating.tres" id="9_xhd3h"]
 [ext_resource type="PackedScene" uid="uid://3jmguuhnft7s" path="res://interactables/Pickups/AbilityUpgrade.tscn" id="10_d7tiv"]
+[ext_resource type="PackedScene" uid="uid://ctpljjy4g34v1" path="res://interactables/save_point.tscn" id="11_jo1nw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
 
@@ -302,7 +303,7 @@ spawn_points = [NodePath("Point"), NodePath("Point2")]
 wait_time = 0.5
 
 [node name="Point" parent="EnemySpawner2" index="1" unique_id=251681297]
-position = Vector2(352, 192)
+position = Vector2(-72, 192)
 
 [node name="Point2" type="Marker2D" parent="EnemySpawner2" unique_id=1148452854]
 position = Vector2(16, 192)
@@ -380,6 +381,7 @@ y_sort_enabled = true
 position = Vector2(640, -8)
 tile_map_data = PackedByteArray("AADj/w8AAAABAAcAAADi/w8AAAAAAAcAAADj/w4AAAABAAYAAADi/w4AAAAAAAYAAADj/w0AAAABAAUAAADi/w0AAAAAAAUAAADj/wwAAAABAAQAAADi/wwAAAAAAAQAAADj/wsAAAABAAMAAADi/wsAAAAAAAMAAADj/woAAAABAAIAAADi/woAAAAAAAIAAADj/wkAAAABAAEAAADi/wkAAAAAAAEAAADj/wgAAAABAAAAAADi/wgAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_xhd3h")
+collision_enabled = false
 navigation_enabled = false
 
 [node name="BrownTilesMid-right2" type="TileMapLayer" parent="." unique_id=740580966 groups=["Tiles", "Walls"]]
@@ -393,6 +395,9 @@ navigation_enabled = false
 [node name="ChargeJumpUpgrade" parent="." unique_id=947636966 instance=ExtResource("10_d7tiv")]
 position = Vector2(120, 192)
 upgrade_type = 2
+
+[node name="SavePoint" parent="." unique_id=1020067152 instance=ExtResource("11_jo1nw")]
+position = Vector2(144, 196)
 
 [editable path="EnemySpawner2"]
 [editable path="DoorFrontLeft"]
