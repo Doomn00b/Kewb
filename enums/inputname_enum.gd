@@ -13,7 +13,7 @@ enum E {
 }
 
 var InputLookup: Dictionary = {
-	E.INTERACT : &"ui_accept",
+	E.INTERACT : &"interact",
 	E.JUMP : &"jump",
 	E.ATTACK : &"attack",
 	E.CHARGE : &"charge",

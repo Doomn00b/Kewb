@@ -86,12 +86,16 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("charge") and move_dir.x:
 		#print_debug("player is running")
 		current_move_state = PcMoveStaEnum.E.RUNNING #...we start running.
-		
+	
 	#Debug-stuff
 	if event.is_action_pressed("kill_player"):
 		health = 0
 		print_debug("Debug-Killed player.")
-	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		MessageBus.instance.player_interacted.emit(self)
+
 func _player_attack():
 	#region Guardclause
 	if !Input.is_action_just_pressed("attack"): #Nothing will happen if an attack command did not happen

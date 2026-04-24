@@ -159,7 +159,6 @@ debug_color = Color(0.9943945, 0.39966324, 0.6033866, 0.41960785)
 [node name="Node2D" type="Node2D" parent="." unique_id=240962658]
 
 [node name="SaveGameText" type="Label" parent="Node2D" unique_id=907416298]
-unique_name_in_owner = true
 visible = false
 anchors_preset = 5
 anchor_left = 0.5
@@ -173,7 +172,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0.15686275, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 0
-text = "Press Up to 
+text = "Press Interact to 
 SAVE GAME"
 horizontal_alignment = 1
 
