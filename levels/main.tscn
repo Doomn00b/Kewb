@@ -30,11 +30,11 @@ metadata/_custom_type_script = "uid://bxgpyf6pshwbn"
 
 [node name="Player" parent="World" unique_id=1236161566 groups=["World"] instance=ExtResource("2_5k4jt")]
 unique_name_in_owner = true
-visible = false
 position = Vector2(-336, 200)
 
 [node name="LevelTest1" parent="World" unique_id=2143603366 node_paths=PackedStringArray("entry_dict") groups=["World"] instance=ExtResource("2_jyhfs")]
 unique_name_in_owner = true
+visible = false
 entry_dict = {
 0: NodePath("EPLeftLvl1"),
 1: NodePath("EPRightLvl1")

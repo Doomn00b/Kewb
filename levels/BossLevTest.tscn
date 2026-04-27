@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_wte1x"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="2_2lamh"]
-[ext_resource type="PackedScene" uid="uid://6srpiqm3noij" path="res://levels/LevelBounds.tscn" id="2_p5nx4"]
 [ext_resource type="PackedScene" uid="uid://c5858a2o7dwsx" path="res://characters/Enemies/Boss_Enemy/BossEnemy.tscn" id="3_wte1x"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="4_6ip4h"]
 [ext_resource type="PackedScene" uid="uid://cxhau404j4m7v" path="res://interactables/Doors/DoorFront.tscn" id="5_dg7s0"]
@@ -109,19 +108,15 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_78frg")
 sources/1 = SubResource("TileSetAtlasSource_wte1x")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lamh"]
+size = Vector2(568, 8)
+
 [node name="BossLevTest" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_dict")]
 y_sort_enabled = true
 script = ExtResource("1_wte1x")
 entry_dict = {
 0: NodePath("EPleftLvl3")
 }
-
-[node name="LevelBounds" parent="." unique_id=90060770 instance=ExtResource("2_p5nx4")]
-z_index = 256
-position = Vector2(-480, 0)
-width = 608
-x_position = 0
-y_position = 0
 
 [node name="EPleftLvl3" type="Marker2D" parent="." unique_id=1872710426]
 position = Vector2(-296, 200)
@@ -161,26 +156,32 @@ position = Vector2(72, 232)
 tile_map_data = PackedByteArray("AAD8//7/AQAIAAEAAAD9//7/AQABAAEAAAD+//7/AQACAAEAAAD///7/AQADAAEAAAAAAP7/AQAEAAEAAAABAP7/AQAFAAEAAAD7//7/AQAHAAEAAAD6//7/AQAGAAEAAAD5//7/AQAFAAEAAAD4//7/AQAEAAEAAAD3//7/AQADAAEAAAD2//7/AQACAAEAAAD1//7/AQABAAEAAAD0//7/AQAIAAEAAADz//7/AQACAAEAAADy//7/AQAGAAEAAADx//7/AQAFAAEAAADw//7/AQAEAAEAAADv//7/AQADAAEAAADu//7/AQACAAEAAADj//7/AQAHAAEAAADi//7/AQAGAAEAAADl//7/AQABAAEAAADm//7/AQACAAEAAADn//7/AQADAAEAAADo//7/AQAEAAEAAADp//7/AQAFAAEAAADq//7/AQAGAAEAAADr//7/AQAHAAEAAADs//7/AQAIAAEAAADt//7/AQABAAEAAADk//7/AQAIAAEAAADh//7/AQACAAEAAADg//7/AQABAAEAAADf//7/AQAAAAEAAAACAP7/AQAJAAEAAAA=")
 tile_set = SubResource("TileSet_q3et8")
 collision_enabled = false
-physics_quadrant_size = 8
+physics_quadrant_size = 32
 
-[node name="BlueTilesBot" type="TileMapLayer" parent="." unique_id=704312989 groups=["Tiles"]]
+[node name="BlueTilesBot" type="TileMapLayer" parent="." unique_id=704312989 groups=["Floors", "Tiles"]]
 modulate = Color(1, 0.6348778, 0.57909364, 1)
 self_modulate = Color(1, 0.8, 0.28235295, 1)
 position = Vector2(72, 232)
 tile_map_data = PackedByteArray("AAD8/wAAAQAIAAMAAAD9/wAAAQAJAAMAAAD+/wAAAQACAAMAAAD//wAAAQADAAMAAAAAAAAAAQAEAAMAAAABAAAAAQAFAAMAAAACAAAAAQAGAAMAAAD8////AQAIAAIAAAD9////AQAJAAIAAAD+////AQACAAIAAAD/////AQADAAIAAAAAAP//AQAEAAIAAAABAP//AQAFAAIAAAACAP//AQAGAAIAAAD7////AQAHAAIAAAD7/wAAAQAHAAMAAAD6////AQAGAAIAAAD5////AQAFAAIAAAD4////AQAEAAIAAAD3////AQADAAIAAAD2////AQACAAIAAAD1////AQABAAIAAAD1/wAAAQAJAAMAAAD2/wAAAQACAAMAAAD3/wAAAQADAAMAAAD4/wAAAQAEAAMAAAD5/wAAAQAFAAMAAAD6/wAAAQAGAAMAAAD0/wAAAQAIAAMAAAD0////AQAIAAIAAADz/wAAAQAHAAMAAADy/wAAAQAGAAMAAADx/wAAAQAFAAMAAADw/wAAAQAEAAMAAADv/wAAAQADAAMAAADu/wAAAQACAAMAAADv////AQADAAIAAADw////AQAEAAIAAADx////AQAFAAIAAADy////AQAGAAIAAADz////AQAHAAIAAADu////AQACAAIAAADt/wAAAQABAAMAAADt////AQABAAIAAADs/wAAAQAIAAMAAADs////AQAIAAIAAADr////AQAHAAIAAADr/wAAAQAHAAMAAADq/wAAAQAGAAMAAADp/wAAAQAFAAMAAADo/wAAAQAEAAMAAADn/wAAAQADAAMAAADm/wAAAQACAAMAAADl/wAAAQAJAAMAAADl////AQABAAIAAADm////AQACAAIAAADn////AQADAAIAAADo////AQAEAAIAAADp////AQAFAAIAAADq////AQAGAAIAAADk/wAAAQAIAAMAAADj/wAAAQAHAAMAAADi/wAAAQAGAAMAAADi////AQAGAAIAAADj////AQAHAAIAAADk////AQAIAAIAAADh/wAAAQACAAMAAADh////AQACAAIAAADg////AQABAAIAAADf////AQAAAAIAAADf/wAAAQAAAAMAAADg/wAAAQABAAMAAAA=")
 tile_set = SubResource("TileSet_2lamh")
 collision_visibility_mode = 1
-physics_quadrant_size = 32
 
 [node name="Door" parent="." unique_id=100351584 instance=ExtResource("5_dg7s0")]
 position = Vector2(-336, 211)
-preset_open = false
 
 [node name="LTleftLvl3" parent="." unique_id=1965396953 instance=ExtResource("6_te63e")]
 unique_name_in_owner = true
 position = Vector2(65, 214)
 location = 1
 target_level = "Level1"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1979690198]
+position = Vector2(-456, 232)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1641717605]
+position = Vector2(284, 4)
+shape = SubResource("RectangleShape2D_2lamh")
 
 [editable path="EnemySpawner3"]
 [editable path="Door"]

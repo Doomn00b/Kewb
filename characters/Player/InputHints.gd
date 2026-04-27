@@ -2,25 +2,23 @@
 class_name InputHints
 extends Node2D
 
-#const HINT_MAP : Dictionary[GameEnums.ControllerType, GameEnums.HintMsg ] = { #Is it possible to make a Dictionary of ENUMS instead?
-	#KEYBOARD : {
-		#"interact" : 0,
-		#"jump" : 0,
-		#"attack" : 0,
-		#"charge" : 0
-	#}
-#}
-
-#const HINT_MAP: Dictionary [GameEnums.ControllerType, GameEnums.HintMsg] = {
-	#ControllerType.KEYBOARD : HintMsg.KBSPACE #Jumping
-	##Attacking
-	##Charging
-#}
-
-
 @onready var sprite_2d: Sprite2D =%InputSprite
-#var controller_type: Array[ String ] = [
-	#"keyboard", "xbox", "playstation", "nintendo"]
+
+const HINT_MAP: Dictionary = {
+	InputNameEnum.E.INTERACT : &"interact",
+	InputNameEnum.E.JUMP : &"jump",
+	InputNameEnum.E.ATTACK : &"attack",
+	InputNameEnum.E.CHARGE : &"charge",
+	InputNameEnum.E.MOVE_UP : &"move_up",
+	InputNameEnum.E.MOVE_DOWN : &"move_down",
+	InputNameEnum.E.MOVE_LEFT : &"move_left",
+	InputNameEnum.E.MOVE_RIGHT : &"move_right",
+}
+
+
+
+var controller_type: ConTypeEnum.E = ConTypeEnum.E.KEYBOARD #We store our different controller-types in a variable.
+#Sadly the above variable is preset to keyboard, but hopefully we can fix in the future...
 
 func _ready() -> void:
 	sprite_2d.visible = false #Hints should be invisible until they're needed.
@@ -32,3 +30,4 @@ func _on_hint_changed( hint: HintMsgEnum.E ) -> void:
 		sprite_2d.visible = false
 	else:
 		sprite_2d.visible = true #Otherwise it's visible, since a new hint should be displayed.
+		#UPDATE HINT-SPRITE HERE

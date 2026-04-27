@@ -16,17 +16,20 @@ func _on_player_entered(_player: Player) -> void:
 		MessageBus.instance.input_hint_changed.emit(HintMsgEnum.E.INTERACTMSG) #We show the hint to press interact.
 		label_anim.play("sp_save_game")
 		print_debug("Player entered save-point.")
-		MessageBus.instance.player_interacted.connect(_on_player_interacted)
-		
+		MessageBus.instance.player_interacted.connect(_on_player_interacted) #We make it so the player-interacted signal starts a local function.
+		print_debug("Connected signal to interact to save-function.")
 		
 func _on_player_exited(_player: Player) -> void:
 	if _player.is_in_group("playerGroup"):
 		MessageBus.instance.input_hint_changed.emit(HintMsgEnum.E.NO_HINT)
 		label_anim.play_backwards("sp_save_game")
 		print_debug("Player exited save-point.")
-		#MessageBus.instance.player_interacted.disconnect(_on_player_interacted)
+		MessageBus.instance.player_interacted.disconnect(_on_player_interacted)
+		print_debug("DIS-connected signal to interact to save-function.")
+
 	
 func _on_player_interacted(_player: Player) -> void:
+	print_debug("Player interacted with save-point.")
 	#MessageBus.instance.player_interacted.emit()
 	#Save game
 	SaveManager.instance.write_save()
@@ -34,4 +37,3 @@ func _on_player_interacted(_player: Player) -> void:
 	label_anim.play("sp_game_saved") #Run the game saved animation.
 	label_anim.seek( 0 ) #In case the player hits interact-button multiple times, we go back to the beginning of the animation.
 	#Audio feedback (jingle)
-	pass

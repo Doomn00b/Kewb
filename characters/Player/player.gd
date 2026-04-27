@@ -92,9 +92,10 @@ func _input(event: InputEvent) -> void:
 		health = 0
 		print_debug("Debug-Killed player.")
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void: #Interacting with objects, like save-points.
 	if event.is_action_pressed("interact"):
 		MessageBus.instance.player_interacted.emit(self)
+		print_debug("Emitted interact.")
 
 func _player_attack():
 	#region Guardclause

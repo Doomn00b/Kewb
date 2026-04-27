@@ -229,7 +229,7 @@ metadata/_edit_group_ = true
 [node name="InputSprite" type="Sprite2D" parent="InputHints" unique_id=136370627]
 unique_name_in_owner = true
 texture = ExtResource("5_b405y")
-hframes = 4
+hframes = 8
 vframes = 4
 
 [node name="PpChargeTime" type="Timer" parent="." unique_id=119136187]

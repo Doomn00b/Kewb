@@ -110,7 +110,7 @@ func change_level2D(new_level : String,
 	#Condition to run a scene-transition.
 	if transition == true:
 		print_debug("We shall run a transition") 
-		Player.instance.lock_movement() #If we're transitioning we lock the player.
+		#Player.instance.lock_movement() #If we're transitioning we lock the player.
 		pause_enemies() #If we're transitioning we also lock the enemies.
 		TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
@@ -122,17 +122,19 @@ func change_level2D(new_level : String,
 	current_level2d = level_dict[new_level] #We check the dictionary for the new level, which is based on what the LevelTransition says it should be.
 	
 	#NEW LEVEL TURN ON
-	current_level2d.enable_tiles(in_level, tile_array) #We run the enable-tiles function in Level.
-	#enable_tileset() #We re-enable the tiles in the new level we're in.
 	await get_tree().process_frame
+	#current_level2d.enable_tiles(in_level, tile_array) #We run the enable-tiles function in Level.
+	#current_level2d.enable_tileset()
+	enable_tileset() #We re-enable the tiles in the new level we're in.
 	current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
 	current_level2d.visible = true
-	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
+	current_level2d.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 		Player.instance.free_movement() #We unlock the player again once we've transitioned.
-	
+		un_pause_enemies()
+		
 func load_level2D(
 	_save_game : SaveGame,
 	transition: bool = true,
@@ -151,13 +153,14 @@ func load_level2D(
 	#End transition-condition.
 	#OLD LEVEL TURN OFF
 	disable_lvls()
+	World.instance.disable_tiles()
 	#current_level2d.visible = false
 	#current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
 	current_level2d = level_dict[save_game.current_level]
 	
 	#NEW LEVEL TURN ON
-	#current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
 	var player : Player = Player.instance
+	enable_tileset()
 	player.global_position = save_game.player_glob_pos
 	if !save_game.is_facing_right:
 		player.flip()
@@ -273,11 +276,15 @@ func enable_tileset():
 		if child.is_in_group("Tiles"): 
 			filt_tiles.append(child)
 			print_debug("Found a tile.")
-	#await get_tree().process_frame
+	await get_tree().process_frame
+	print_debug(filt_tiles)
 	for tiles in filt_tiles:
 		tiles.collision_enabled = true
-		filt_tiles.erase(tiles)
+		print_debug("Enabled collission in tile.")
+		#await get_tree().process_frame
+		#filt_tiles.erase(tiles)
 	print_debug("Finished enabling tiles.")
+	filt_tiles.erase(filt_tiles)
 	
 #endregion 
 

@@ -30,6 +30,7 @@ func _ready() -> void:
 
 func _on_lt_area_body_entered(body: Node2D) -> void: #Check if the player enters area.
 	if body.is_in_group("playerGroup"): #If it's the player in the zone...
+		Player.instance.lock_movement()
 		print_debug("The player has entered transition-zone")
 		player_ent_zone.emit() #...the signal is emitted, which starts the transition-level function.
 
