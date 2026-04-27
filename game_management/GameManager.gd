@@ -282,9 +282,8 @@ func enable_tileset():
 		tiles.collision_enabled = true
 		print_debug("Enabled collission in tile.")
 		#await get_tree().process_frame
-		#filt_tiles.erase(tiles)
+	filt_tiles.clear()
 	print_debug("Finished enabling tiles.")
-	filt_tiles.erase(filt_tiles)
 	
 #endregion 
 
