@@ -12,13 +12,13 @@ enum E {
 	PAUSE
 }
 
-var InputLookup: Dictionary = {
-	E.INTERACT : &"interact",
-	E.JUMP : &"jump",
-	E.ATTACK : &"attack",
-	E.CHARGE : &"charge",
-	E.MOVE_UP : &"move_up",
-	E.MOVE_DOWN : &"move_down",
-	E.MOVE_LEFT : &"move_left",
-	E.MOVE_RIGHT : &"move_right",
-}
+#var InputLookup: Dictionary = {
+	#E.INTERACT : &"interact",
+	#E.JUMP : &"jump",
+	#E.ATTACK : &"attack",
+	#E.CHARGE : &"charge",
+	#E.MOVE_UP : &"move_up",
+	#E.MOVE_DOWN : &"move_down",
+	#E.MOVE_LEFT : &"move_left",
+	#E.MOVE_RIGHT : &"move_right",
+#}

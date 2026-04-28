@@ -10,6 +10,7 @@ func _ready() -> void:
 	state_dict["Charging"] = %BeChargeState
 	state_dict["Attacking"] = %BeAttackState
 	state_dict["Death"] = %BeDeadState
+	state_dict["Hurt"] = %BeHurtState
 	state_dict["Stunned"] = %BeStunState
 	state_dict["Backing"] = %BeBackState
 	

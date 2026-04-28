@@ -231,6 +231,7 @@ unique_name_in_owner = true
 texture = ExtResource("5_b405y")
 hframes = 8
 vframes = 4
+frame = 24
 
 [node name="PpChargeTime" type="Timer" parent="." unique_id=119136187]
 wait_time = 0.8

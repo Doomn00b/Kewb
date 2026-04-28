@@ -128,7 +128,7 @@ func change_level2D(new_level : String,
 	enable_tileset() #We re-enable the tiles in the new level we're in.
 	current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
 	current_level2d.visible = true
-	current_level2d.process_mode = Node.PROCESS_MODE_ALWAYS
+	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
@@ -220,9 +220,9 @@ func hide_player():
 
 func show_player():
 	player_hidden = false
-	Player.instance.process_mode = Node.PROCESS_MODE_ALWAYS
+	Player.instance.process_mode = Node.PROCESS_MODE_INHERIT
 	Player.instance.show()
-	PlayerHud.instance.process_mode = Node.PROCESS_MODE_ALWAYS
+	PlayerHud.instance.process_mode = Node.PROCESS_MODE_INHERIT
 	PlayerHud.instance.show()
 	print_debug("Showed Player.")
 
@@ -260,7 +260,7 @@ func pause_enemies():
 func un_pause_enemies(): #Not sure when to even use this?? The entire level gets re-enabled when you reload. Perhaps for unpausing after a cut-scene.
 	var nmy_array: Array = current_level2d.instance.get_tree().get_nodes_in_group("enemyGroup")
 	for enemies in nmy_array:
-		enemies.process_mode = Node.PROCESS_MODE_ALWAYS
+		enemies.process_mode = Node.PROCESS_MODE_INHERIT
 	print_debug("Unpaused the enemies.")
 
 

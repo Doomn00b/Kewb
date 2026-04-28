@@ -1,25 +1,27 @@
-class_name BeStunState
+class_name BeHurtState
 extends State
-#Stunned can lead to Death-state, Idling, 
+#Hurt can lead to Death-state, backing off, Charging
+
+signal b_hurt_
 
 @export_category("Put Actor, aka Boss-prefab here")
 @export var actor: BossEnemy #We put our "Actor" here, in this case, our Boss-enemy-kewb.
 
-signal b_stun_hurt
+var damage : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var sm : FiniteStateMachine = get_parent()
-	b_stun_hurt.connect(sm.change_state.bind("Hurt")) #We connect the found player signal to activate the rush state
-
+	actor.enemy_died.connect(sm.change_state.bind("Death")) #We connect the enemy_died signal to activate the death state
+	
  
 func enter_state() -> void:
-	actor.animator.play("b_stunned")
+	actor.animator.play("b_hurt")
+	#Decrease health
+	actor.take_damage(damage)
 
 func update_state(_delta : float) -> void:
 	actor.apply_gravity(_delta)
-	#Check for player punching hurt zone.
-	#Emit hurt-signal if punched.
-
+	
 func exit_state() -> void:
-	print("Boss stopped being stunned.")
+	print("Boss exit hurt-state.")

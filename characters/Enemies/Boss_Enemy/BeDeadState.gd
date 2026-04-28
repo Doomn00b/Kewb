@@ -8,17 +8,14 @@ extends State
 func _ready() -> void:
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
- 
 func enter_state() -> void:
-	pass
+	actor.animator.play("b_dead")
+	if actor.animator.is_playing(): #If the animation is still playing...
+		return  #...we go back and wait for it to end.
+	actor.queue_free() #...otherwise we remove Boss from memory, destroying it.
 
 func update_state(_delta : float) -> void:
 	pass
 
 func exit_state() -> void:
-	pass
+	pass #There's no exiting death-state.

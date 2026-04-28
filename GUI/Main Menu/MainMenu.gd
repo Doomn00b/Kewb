@@ -30,7 +30,7 @@ func _hide_menus():
 		unwanted_menu.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _show_menu():
-		current_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+		current_menu.process_mode = Node.PROCESS_MODE_INHERIT
 		current_menu.show()
 
 #region Main Menu Buttons

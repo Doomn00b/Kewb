@@ -39,13 +39,13 @@ func _on_button_activated() -> void:
 	animation_player.play("opening") #Play the opening door animation.
 	await animation_player.animation_finished
 	if level_transition != null: #If we have a level-transition, then...
-		level_transition.process_mode = Node.PROCESS_MODE_ALWAYS #Activate it.
+		level_transition.process_mode = Node.PROCESS_MODE_INHERIT #Activate it.
 		print_debug("Reactivated Level-Transition.")
 	
 func _on_button_remain() -> void: #When the button remains DOWN 
 	animation_player.play("open") #We play the static opened animation.
 	if level_transition != null and preset_open == true:
-		level_transition.process_mode = Node.PROCESS_MODE_ALWAYS
+		level_transition.process_mode = Node.PROCESS_MODE_INHERIT
 	else: 
 		pass
 	#ADD way to enable level-transition.

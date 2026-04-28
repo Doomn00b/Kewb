@@ -5,17 +5,20 @@ extends Node2D
 @onready var sprite_2d: Sprite2D =%InputSprite
 
 const HINT_MAP: Dictionary = {
-	InputNameEnum.E.INTERACT : &"interact",
-	InputNameEnum.E.JUMP : &"jump",
-	InputNameEnum.E.ATTACK : &"attack",
-	InputNameEnum.E.CHARGE : &"charge",
-	InputNameEnum.E.MOVE_UP : &"move_up",
-	InputNameEnum.E.MOVE_DOWN : &"move_down",
-	InputNameEnum.E.MOVE_LEFT : &"move_left",
-	InputNameEnum.E.MOVE_RIGHT : &"move_right",
+	ConTypeEnum.E.KEYBOARD : {
+	InputNameEnum.E.INTERACT : &"interact", #frame 3 pc, 
+	InputNameEnum.E.JUMP : &"jump", #frame 0 pc, 8 ps, 16 ninty, 24 xb
+	InputNameEnum.E.ATTACK : &"attack", #frame 1
+	InputNameEnum.E.CHARGE : &"charge", #frame 2
+	InputNameEnum.E.MOVE_UP : &"move_up", #frame 4
+	InputNameEnum.E.MOVE_DOWN : &"move_down", #frame 5
+	InputNameEnum.E.MOVE_LEFT : &"move_left", #frame 6
+	InputNameEnum.E.MOVE_RIGHT : &"move_right", #frame 7
+	},
+	ConTypeEnum.E.PLAYSTATION: {
+	
+	}
 }
-
-
 
 var controller_type: ConTypeEnum.E = ConTypeEnum.E.KEYBOARD #We store our different controller-types in a variable.
 #Sadly the above variable is preset to keyboard, but hopefully we can fix in the future...
