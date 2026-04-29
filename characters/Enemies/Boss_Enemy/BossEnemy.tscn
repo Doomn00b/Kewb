@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cu18r1po0w6hj" path="res://characters/Enemies/Boss_Enemy/BeAggroState.gd" id="8_72vpn"]
 [ext_resource type="Script" uid="uid://0kkl3mqafarr" path="res://characters/Enemies/Boss_Enemy/BeStunState.gd" id="8_q33qb"]
 [ext_resource type="Script" uid="uid://cmgs1g7517ayk" path="res://characters/Enemies/Boss_Enemy/BeHurtState.gd" id="10_8ag6i"]
+[ext_resource type="Script" uid="uid://cw6ma5t7ixvdg" path="res://characters/Enemies/Boss_Enemy/BeLaughState.gd" id="11_tqpp3"]
 
 [sub_resource type="Animation" id="Animation_pldee"]
 length = 0.001
@@ -89,50 +90,50 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Area2D/BCollFoot:disabled")
+tracks/6/path = NodePath("SpotPlaySC:enabled")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("SpotPlaySC:enabled")
+tracks/7/path = NodePath("BCollHead:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("BCollHead:disabled")
+tracks/8/path = NodePath("BHurtArea/BHurtZone:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(8, -32)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("BHurtArea/BHurtZone:position")
+tracks/9/path = NodePath("BHurtArea/BHurtZone:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(8, -32)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_ebq0b"]
@@ -192,18 +193,6 @@ tracks/4/path = NodePath("BCollHead:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Area2D/BCollFoot:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -300,6 +289,42 @@ tracks/0/keys = {
 "update": 1,
 "values": [7]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BDmgArea/BDmgZone:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BCollHead:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BHurtArea/BHurtZone:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_72vpn"]
 resource_name = "b_dead"
@@ -331,34 +356,22 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Area2D/BCollFoot:disabled")
+tracks/2/path = NodePath("SpotPlaySC:enabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SpotPlaySC:enabled")
+tracks/3/path = NodePath("BCollHead:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("BCollHead:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -383,22 +396,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Area2D/BCollFoot:disabled")
+tracks/1/path = NodePath("BDmgArea/BDmgZone:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BDmgArea/BDmgZone:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -482,6 +483,55 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_8ag6i"]
 resource_name = "b_laugh"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BCollHead:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, -32)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BCollHead:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BDmgArea/BDmgZone:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_tqpp3"]
 resource_name = "b_stunned"
@@ -548,12 +598,11 @@ size = Vector2(15.6777115, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_815es"]
 size = Vector2(34, 128)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ag6i"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqpp3"]
 size = Vector2(15, 4)
 
 [node name="BossEnemy" type="CharacterBody2D" unique_id=2030049102 groups=["enemyGroup"]]
 collision_layer = 2
-collision_mask = 4
 script = ExtResource("1_kmttv")
 
 [node name="BeStateMachine" type="Node" parent="." unique_id=649877092 node_paths=PackedStringArray("actor", "state")]
@@ -627,24 +676,30 @@ script = ExtResource("10_8ag6i")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://cmgs1g7517ayk"
 
+[node name="BeLaughState" type="Node" parent="BeStateMachine" unique_id=104962078 node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("11_tqpp3")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://cw6ma5t7ixvdg"
+
 [node name="BossSprite" type="Sprite2D" parent="." unique_id=1286476428]
 texture = ExtResource("2_ife0u")
-hframes = 8
+hframes = 9
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1722699440]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_pldee")
 
-[node name="BCollHead" type="CollisionShape2D" parent="." unique_id=1182738398 groups=["Floors", "enemyGroup"]]
+[node name="BCollHead" type="CollisionShape2D" parent="." unique_id=1182738398 groups=["Floors"]]
 position = Vector2(8, -33)
 shape = SubResource("RectangleShape2D_ife0u")
 debug_color = Color(0, 0.6386965, 0.3794457, 0.41960785)
 
-[node name="BHurtArea" type="Area2D" parent="." unique_id=1689316625]
+[node name="BHurtArea" type="Area2D" parent="." unique_id=1689316625 groups=["enemyGroup"]]
 collision_layer = 3
 collision_mask = 4
 
-[node name="BHurtZone" type="CollisionShape2D" parent="BHurtArea" unique_id=29824418]
+[node name="BHurtZone" type="CollisionShape2D" parent="BHurtArea" unique_id=29824418 groups=["enemyGroup"]]
 position = Vector2(8, -32)
 shape = SubResource("RectangleShape2D_kmttv")
 debug_color = Color(0.91491103, 0.17892787, 0.5732176, 0.41960785)
@@ -665,10 +720,8 @@ shape = SubResource("RectangleShape2D_815es")
 target_position = Vector2(-360, 0)
 collision_mask = 4
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1665933760]
-
-[node name="BCollFoot" type="CollisionShape2D" parent="Area2D" unique_id=2004000902]
+[node name="BCollFoot2" type="CollisionShape2D" parent="." unique_id=1517000662]
 position = Vector2(-13, 60)
-shape = SubResource("RectangleShape2D_8ag6i")
+shape = SubResource("RectangleShape2D_tqpp3")
 
-[connection signal="body_entered" from="BDmgArea" to="." method="_on_pbody_ent_dmg"]
+[connection signal="body_entered" from="BDmgArea" to="BeStateMachine/BeAttackState" method="_on_pbody_ent_dmg"]

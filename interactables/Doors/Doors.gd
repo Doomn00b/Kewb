@@ -13,13 +13,11 @@ const DOOR_CRASH_AUDIO = preload("res://interactables/Doors/brick_break.ogg")
 func _ready():
 	if Engine.is_editor_hint():
 		return
-	else:
-		pass
+
 	if level_transition != null: #Checking if we have a level-transition
 		level_transition.process_mode = Node.PROCESS_MODE_DISABLED #We turn off the level-transition.
 		print_debug("Turned off level-transition.")
-	else:
-		pass
+
 	#This connects the door to the button.	
 	if preset_open == false:
 		for children in get_children():
@@ -46,8 +44,7 @@ func _on_button_remain() -> void: #When the button remains DOWN
 	animation_player.play("open") #We play the static opened animation.
 	if level_transition != null and preset_open == true:
 		level_transition.process_mode = Node.PROCESS_MODE_INHERIT
-	else: 
-		pass
+
 	#ADD way to enable level-transition.
 		
 #Anxiety-coding to check for missing button in the door-prefab:

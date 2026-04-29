@@ -41,10 +41,9 @@ func apply_area_settings(): #This function changes the size et c properties of t
 	area_2d = get_node_or_null("")
 	#GUARD-CLAUSE:
 	if not area_2d:
-		print_debug("There's no transition-zone for me to change!")
+		#print_debug("There's no transition-zone for me to change!")
 		return
-	else:
-		pass
+
 	#END Guard-Clause
 	if location == SIDE.LEFT or location == SIDE_RIGHT:
 		area_2d.scale.y = size

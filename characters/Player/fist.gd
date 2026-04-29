@@ -12,7 +12,7 @@ func _init() -> void:
 	
 func _on_body_entered(_enemy : Node2D) -> void:
 	print("Punched an enemy!") # Message to make sure the fist-collision happens.
-	if _enemy is Enemy: #If what enters the fists collision (gets hit by), is an enemy of some sort, then...
+	if _enemy is Enemy and !BossEnemy : #If what enters the fists collision (gets hit by), is an enemy of some sort, then...
 		_enemy.take_damage(damage) #...it takes regular damage.
 	elif _enemy is Enemy and player.power_punch:
 		damage = 10 #We double the damage.

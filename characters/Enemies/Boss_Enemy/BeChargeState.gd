@@ -15,22 +15,34 @@ func _ready() -> void:
  
 func enter_state() -> void:
 	delay_charge.start()
+	print_debug("Boss entered Charge-state.")
 	await delay_charge.timeout
-	charge_time.start()
+	charging()
+	while !charge_time.is_stopped() and actor.animator.is_playing(): #We wait for the timer to run down and animation to complete
+		await get_tree().process_frame #The while loop keeps us from emitting charge done.
+	b_charge_done.emit()
+	
 
 func update_state(_delta : float) -> void:
-	if !delay_charge.is_stopped(): #If the delay to charge isn't done, then...
-		return #...do nothing.
-	#Charge Code Here
-	charging()
-	
+	pass
+	#print_debug("Boss charge Update start")
+	#if !delay_charge.time_left == 0:
+		#return
+	#else:
+		#pass
+	##if !delay_charge.is_stopped(): #If the delay to charge isn't done, then...
+		##return #...do nothing.
+	##Charge Code Here
+	#charging()
+	#print_debug("Boss charge update END.")
+	#
 func charging():
 	#Once the charging-animation is over, we run the signal to go to attack.
 	actor.animator.play("b_charging")
-	if !charge_time.is_stopped() and !actor.animator.is_playing(): #We wait for the timer to run down and animation to complete
+	#NOTE: do I need to change is_playing to INDEX done or some such??
+	if !charge_time.is_stopped() and actor.animator.is_playing(): #We wait for the timer to run down and animation to complete
 		return
-	b_charge_done.emit() #We emit the signal that we're done charging.
-	
+
 	
 func exit_state() -> void:
 	print_debug("Boss stopped charging.")

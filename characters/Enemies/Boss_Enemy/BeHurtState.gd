@@ -12,7 +12,7 @@ var damage : int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var sm : FiniteStateMachine = get_parent()
-	actor.enemy_died.connect(sm.change_state.bind("Death")) #We connect the enemy_died signal to activate the death state
+	#actor.enemy_died.connect(sm.change_state.bind("Death")) #We connect the enemy_died signal to activate the death state
 	
  
 func enter_state() -> void:
@@ -22,6 +22,7 @@ func enter_state() -> void:
 
 func update_state(_delta : float) -> void:
 	actor.apply_gravity(_delta)
+	#If hurt more than health, emit enemy died?
 	
 func exit_state() -> void:
 	print("Boss exit hurt-state.")

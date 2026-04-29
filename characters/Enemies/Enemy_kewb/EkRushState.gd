@@ -45,7 +45,7 @@ func _rush_player(_delta : float):
 			return
 	elif !actor.atk_raycast.is_colliding(): #If the raycast can't see the player, then...
 		lost_player.emit() #...emit the signal to change state.
-		print_debug("Lost the player.")
+		#print_debug("Lost the player.")
 
 func exit_state() -> void:
 	print_debug("Exiting RUSH.")

@@ -7,6 +7,9 @@ extends State
 
 signal b_found_player #Signal that sends to aggro-state.
 
+#var _idle_func : Callable = Callable(func():
+	#actor.animator.play("b_idling")
+	#)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void: #Start
 	var sm : FiniteStateMachine = get_parent()
@@ -16,8 +19,8 @@ func enter_state() -> void:
 	print_debug("Boss entered Idling.")
 	delay_idle.start()
 func update_state(delta : float) -> void:
-	if !delay_idle.is_stopped():
-		return
+	if !delay_idle.is_stopped(): #If the delay-timer is still running...
+		return #...don't do anything.
 	_idling()
 	_seek_player(delta)
 
@@ -26,9 +29,6 @@ func _idling():
 	
 func _seek_player(_delta):
 	if actor.spot_p_shapecast.is_colliding(): #If our attack-raycast is colliding, then...
-		#Insert timer to give time until aggro starts.
-		#aggro_delay.start()
-		#await aggro_delay.timeout
 		b_found_player.emit() #...emit the signal that we've found the player.
 		print_debug("Boss saw player.")
 

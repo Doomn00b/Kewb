@@ -109,8 +109,7 @@ func change_level2D(new_level : String,
 	
 	#Condition to run a scene-transition.
 	if transition == true:
-		print_debug("We shall run a transition") 
-		#Player.instance.lock_movement() #If we're transitioning we lock the player.
+		#print_debug("We shall run a transition") 
 		pause_enemies() #If we're transitioning we also lock the enemies.
 		TransitionController.instance.transition_out(seconds) #Get the instance of the controller & run the transition_out function.
 		await TransitionController.instance.animation_player.animation_finished #Wait until the animation is done.
@@ -216,7 +215,7 @@ func hide_player():
 	Player.instance.process_mode = Node.PROCESS_MODE_DISABLED
 	PlayerHud.instance.hide()
 	PlayerHud.instance.process_mode = Node.PROCESS_MODE_DISABLED
-	print_debug("Hid the player.")
+	#print_debug("Hid the player.")
 
 func show_player():
 	player_hidden = false
@@ -224,7 +223,7 @@ func show_player():
 	Player.instance.show()
 	PlayerHud.instance.process_mode = Node.PROCESS_MODE_INHERIT
 	PlayerHud.instance.show()
-	print_debug("Showed Player.")
+	#print_debug("Showed Player.")
 
 func new_game(): #We run this function when we want to start a new game.
 	new_game_made = true
@@ -265,10 +264,6 @@ func un_pause_enemies(): #Not sure when to even use this?? The entire level gets
 
 
 #region managing tiles
-func _disable_tiles():
-	#var _tiles: TileMapLayer #Make a var for tilemaplayers (so we can turn them off)
-	print_debug("Disabled tiles... maybe.")
-	
 func enable_tileset():
 #Filtering out the tilemaplayers...
 	var filt_tiles : Array = []

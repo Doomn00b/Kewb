@@ -4,13 +4,14 @@ extends Enemy
 const SPEED = 150.0
 const JUMP_VELOCITY = -400.0
 const B_MAX_HEALTH = 16
-signal b_damaged_player
+#signal b_damaged_player
 @export var base_damage : int = 2
 @onready var spot_p_shapecast : ShapeCast2D = %SpotPlaySC
 @onready var animator: AnimationPlayer = %AnimationPlayer
 @onready var playerChr = get_tree().get_first_node_in_group("playerGroup")
 
 var health = B_MAX_HEALTH #We make a new variable based on the Health-constant.
+#var hit_player : bool = false
 
 static var enemies_spawned : int = 0 #This variable determines how many enemies have spawned.
 
@@ -23,7 +24,9 @@ func setup_enemy(pos : Vector2 = Vector2.ZERO):
 
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
-	#NEEDS: Movement, Gravity, hurt_player, health, Health-BAR?
+	#NEEDS: 
+	#Movement, 
+	#Health-BAR?
 	move_and_slide()
 
 func apply_gravity(delta : float):
@@ -33,11 +36,14 @@ func apply_gravity(delta : float):
 	else: #Otherwise, we...
 		return #...don't do anything. (no gravity-application)
 
+#func reset_hit_player(): #This function is used by the states to keep track of if the player was hit.
+	#hit_player = false 
 
-func _on_pbody_ent_dmg(node: Node2D) -> void:
-	if node is Player:
-		node.take_damage(base_damage)
-		b_damaged_player.emit()
+#func _on_pbody_ent_dmg(node: Node2D) -> void:
+	#if node is Player:
+		#node.take_damage(base_damage)
+		#hit_player = true
+		#b_damaged_player.emit()
 		
 func take_damage(damage : int):
 	health -= damage #Boss's health decreases by 5, per punch that connects.

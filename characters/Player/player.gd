@@ -65,8 +65,6 @@ func _ready() -> void:
 	health_updated.emit(health)
 	if GameManager.instance.player_hidden == false:
 		free_movement() #We unlock movement when the player loads in.
-	else:
-		pass
 
 func _input(event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
@@ -156,7 +154,7 @@ func _jumping(_delta: float) -> void:
 	
 	if charge_jump == true and Input.is_action_pressed("charge") and Input.is_action_pressed("jump") and charge_jmp_time.is_stopped(): 
 		charge_jmp_time.start()
-		print_debug("Charging Jump!")
+		#print_debug("Charging Jump!")
 		current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
 		await charge_jmp_time.timeout #...until the charging is done
 		velocity.y = run_jump_vel #Then we increase jump-velocity tons
@@ -251,7 +249,7 @@ func flip():
 		facing_right = false
 	elif dir_string == "_right":
 		facing_right = true
-	
+	#TODO: consider redoing the below, since camera sucks.
 	if current_direction != last_direction: #If the current direction is not the same as the last direction, then...
 		$CamAnimationPlayer.play("cam_mov" + dir_string) #Then move/animate the camera in the new direction.
 		
@@ -261,7 +259,7 @@ func flip():
 func _ground_player():
 	is_grounded = true
 	velocity.y = walk_jump_vel #Make sure player looses ability to jump high.
-	print_debug("Grounded player.")
+	#print_debug("Grounded player.")
 	
 func _unground_player():
 	is_grounded = false
