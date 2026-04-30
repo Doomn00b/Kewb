@@ -364,9 +364,6 @@ texture = ExtResource("8_bcrt1")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jo1nw")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7tiv"]
-size = Vector2(744, 8)
-
 [node name="LevelTest2" type="Node2D" unique_id=2143603366 node_paths=PackedStringArray("entry_dict")]
 y_sort_enabled = true
 script = ExtResource("1_ndik7")
@@ -413,6 +410,7 @@ tile_set = SubResource("TileSet_op8ol")
 collision_visibility_mode = 1
 
 [node name="BlueTilesSkyTop-right" type="TileMapLayer" parent="." unique_id=886873263 groups=["Tiles"]]
+z_index = -1
 position = Vector2(0, -8)
 tile_map_data = PackedByteArray("AAAMAA8AAQAFAAMAAAAMAA4AAQAFAAIAAAAKAAYAAQAAAAEAAAALAAYAAQABAAEAAAAMAAYAAQACAAEAAAANAAYAAQADAAEAAAAOAAYAAQAHAAEAAAAPAAYAAQAIAAEAAAAQAAYAAQAJAAEAAAA=")
 tile_set = SubResource("TileSet_jo1nw")
@@ -425,7 +423,7 @@ level_transition = NodePath("../LTleftLvl2")
 preset_open = true
 
 [node name="DoorFrontRight" parent="." unique_id=245508367 node_paths=PackedStringArray("level_transition") instance=ExtResource("5_aq4yf")]
-position = Vector2(224, 99)
+position = Vector2(224, 100)
 level_transition = NodePath("../LTrightLvl2")
 preset_open = true
 
@@ -454,7 +452,7 @@ navigation_enabled = false
 z_index = 1
 y_sort_enabled = true
 position = Vector2(0, -8)
-tile_map_data = PackedByteArray("AADj/w8AAAABAAcAAADi/w8AAAAAAAcAAADj/w4AAAABAAYAAADi/w4AAAAAAAYAAADj/w0AAAABAAUAAADi/w0AAAAAAAUAAADj/wwAAAABAAQAAADi/wwAAAAAAAQAAADj/wsAAAABAAMAAADi/wsAAAAAAAMAAADj/woAAAABAAIAAADi/woAAAAAAAIAAADj/wkAAAABAAEAAADi/wkAAAAAAAEAAADj/wgAAAABAAMAAADi/wgAAAAAAAMAAADj/wcAAAABAAIAAADi/wcAAAAAAAIAAADj/wYAAAABAAQAAADi/wYAAAAAAAQAAADj/wUAAAABAAMAAADi/wUAAAAAAAMAAADj/wQAAAABAAIAAADi/wQAAAAAAAIAAADj/wMAAAABAAEAAADi/wMAAAAAAAEAAADj/wIAAAABAAAAAADi/wIAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AADj/w8AAAABAAcAAADi/w8AAAAAAAcAAADj/w4AAAABAAYAAADi/w4AAAAAAAYAAADj/w0AAAABAAUAAADi/w0AAAAAAAUAAADj/wwAAAABAAQAAADi/wwAAAAAAAQAAADj/wsAAAABAAMAAADi/wsAAAAAAAMAAADj/woAAAABAAIAAADi/woAAAAAAAIAAADj/wkAAAABAAEAAADi/wkAAAAAAAEAAADj/wgAAAABAAMAAADi/wgAAAAAAAMAAADj/wcAAAABAAIAAADi/wcAAAAAAAIAAADj/wYAAAABAAQAAADi/wYAAAAAAAQAAADj/wUAAAABAAMAAADi/wUAAAAAAAMAAADj/wQAAAABAAIAAADi/wQAAAAAAAIAAADj/wMAAAABAAQAAADi/wMAAAAAAAQAAADj/wIAAAABAAMAAADi/wIAAAAAAAMAAADj/wEAAAABAAIAAADi/wEAAAAAAAIAAADj/wAAAAABAAEAAADi/wAAAAAAAAEAAADi////AAAAAAAAAADj////AAABAAAAAAA=")
 tile_set = SubResource("TileSet_d7tiv")
 collision_visibility_mode = 1
 navigation_enabled = false
@@ -483,14 +481,6 @@ upgrade_type = 2
 
 [node name="SavePoint" parent="." unique_id=1020067152 instance=ExtResource("11_jo1nw")]
 position = Vector2(144, 196)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1338284317]
-position = Vector2(-464, 248)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=675520414]
-position = Vector2(372, 4)
-shape = SubResource("RectangleShape2D_d7tiv")
 
 [editable path="EnemySpawner2"]
 [editable path="DoorFrontLeft"]

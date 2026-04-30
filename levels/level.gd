@@ -1,9 +1,10 @@
 class_name Level
 extends Node2D
 
-#@export var entry_points : Array[Node2D]
 @export_category("Put Entry-points, Name & Marker, here")
 @export var entry_dict : Dictionary[int, Node2D]
+@export_category("Toggle this to test individual level")
+@export var unit_test : bool = false
 
 var player : Player
 
@@ -14,6 +15,15 @@ func _init() -> void:
 
 func _ready():
 	player = Player.instance
+	
+	#region Testing stuff
+	if unit_test == false:
+		pass
+	elif unit_test == true:
+		var _player = player
+		var entry_point : int
+		place_player(_player, entry_point)
+	#endregion
 	
 func place_player(_player, entry_point : int):
 	player = _player
