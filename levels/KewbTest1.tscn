@@ -384,5 +384,6 @@ target_level = "Level2"
 
 [node name="PowerPunchUpgrade" parent="." unique_id=947636966 instance=ExtResource("10_k1vye")]
 position = Vector2(-299, 167)
+upgrade_type = 2
 
 [editable path="EnemySpawner"]

@@ -9,7 +9,7 @@ extends CharacterBody2D
 #}
 
 const PCMAX_HEALTH : int = 16 #We make a new constant that defines the player has health.
-const ACCELERATION : float = 9.8
+#const ACCELERATION : float = 9.8
 signal health_updated(new_health : int) #A signal that says our health has changed.
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
 @export var walking_speed: int = 150
@@ -38,8 +38,8 @@ var fist_time : Timer
 var fist_point : Marker2D
 var dead_time : Timer
 var player_cam : Camera2D
-var charge_jmp_time: Timer
-
+#var charge_jmp_time: Timer
+var jump_held_time : int
 
 #Ability Vars -- they decide if the player can access their abilities.
 var charge_jump : bool = false
@@ -58,7 +58,7 @@ func _ready() -> void:
 	fist_time = %FistTime #We get the timer that decides how long our fist is visible
 	fist_point = %FistPoint
 	dead_time = %PDeadTimer
-	charge_jmp_time = %ChaJmpTimer
+	#charge_jmp_time = %ChaJmpTimer
 	#Wait... do I need to connect this to an animation-state as well?? YES! >:( 
 	current_direction = -1 #We set the direction the player is facing, at the start of the game (to be right).
 	await get_tree().process_frame
@@ -138,27 +138,53 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 	#camera_control() #We adjust the camera.
 	move_and_slide()
 
-func _jumping(_delta: float) -> void:
+func _jumping(delta: float) -> void:
 		# Player presses jump -> Kewb jumps.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = walk_jump_vel
 		current_anim_state = PcAnimEnum.E.PAJUMP
 		_unground_player() #We make sure to say the player isn't grounded.
 		#print_debug("Player jumped")
-	#Jump higher
+	#Jump while running.
 	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("charge") and is_on_floor(): #If we're also holding charge...
 		velocity.y = run_jump_vel 
 		current_anim_state = PcAnimEnum.E.PAJUMP
 		_unground_player()
 		#print_debug("Player jumped higher")
 	
-	if charge_jump == true and Input.is_action_pressed("charge") and Input.is_action_pressed("jump") and charge_jmp_time.is_stopped(): 
-		charge_jmp_time.start()
-		#print_debug("Charging Jump!")
+	#if charge_jump == true and Input.is_action_pressed("charge") and Input.is_action_pressed("jump") and charge_jmp_time.is_stopped(): 
+		#charge_jmp_time.start()
+		##print_debug("Charging Jump!")
+		#current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
+		#await charge_jmp_time.timeout #...until the charging is done
+		#velocity.y = run_jump_vel #Then we increase jump-velocity tons
+		#current_anim_state = PcAnimEnum.E.PAJUMP
+	#NEW Charge-jumping
+	if charge_jump == true && Input.is_action_pressed("move_down") && is_on_floor(): 
 		current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
-		await charge_jmp_time.timeout #...until the charging is done
-		velocity.y = run_jump_vel #Then we increase jump-velocity tons
-		current_anim_state = PcAnimEnum.E.PAJUMP
+		print_debug("Charging Jump!")
+		jump_held_time += 1
+		if jump_held_time > 10:
+			#player reaches the max charge of jump
+			await anim.animation_finished
+			start_charge_jump(delta) #Insert start_charge_jump function here.
+			
+	if charge_jump == true && Input.is_action_just_released("move_down") && is_on_floor():
+		
+		start_charge_jump(delta)
+		
+
+func start_charge_jump(delta):
+	last_direction = 0
+	_unground_player()
+	current_anim_state = PcAnimEnum.E.PAJUMP
+	velocity.y = walk_jump_vel * (jump_held_time * delta)
+	velocity.x = last_direction + (walking_speed / 2)
+	print_debug("Y-velocity is:" , velocity.y)
+	#Coming down, below
+	JUMP_VELOCITY = walk_jump_vel
+	jump_held_time = 0
+	
 
 func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
 	match current_move_state :
