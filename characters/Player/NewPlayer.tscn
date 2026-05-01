@@ -1,12 +1,11 @@
-[gd_scene format=3 uid="uid://ck072mpnnrudx"]
+[gd_scene format=3 uid="uid://1jjymvtw3te"]
 
-[ext_resource type="Script" uid="uid://cuud1isgaumx" path="res://characters/Player/player.gd" id="1_vb825"]
-[ext_resource type="Texture2D" uid="uid://gwdoe46w1uw0" path="res://characters/Player/kewb_godot-Sheet.png" id="2_8gp0o"]
-[ext_resource type="PackedScene" uid="uid://58a8niagh30m" path="res://characters/Player/fist.tscn" id="2_j7dd2"]
-[ext_resource type="Script" uid="uid://cwi583q3pgfui" path="res://characters/Player/PlayStateMachine.gd" id="3_kidiw"]
-[ext_resource type="Script" uid="uid://bbwueskj7qhje" path="res://characters/Player/InputHints.gd" id="4_b405y"]
-[ext_resource type="Script" uid="uid://bhnom76gwyubm" path="res://characters/Player/PlayIdlingState.gd" id="4_fg313"]
-[ext_resource type="Texture2D" uid="uid://bo5qdqfoyvt8y" path="res://GUI/PlayerHud/button_prompts.png" id="5_b405y"]
+[ext_resource type="Script" uid="uid://cdo4qdfggquq0" path="res://characters/Player/NewPlayer.gd" id="1_tyuxy"]
+[ext_resource type="Script" uid="uid://cwi583q3pgfui" path="res://characters/Player/PlayStateMachine.gd" id="3_l0iki"]
+[ext_resource type="Script" uid="uid://bhnom76gwyubm" path="res://characters/Player/PlayIdlingState.gd" id="4_inp6w"]
+[ext_resource type="Texture2D" uid="uid://gwdoe46w1uw0" path="res://characters/Player/kewb_godot-Sheet.png" id="5_yj61r"]
+[ext_resource type="Script" uid="uid://bbwueskj7qhje" path="res://characters/Player/InputHints.gd" id="6_8wb0y"]
+[ext_resource type="Texture2D" uid="uid://bo5qdqfoyvt8y" path="res://GUI/PlayerHud/button_prompts.png" id="7_qmoxo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gp0o"]
 size = Vector2(32, 32)
@@ -169,20 +168,19 @@ _data = {
 &"cam_mov_right": SubResource("Animation_kidiw")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1236161566 groups=["playerGroup"]]
+[node name="NewPlayer" type="CharacterBody2D" unique_id=1236161566 groups=["playerGroup"]]
 y_sort_enabled = true
 collision_layer = 4
-script = ExtResource("1_vb825")
-fist_tscn = ExtResource("2_j7dd2")
+script = ExtResource("1_tyuxy")
 metadata/_edit_group_ = true
 
 [node name="PlayStateMachine" type="Node" parent="." unique_id=1504204463]
-script = ExtResource("3_kidiw")
+script = ExtResource("3_l0iki")
 metadata/_custom_type_script = "uid://cwi583q3pgfui"
 
 [node name="PlayIdlingState" type="Node" parent="PlayStateMachine" unique_id=1003881991]
 unique_name_in_owner = true
-script = ExtResource("4_fg313")
+script = ExtResource("4_inp6w")
 metadata/_custom_type_script = "uid://bhnom76gwyubm"
 
 [node name="Flip" type="Marker2D" parent="." unique_id=1603198284]
@@ -190,7 +188,7 @@ unique_name_in_owner = true
 
 [node name="PlayerSprite2D" type="Sprite2D" parent="Flip" unique_id=396035162]
 texture_filter = 1
-texture = ExtResource("2_8gp0o")
+texture = ExtResource("5_yj61r")
 hframes = 7
 frame = 1
 
@@ -234,12 +232,12 @@ one_shot = true
 
 [node name="InputHints" type="Node2D" parent="." unique_id=1221919347]
 position = Vector2(0, -24)
-script = ExtResource("4_b405y")
+script = ExtResource("6_8wb0y")
 metadata/_edit_group_ = true
 
 [node name="InputSprite" type="Sprite2D" parent="InputHints" unique_id=136370627]
 unique_name_in_owner = true
-texture = ExtResource("5_b405y")
+texture = ExtResource("7_qmoxo")
 hframes = 8
 vframes = 4
 frame = 24

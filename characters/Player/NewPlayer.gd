@@ -1,5 +1,5 @@
 #TODO: 
-class_name Player
+class_name NewPlayer
 extends CharacterBody2D
 
 #enum CameraLimits {
@@ -11,20 +11,36 @@ const PCMAX_HEALTH : int = 16 #We make a new constant that defines the player ha
 #const ACCELERATION : float = 9.8
 signal health_updated(new_health : int) #A signal that says our health has changed.
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
-@export var walking_speed: int = 150
-@export var running_speed: int = 300
-@export var walk_jump_vel: int = -400
-@export var run_jump_vel: int = -600
-@export var ch_jump_vel: int = -900
+#@export var walking_speed: int = 150
+#@export var running_speed: int = 300
+#@export var walk_jump_vel: int = -400
+#@export var run_jump_vel: int = -600
+#@export var ch_jump_vel: int = -900
+
+#var SPEED: int = 0
+#var JUMP_VELOCITY: int = 0
+##var charge_jmp_time: Timer
+#var jump_held_time : int
+#
+#var current_move_state = PcMoveStaEnum.E.IDLE #We make a new var to describe the basic state...Idle.
+#var current_anim_state = PcAnimEnum.E.PAIDLE
+
+
 
 var health : int = PCMAX_HEALTH #We make a new variable based on the Health-constant.
-var SPEED: int = 0
-var JUMP_VELOCITY: int = 0
-#var charge_jmp_time: Timer
-var jump_held_time : int
 
-var current_move_state = PcMoveStaEnum.E.IDLE #We make a new var to describe the basic state...Idle.
-var current_anim_state = PcAnimEnum.E.PAIDLE
+
+
+@export var move_speed : int = 200
+
+@export var jump_height: int #How high the player can jump
+@export var jump_time_to_peak: int #How long it takes before P.C reaches the peak height of the jump
+@export var jump_time_to_descent : int #How long it takes to touch ground again after starting to go down.
+
+@onready var jump_velocity : int = ((2 * jump_height) / jump_time_to_peak) * -1
+@onready var jump_gravity : int = ((-2 * jump_height ) / (jump_time_to_peak * jump_time_to_peak)) * -1
+@onready var fall_gravity : int = ((-2 * jump_height ) / (jump_time_to_descent * jump_time_to_descent)) * -1
+
 
 var move_dir : Vector2 :
 	set(new_dir):
@@ -47,7 +63,7 @@ var charge_jump : bool = false
 var power_punch : bool = false
 var upper_cut : bool = false
 
-static var instance : Player
+static var instance : NewPlayer
 
 
 func _init() -> void:
@@ -67,16 +83,18 @@ func _ready() -> void:
 	if GameManager.instance.player_hidden == false:
 		free_movement() #We unlock movement when the player loads in.
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	#Below, we create a variable that determines the direction of the player, based on the 
 	#input from our movement-actions.
 	move_dir.x = Input.get_axis("move_left", "move_right")
 	move_dir.y = Input.get_axis("move_up", "move_down")
 	#STATE CHECK, IF MOVE DIR STATE IS WALKING; ELSE IDLE
 	if move_dir.x != 0.0:
-		current_move_state = PcMoveStaEnum.E.WALKING
+		pass
+		#current_move_state = PcMoveStaEnum.E.WALKING
 	else:
-		current_move_state = PcMoveStaEnum.E.IDLE
+		#current_move_state = PcMoveStaEnum.E.IDLE
+		pass
 		
 	flip() #We run the flip-sprite function if we're moving.
 	_player_attack() #If we press attack we run the player attack function.
@@ -84,12 +102,15 @@ func _input(event: InputEvent) -> void:
 	#If we're holding charge while walking, and moving, then...
 	if Input.is_action_pressed("charge") and move_dir.x:
 		#print_debug("player is running")
-		current_move_state = PcMoveStaEnum.E.RUNNING #...we start running.
+		#current_move_state = PcMoveStaEnum.E.RUNNING #...we start running.
+		pass
 	
+func _kill_player(event: InputEvent) -> void:
 	#Debug-stuff
 	if event.is_action_pressed("kill_player"):
 		health = 0
 		print_debug("Debug-Killed player.")
+
 
 func _unhandled_input(event: InputEvent) -> void: #Interacting with objects, like save-points.
 	if event.is_action_pressed("interact"):
@@ -130,103 +151,120 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 	if move_locked: #If the move_locked bool has become true (i.e we're in a locked state)...
 		return #...then don't do the below stuff.
 	#endregion
-	
-	_apply_gravity(delta) # Add the gravity.
-	_jumping(delta)
-	apply_movement(delta) #We run the movement-state switch.
-	update_animation(delta) #We update the animation.
+	#OLD CODE BELOW
+	#_jumping(delta)
+	#apply_movement(delta) #We run the movement-state switch.
+	#update_animation(delta) #We update the animation.
 	#camera_control() #We adjust the camera.
+	velocity.y += obtain_gravity() * delta
+	velocity.x = get_input_velocity() * move_speed
+	
 	move_and_slide()
 
-func _jumping(delta: float) -> void:
-		# Player presses jump -> Kewb jumps.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = walk_jump_vel
-		current_anim_state = PcAnimEnum.E.PAJUMP
-		_unground_player() #We make sure to say the player isn't grounded.
-		#print_debug("Player jumped")
-	#Jump while running.
-	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("charge") and is_on_floor(): #If we're also holding charge...
-		velocity.y = run_jump_vel 
-		current_anim_state = PcAnimEnum.E.PAJUMP
-		_unground_player()
-		#print_debug("Player jumped higher")
+func obtain_gravity() -> int:
+	return jump_gravity if velocity.y < 0 else fall_gravity #If we start out not moving vertically, then gravity is jump, but otherwise it's fall-gravity.
+
+func jump():
+	velocity.y = jump_velocity
+
+func get_input_velocity() -> int:
+	var horisontal := 0
 	
-	#if charge_jump == true and Input.is_action_pressed("charge") and Input.is_action_pressed("jump") and charge_jmp_time.is_stopped(): 
-		#charge_jmp_time.start()
-		##print_debug("Charging Jump!")
-		#current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
-		#await charge_jmp_time.timeout #...until the charging is done
-		#velocity.y = run_jump_vel #Then we increase jump-velocity tons
-		#current_anim_state = PcAnimEnum.E.PAJUMP
-	#region NEW Charge-jumping
-	if charge_jump == true && Input.is_action_pressed("move_down") && is_on_floor(): 
-		current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
-		print_debug("Charging Jump!")
-		jump_held_time += 1
-		if jump_held_time > 10:
-			#player reaches the max charge of jump
-			await anim.animation_finished
-			start_charge_jump(delta) #Insert start_charge_jump function here.
-			
-	if charge_jump == true && Input.is_action_just_released("move_down") && is_on_floor():
-		
-		start_charge_jump(delta)
-	#endregion
+	if Input.is_action_pressed("move_left"):
+		horisontal -= 0
+	if Input.is_action_pressed("move_right"):
+		horisontal += 1
+	return horisontal
 
-func start_charge_jump(delta):
-	last_direction = 0
-	_unground_player()
-	current_anim_state = PcAnimEnum.E.PAJUMP
-	velocity.y = walk_jump_vel * (jump_held_time * delta)
-	velocity.x = last_direction + (walking_speed / 2)
-	print_debug("Y-velocity is:" , velocity.y)
-	#Coming down, below
-	JUMP_VELOCITY = walk_jump_vel
-	jump_held_time = 0
+#func _jumping(delta: float) -> void:
+		## Player presses jump -> Kewb jumps.
+	#if Input.is_action_just_pressed("jump") and is_on_floor():
+		#velocity.y = walk_jump_vel
+		##current_anim_state = PcAnimEnum.E.PAJUMP
+		#_unground_player() #We make sure to say the player isn't grounded.
+		##print_debug("Player jumped")
+	##Jump while running.
+	#if Input.is_action_just_pressed("jump") and Input.is_action_pressed("charge") and is_on_floor(): #If we're also holding charge...
+		#velocity.y = run_jump_vel 
+		##current_anim_state = PcAnimEnum.E.PAJUMP
+		#_unground_player()
+		##print_debug("Player jumped higher")
+	#
+	##if charge_jump == true and Input.is_action_pressed("charge") and Input.is_action_pressed("jump") and charge_jmp_time.is_stopped(): 
+		##charge_jmp_time.start()
+		###print_debug("Charging Jump!")
+		##current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
+		##await charge_jmp_time.timeout #...until the charging is done
+		##velocity.y = run_jump_vel #Then we increase jump-velocity tons
+		##current_anim_state = PcAnimEnum.E.PAJUMP
+	##region NEW Charge-jumping
+	#if charge_jump == true && Input.is_action_pressed("move_down") && is_on_floor(): 
+		##current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
+		#print_debug("Charging Jump!")
+		#jump_held_time += 1
+		#if jump_held_time > 10:
+			##player reaches the max charge of jump
+			#await anim.animation_finished
+			#start_charge_jump(delta) #Insert start_charge_jump function here.
+			#
+	#if charge_jump == true && Input.is_action_just_released("move_down") && is_on_floor():
+		#
+		#start_charge_jump(delta)
+	##endregion
+
+#func start_charge_jump(delta):
+	#last_direction = 0
+	#_unground_player()
+	#current_anim_state = PcAnimEnum.E.PAJUMP
+	#velocity.y = walk_jump_vel * (jump_held_time * delta)
+	#velocity.x = last_direction + (walking_speed / 2)
+	#print_debug("Y-velocity is:" , velocity.y)
+	##Coming down, below
+	#JUMP_VELOCITY = walk_jump_vel
+	#jump_held_time = 0
 	
 
 
-func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
-	match current_move_state :
-		PcMoveStaEnum.E.IDLE: #This would be a "case" in Unity.
-			velocity.x = (0.0)
-			_apply_gravity(delta)
-			current_anim_state = PcAnimEnum.E.PAIDLE
-		PcMoveStaEnum.E.WALKING:
-			velocity.x = (move_dir * walking_speed).x #When walking our velocity should be the input from move_dir
-			_apply_gravity(delta)
-			current_anim_state = PcAnimEnum.E.PAWALK
-		PcMoveStaEnum.E.RUNNING:
-			velocity.x = (move_dir * running_speed).x
-			_apply_gravity(delta)
-			current_anim_state = PcAnimEnum.E.PARUN
-			#print_debug("Running!")
-		PcMoveStaEnum.E.AIRBORNE:
-			pass
-		PcMoveStaEnum.E.UNDERWATER:
-			pass
+#func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
+	#match current_move_state :
+		#PcMoveStaEnum.E.IDLE: #This would be a "case" in Unity.
+			#velocity.x = (0.0)
+			#_apply_gravity(delta)
+			#current_anim_state = PcAnimEnum.E.PAIDLE
+		#PcMoveStaEnum.E.WALKING:
+			#velocity.x = (move_dir * walking_speed).x #When walking our velocity should be the input from move_dir
+			#_apply_gravity(delta)
+			#current_anim_state = PcAnimEnum.E.PAWALK
+		#PcMoveStaEnum.E.RUNNING:
+			#velocity.x = (move_dir * running_speed).x
+			#_apply_gravity(delta)
+			#current_anim_state = PcAnimEnum.E.PARUN
+			##print_debug("Running!")
+		#PcMoveStaEnum.E.AIRBORNE:
+			#pass
+		#PcMoveStaEnum.E.UNDERWATER:
+			#pass
 
-func update_animation(_delta): #This is where we change which anim we're in.
-	match current_anim_state :
-		PcAnimEnum.E.PAIDLE: #This would be a "case" in Unity.
-			anim.play("player_idle")
-		PcAnimEnum.E.PAWALK:
-			anim.play("player_walk")
-			#print_debug("Playing Walk-Animation.")
-		PcAnimEnum.E.PARUN:
-			pass
-		PcAnimEnum.E.PAJUMP:
-			anim.play("player_jump")
-		PcAnimEnum.E.PASWIM:
-			pass
-		PcAnimEnum.E.PAPUNCH:
-			pass
-		PcAnimEnum.E.PACHJMP:
-			anim.play("player_charge_jump")
-		PcAnimEnum.E.PADEAD:
-			anim.play("player_dead")
-			print_debug("Playing Player Death-animation.")
+#func update_animation(_delta): #This is where we change which anim we're in.
+	#match current_anim_state :
+		#PcAnimEnum.E.PAIDLE: #This would be a "case" in Unity.
+			#anim.play("player_idle")
+		#PcAnimEnum.E.PAWALK:
+			#anim.play("player_walk")
+			##print_debug("Playing Walk-Animation.")
+		#PcAnimEnum.E.PARUN:
+			#pass
+		#PcAnimEnum.E.PAJUMP:
+			#anim.play("player_jump")
+		#PcAnimEnum.E.PASWIM:
+			#pass
+		#PcAnimEnum.E.PAPUNCH:
+			#pass
+		#PcAnimEnum.E.PACHJMP:
+			#anim.play("player_charge_jump")
+		#PcAnimEnum.E.PADEAD:
+			#anim.play("player_dead")
+			#print_debug("Playing Player Death-animation.")
 	
 #These functions are called to turn on and off movement.
 func lock_movement():
@@ -236,13 +274,7 @@ func free_movement():
 	move_locked = false #Turn on movement.
 	print_debug("Turned ON movement.")
 
-func _apply_gravity(delta : float):
-	if not is_on_floor() : #Do I need MORE in the condition?
-		var gravity = get_gravity()
-		velocity.y += gravity.y * delta
-	
-	else: #Otherwise, we...
-		return #...don't do anything. (no gravity-application)
+
 	
 func take_damage(damage : int):
 	health -= damage #Player's health decreases according to variable, per punch that connects.
@@ -254,7 +286,7 @@ func take_damage(damage : int):
 		print_debug("running dead-timer")
 		while !dead_time.is_stopped(): #For as long as the back-off-timer is running...
 			#Make the enemy back off after damaging the player.
-			current_anim_state = PcAnimEnum.E.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
+			#current_anim_state = PcAnimEnum.E.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
 			await get_tree().process_frame
 		print_debug("Player died.")
 		GameManager.instance.is_game_over = true
@@ -279,13 +311,12 @@ func flip():
 	#TODO: consider redoing the below, since camera sucks.
 	if current_direction != last_direction: #If the current direction is not the same as the last direction, then...
 		$CamAnimationPlayer.play("cam_mov" + dir_string) #Then move/animate the camera in the new direction.
-		
 	#Update the last direction variable.
 	last_direction = current_direction
 	
 func _ground_player():
 	is_grounded = true
-	velocity.y = walk_jump_vel #Make sure player looses ability to jump high.
+	velocity.y = move_speed #Make sure player looses ability to jump high.
 	#print_debug("Grounded player.")
 	
 func _unground_player():

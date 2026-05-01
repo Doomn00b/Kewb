@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://catv4gbu1rp2n"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_prie1"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_prie1"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="4_3brdd"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="5_j8rsw"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="8_kjfbt"]
 [ext_resource type="Texture2D" uid="uid://c43x0cd85xsal" path="res://Tilesets/kewb-tiles_vert.png" id="8_ttewl"]
 [ext_resource type="PackedScene" uid="uid://3jmguuhnft7s" path="res://interactables/Pickups/AbilityUpgrade.tscn" id="10_k1vye"]
+[ext_resource type="Texture2D" uid="uid://datlkatrp2fsb" path="res://levels/Jumping test-chart.png" id="11_3brdd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
 
@@ -385,5 +386,9 @@ target_level = "Level2"
 [node name="PowerPunchUpgrade" parent="." unique_id=947636966 instance=ExtResource("10_k1vye")]
 position = Vector2(-299, 167)
 upgrade_type = 2
+
+[node name="height-test" type="Sprite2D" parent="." unique_id=1100571674]
+position = Vector2(-56, 88)
+texture = ExtResource("11_3brdd")
 
 [editable path="EnemySpawner"]
