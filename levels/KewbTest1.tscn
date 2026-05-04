@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://catv4gbu1rp2n"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_prie1"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_prie1"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="4_3brdd"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="5_j8rsw"]
@@ -313,7 +313,7 @@ position = Vector2(-120, 192)
 
 [node name="BlueTilesGTop" type="TileMapLayer" parent="." unique_id=1119523911 groups=["Tiles"]]
 visibility_layer = 2
-z_index = -1
+z_index = -2
 y_sort_enabled = true
 position = Vector2(72, 232)
 tile_map_data = PackedByteArray("AAD8//7/AQAIAAEAAAD9//7/AQABAAEAAAD+//7/AQACAAEAAAD///7/AQADAAEAAAAAAP7/AQAEAAEAAAABAP7/AQAFAAEAAAACAP7/AQAGAAEAAAADAP7/AQAHAAEAAAAEAP7/AQAIAAEAAAAFAP7/AQABAAEAAAAMAP7/AQAIAAEAAAANAP7/AQABAAEAAAAOAP7/AQACAAEAAAAPAP7/AQADAAEAAAAQAP7/AQAEAAEAAAARAP7/AQAFAAEAAAASAP7/AQAGAAEAAAATAP7/AQAHAAEAAAAUAP7/AQAIAAEAAAAVAP7/AQAJAAEAAAAGAP7/AQACAAEAAAAHAP7/AQADAAEAAAAIAP7/AQAEAAEAAAAJAP7/AQAFAAEAAAAKAP7/AQAGAAEAAAALAP7/AQAHAAEAAAD7//7/AQAHAAEAAAD6//7/AQAGAAEAAAD5//7/AQAFAAEAAAD4//7/AQAEAAEAAAD3//7/AQADAAEAAAD2//7/AQACAAEAAAD1//7/AQABAAEAAAD0//7/AQAIAAEAAADz//7/AQACAAEAAADy//7/AQAGAAEAAADx//7/AQAFAAEAAADw//7/AQAEAAEAAADv//7/AQADAAEAAADu//7/AQACAAEAAADj//7/AQAHAAEAAADi//7/AQAGAAEAAADl//7/AQABAAEAAADm//7/AQACAAEAAADn//7/AQADAAEAAADo//7/AQAEAAEAAADp//7/AQAFAAEAAADq//7/AQAGAAEAAADr//7/AQAHAAEAAADs//7/AQAIAAEAAADt//7/AQABAAEAAADk//7/AQAIAAEAAADh//7/AQACAAEAAADg//7/AQABAAEAAADf//7/AQAAAAEAAAAVAPn/AQAJAAEAAAAUAPn/AQAIAAEAAAATAPn/AQAHAAEAAAASAPn/AQAGAAEAAAARAPn/AQAFAAEAAAAQAPn/AQAEAAEAAAAPAPn/AQADAAEAAAAOAPn/AQACAAEAAAANAPn/AQABAAEAAAAMAPn/AQAAAAEAAAA=")
@@ -385,9 +385,14 @@ target_level = "Level2"
 
 [node name="PowerPunchUpgrade" parent="." unique_id=947636966 instance=ExtResource("10_k1vye")]
 position = Vector2(-299, 167)
+
+[node name="ChargeJumpUpgrade2" parent="." unique_id=693034218 instance=ExtResource("10_k1vye")]
+position = Vector2(-320, 168)
 upgrade_type = 2
 
 [node name="height-test" type="Sprite2D" parent="." unique_id=1100571674]
+z_index = -1
+y_sort_enabled = true
 position = Vector2(-56, 88)
 texture = ExtResource("11_3brdd")
 

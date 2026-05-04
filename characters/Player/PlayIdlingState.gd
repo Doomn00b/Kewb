@@ -15,7 +15,7 @@ func update_state(delta : float) -> void:
 	_idling()
 
 func _idling():
-	actor.animator.play("b_idling") #We play the walking-animation, using the Actors animator.
+	actor.animator.play("player_idle") #We play the walking-animation, using the Actors animator.
 
 func exit_state() -> void:
 	print_debug("Player exit Idling")

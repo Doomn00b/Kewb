@@ -18,10 +18,10 @@ signal health_updated(new_health : int) #A signal that says our health has chang
 @export var ch_jump_vel: int = -900
 
 var health : int = PCMAX_HEALTH #We make a new variable based on the Health-constant.
-var SPEED: int = 0
-var JUMP_VELOCITY: int = 0
+#const JUMP_VELOCITY: int = 0
 #var charge_jmp_time: Timer
-var jump_held_time : int
+const MAX_JUMP_HELD_TIME : float = 1.0
+var jump_held_time : float = 0.0
 
 var current_move_state = PcMoveStaEnum.E.IDLE #We make a new var to describe the basic state...Idle.
 var current_anim_state = PcAnimEnum.E.PAIDLE
@@ -132,59 +132,59 @@ func _physics_process(delta: float) -> void: #I picked physics, since this is mo
 	#endregion
 	
 	_apply_gravity(delta) # Add the gravity.
-	_jumping(delta)
 	apply_movement(delta) #We run the movement-state switch.
+	_jumping(delta)
 	update_animation(delta) #We update the animation.
 	#camera_control() #We adjust the camera.
 	move_and_slide()
 
 func _jumping(delta: float) -> void:
-		# Player presses jump -> Kewb jumps.
+	# Player presses jump -> Kewb jumps.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = walk_jump_vel
 		current_anim_state = PcAnimEnum.E.PAJUMP
 		_unground_player() #We make sure to say the player isn't grounded.
 		#print_debug("Player jumped")
+	
 	#Jump while running.
 	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("charge") and is_on_floor(): #If we're also holding charge...
 		velocity.y = run_jump_vel 
 		current_anim_state = PcAnimEnum.E.PAJUMP
 		_unground_player()
 		#print_debug("Player jumped higher")
-	
-	#if charge_jump == true and Input.is_action_pressed("charge") and Input.is_action_pressed("jump") and charge_jmp_time.is_stopped(): 
-		#charge_jmp_time.start()
-		##print_debug("Charging Jump!")
-		#current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
-		#await charge_jmp_time.timeout #...until the charging is done
-		#velocity.y = run_jump_vel #Then we increase jump-velocity tons
-		#current_anim_state = PcAnimEnum.E.PAJUMP
+		
 	#region NEW Charge-jumping
 	if charge_jump == true && Input.is_action_pressed("move_down") && is_on_floor(): 
 		current_anim_state = PcAnimEnum.E.PACHJMP #We run the charge-jump animation...
 		print_debug("Charging Jump!")
-		jump_held_time += 1
-		if jump_held_time > 10:
+		jump_held_time += 1.0 * delta
+		print_debug("We have held jump-charge for:" , jump_held_time)
+		if jump_held_time >= MAX_JUMP_HELD_TIME:
+		#if jump_held_time > MAX_JUMP_HELD_TIME && Input.is_action_just_pressed("jump"):
 			#player reaches the max charge of jump
-			await anim.animation_finished
+			#await anim.animation_finished
+			print_debug("Time to start charge-jump")
 			start_charge_jump(delta) #Insert start_charge_jump function here.
-			
-	if charge_jump == true && Input.is_action_just_released("move_down") && is_on_floor():
-		
-		start_charge_jump(delta)
+	elif jump_held_time < MAX_JUMP_HELD_TIME && Input.is_action_just_released("move_down"):
+		jump_held_time = 0.0
+		print_debug(jump_held_time, "...so not enough jump-charge yet...")
+		pass
+	#if charge_jump == true && Input.is_action_just_released("move_down") && is_on_floor():
+		#start_charge_jump(delta)
 	#endregion
 
-func start_charge_jump(delta):
+func start_charge_jump(_delta):
 	last_direction = 0
 	_unground_player()
 	current_anim_state = PcAnimEnum.E.PAJUMP
-	velocity.y = walk_jump_vel * (jump_held_time * delta)
+	var new_vel_y : float = ch_jump_vel#(ch_jump_vel * (jump_held_time / MAX_JUMP_HELD_TIME)) + walk_jump_vel
+	velocity.y = clampf(new_vel_y, ch_jump_vel, -ch_jump_vel) #We clamp the new velocity to
+	#velocity.y = ch_jump_vel * (jump_held_time / 10.0)
 	velocity.x = last_direction + (walking_speed / 2)
 	print_debug("Y-velocity is:" , velocity.y)
 	#Coming down, below
-	JUMP_VELOCITY = walk_jump_vel
-	jump_held_time = 0
-	
+	#velocity.y = walk_jump_vel
+	jump_held_time = 0.0
 
 
 func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 10k if-statements.
@@ -203,7 +203,7 @@ func apply_movement(delta : float): #Let's do a switch, aka a match, instead of 
 			current_anim_state = PcAnimEnum.E.PARUN
 			#print_debug("Running!")
 		PcMoveStaEnum.E.AIRBORNE:
-			pass
+			print_debug("FUCK")
 		PcMoveStaEnum.E.UNDERWATER:
 			pass
 
@@ -214,14 +214,15 @@ func update_animation(_delta): #This is where we change which anim we're in.
 		PcAnimEnum.E.PAWALK:
 			anim.play("player_walk")
 			#print_debug("Playing Walk-Animation.")
-		PcAnimEnum.E.PARUN:
-			pass
+		#PcAnimEnum.E.PARUN:
+			#print_debug("Playing Run!")
 		PcAnimEnum.E.PAJUMP:
 			anim.play("player_jump")
-		PcAnimEnum.E.PASWIM:
-			pass
-		PcAnimEnum.E.PAPUNCH:
-			pass
+			print_debug("Playing jump-animation")
+		#PcAnimEnum.E.PASWIM:
+			#print_debug("Playing swim!")
+		#PcAnimEnum.E.PAPUNCH:
+			#print_debug("Playing Punch!")
 		PcAnimEnum.E.PACHJMP:
 			anim.play("player_charge_jump")
 		PcAnimEnum.E.PADEAD:
@@ -306,13 +307,3 @@ func enable_uppercut():
 	print_debug("Player got the Upper-Cut!")
 
 #endregion
-
-	#Pseudo-code: 
-	#Constant acceleration
-	#pos += velocity * delta-time + 1/2 acceleration * delta-time * delta-time
-	#Simplified, almost as good:
-	#delta-acceleration * delta-time * delta-time
-	#A curve to apply it?
-#func _jump(delta):
-	#self.position += (velocity * delta) + ((0.5 * ACCELERATION) * delta * delta)
-	#velocity += ACCELERATION * delta

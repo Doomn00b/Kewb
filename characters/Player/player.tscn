@@ -3,9 +3,7 @@
 [ext_resource type="Script" uid="uid://cuud1isgaumx" path="res://characters/Player/player.gd" id="1_vb825"]
 [ext_resource type="Texture2D" uid="uid://gwdoe46w1uw0" path="res://characters/Player/kewb_godot-Sheet.png" id="2_8gp0o"]
 [ext_resource type="PackedScene" uid="uid://58a8niagh30m" path="res://characters/Player/fist.tscn" id="2_j7dd2"]
-[ext_resource type="Script" uid="uid://cwi583q3pgfui" path="res://characters/Player/PlayStateMachine.gd" id="3_kidiw"]
 [ext_resource type="Script" uid="uid://bbwueskj7qhje" path="res://characters/Player/InputHints.gd" id="4_b405y"]
-[ext_resource type="Script" uid="uid://bhnom76gwyubm" path="res://characters/Player/PlayIdlingState.gd" id="4_fg313"]
 [ext_resource type="Texture2D" uid="uid://bo5qdqfoyvt8y" path="res://GUI/PlayerHud/button_prompts.png" id="5_b405y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gp0o"]
@@ -174,16 +172,8 @@ y_sort_enabled = true
 collision_layer = 4
 script = ExtResource("1_vb825")
 fist_tscn = ExtResource("2_j7dd2")
+walk_jump_vel = -350
 metadata/_edit_group_ = true
-
-[node name="PlayStateMachine" type="Node" parent="." unique_id=1504204463]
-script = ExtResource("3_kidiw")
-metadata/_custom_type_script = "uid://cwi583q3pgfui"
-
-[node name="PlayIdlingState" type="Node" parent="PlayStateMachine" unique_id=1003881991]
-unique_name_in_owner = true
-script = ExtResource("4_fg313")
-metadata/_custom_type_script = "uid://bhnom76gwyubm"
 
 [node name="Flip" type="Marker2D" parent="." unique_id=1603198284]
 unique_name_in_owner = true
