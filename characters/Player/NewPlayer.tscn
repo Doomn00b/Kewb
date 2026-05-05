@@ -3,9 +3,15 @@
 [ext_resource type="Script" uid="uid://cdo4qdfggquq0" path="res://characters/Player/NewPlayer.gd" id="1_tyuxy"]
 [ext_resource type="Script" uid="uid://cwi583q3pgfui" path="res://characters/Player/PlayStateMachine.gd" id="3_l0iki"]
 [ext_resource type="Script" uid="uid://bhnom76gwyubm" path="res://characters/Player/PlayIdlingState.gd" id="4_inp6w"]
+[ext_resource type="Script" uid="uid://dt0a6lw2abpgy" path="res://characters/Player/PlayWalkState.gd" id="4_scanv"]
+[ext_resource type="Script" uid="uid://bgl64yjgku1p" path="res://characters/Player/PlayRunState.gd" id="5_2ghj0"]
 [ext_resource type="Texture2D" uid="uid://gwdoe46w1uw0" path="res://characters/Player/kewb_godot-Sheet.png" id="5_yj61r"]
 [ext_resource type="Script" uid="uid://bbwueskj7qhje" path="res://characters/Player/InputHints.gd" id="6_8wb0y"]
+[ext_resource type="Script" uid="uid://dc55ittb413f5" path="res://characters/Player/PlayDeadState.gd" id="6_l0iki"]
+[ext_resource type="Script" uid="uid://c1i8re786y80t" path="res://characters/Player/PlayHurtState.gd" id="7_inp6w"]
 [ext_resource type="Texture2D" uid="uid://bo5qdqfoyvt8y" path="res://GUI/PlayerHud/button_prompts.png" id="7_qmoxo"]
+[ext_resource type="Script" uid="uid://bu1egbiojvl64" path="res://characters/Player/PlayJumpState.gd" id="8_yj61r"]
+[ext_resource type="Script" uid="uid://cmdxop0iar8ee" path="res://characters/Player/PlayAtkState.gd" id="9_8wb0y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gp0o"]
 size = Vector2(32, 32)
@@ -89,6 +95,9 @@ tracks/0/keys = {
 "values": [5]
 }
 
+[sub_resource type="Animation" id="Animation_scanv"]
+resource_name = "player_run"
+
 [sub_resource type="Animation" id="Animation_yrol7"]
 resource_name = "player_walk"
 length = 0.6
@@ -113,6 +122,7 @@ _data = {
 &"player_dead": SubResource("Animation_b405y"),
 &"player_idle": SubResource("Animation_8gp0o"),
 &"player_jump": SubResource("Animation_5nx12"),
+&"player_run": SubResource("Animation_scanv"),
 &"player_walk": SubResource("Animation_yrol7")
 }
 
@@ -182,6 +192,36 @@ metadata/_custom_type_script = "uid://cwi583q3pgfui"
 unique_name_in_owner = true
 script = ExtResource("4_inp6w")
 metadata/_custom_type_script = "uid://bhnom76gwyubm"
+
+[node name="PlayWalkState" type="Node" parent="PlayStateMachine" unique_id=2107411835]
+unique_name_in_owner = true
+script = ExtResource("4_scanv")
+metadata/_custom_type_script = "uid://dt0a6lw2abpgy"
+
+[node name="PlayRunState" type="Node" parent="PlayStateMachine" unique_id=1646419014]
+unique_name_in_owner = true
+script = ExtResource("5_2ghj0")
+metadata/_custom_type_script = "uid://bgl64yjgku1p"
+
+[node name="PlayDeadState" type="Node" parent="PlayStateMachine" unique_id=1197071454]
+unique_name_in_owner = true
+script = ExtResource("6_l0iki")
+metadata/_custom_type_script = "uid://dc55ittb413f5"
+
+[node name="PlayHurtState" type="Node" parent="PlayStateMachine" unique_id=1690242655]
+unique_name_in_owner = true
+script = ExtResource("7_inp6w")
+metadata/_custom_type_script = "uid://c1i8re786y80t"
+
+[node name="PlayJumpState" type="Node" parent="PlayStateMachine" unique_id=185902735]
+unique_name_in_owner = true
+script = ExtResource("8_yj61r")
+metadata/_custom_type_script = "uid://bu1egbiojvl64"
+
+[node name="PlayAtkState" type="Node" parent="PlayStateMachine" unique_id=450305686]
+unique_name_in_owner = true
+script = ExtResource("9_8wb0y")
+metadata/_custom_type_script = "uid://cmdxop0iar8ee"
 
 [node name="Flip" type="Marker2D" parent="." unique_id=1603198284]
 unique_name_in_owner = true
