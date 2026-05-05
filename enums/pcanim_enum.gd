@@ -8,5 +8,6 @@ enum E {
 	PASWIM,
 	PADEAD,
 	PAPUNCH,
-	PACHJMP #Player Animation Charging Jump
+	PACHJMP, #Player Animation Charging Jump
+	PACHPUNCH
 }

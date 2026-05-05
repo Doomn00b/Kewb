@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://1jjymvtw3te"]
 
 [ext_resource type="Script" uid="uid://cdo4qdfggquq0" path="res://characters/Player/NewPlayer.gd" id="1_tyuxy"]
+[ext_resource type="PackedScene" uid="uid://58a8niagh30m" path="res://characters/Player/fist.tscn" id="2_qmoxo"]
 [ext_resource type="Script" uid="uid://cwi583q3pgfui" path="res://characters/Player/PlayStateMachine.gd" id="3_l0iki"]
 [ext_resource type="Script" uid="uid://bhnom76gwyubm" path="res://characters/Player/PlayIdlingState.gd" id="4_inp6w"]
 [ext_resource type="Script" uid="uid://dt0a6lw2abpgy" path="res://characters/Player/PlayWalkState.gd" id="4_scanv"]
@@ -12,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://bo5qdqfoyvt8y" path="res://GUI/PlayerHud/button_prompts.png" id="7_qmoxo"]
 [ext_resource type="Script" uid="uid://bu1egbiojvl64" path="res://characters/Player/PlayJumpState.gd" id="8_yj61r"]
 [ext_resource type="Script" uid="uid://cmdxop0iar8ee" path="res://characters/Player/PlayAtkState.gd" id="9_8wb0y"]
+[ext_resource type="Script" uid="uid://d2xqjc5tcgng" path="res://characters/Player/PlayJchargeState.gd" id="11_gej2m"]
+[ext_resource type="Script" uid="uid://ck17c0rxt4bp4" path="res://characters/Player/PlayPchargeState.gd" id="12_4ae0u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gp0o"]
 size = Vector2(32, 32)
@@ -95,6 +98,21 @@ tracks/0/keys = {
 "values": [5]
 }
 
+[sub_resource type="Animation" id="Animation_gej2m"]
+resource_name = "player_pcharge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flip/PlayerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
 [sub_resource type="Animation" id="Animation_scanv"]
 resource_name = "player_run"
 
@@ -122,6 +140,7 @@ _data = {
 &"player_dead": SubResource("Animation_b405y"),
 &"player_idle": SubResource("Animation_8gp0o"),
 &"player_jump": SubResource("Animation_5nx12"),
+&"player_punch_charge": SubResource("Animation_gej2m"),
 &"player_run": SubResource("Animation_scanv"),
 &"player_walk": SubResource("Animation_yrol7")
 }
@@ -182,6 +201,7 @@ _data = {
 y_sort_enabled = true
 collision_layer = 4
 script = ExtResource("1_tyuxy")
+fist_tscn = ExtResource("2_qmoxo")
 metadata/_edit_group_ = true
 
 [node name="PlayStateMachine" type="Node" parent="." unique_id=1504204463]
@@ -222,6 +242,16 @@ metadata/_custom_type_script = "uid://bu1egbiojvl64"
 unique_name_in_owner = true
 script = ExtResource("9_8wb0y")
 metadata/_custom_type_script = "uid://cmdxop0iar8ee"
+
+[node name="PlayJchargeState" type="Node" parent="PlayStateMachine" unique_id=1924719775]
+unique_name_in_owner = true
+script = ExtResource("11_gej2m")
+metadata/_custom_type_script = "uid://d2xqjc5tcgng"
+
+[node name="PlayPchargeState" type="Node" parent="PlayStateMachine" unique_id=1792045316]
+unique_name_in_owner = true
+script = ExtResource("12_4ae0u")
+metadata/_custom_type_script = "uid://ck17c0rxt4bp4"
 
 [node name="Flip" type="Marker2D" parent="." unique_id=1603198284]
 unique_name_in_owner = true

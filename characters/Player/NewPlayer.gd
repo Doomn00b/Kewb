@@ -6,9 +6,9 @@ extends CharacterBody2D
 	#RDCAMLIM, #Right-Direction Camera-Limits 
 	#LDCAMLIM #Left-Direction Camera-Limits
 #}
-
+const MAX_JUMP_HELD_TIME : float = 1.0
+const MAX_PUNCH_HELD_TIME : float = 1.0
 const PCMAX_HEALTH : int = 16 #We make a new constant that defines the player has health.
-#const ACCELERATION : float = 9.8
 signal health_updated(new_health : int) #A signal that says our health has changed.
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
 #@export var walking_speed: int = 150
@@ -21,12 +21,8 @@ signal health_updated(new_health : int) #A signal that says our health has chang
 #var JUMP_VELOCITY: int = 0
 ##var charge_jmp_time: Timer
 #var jump_held_time : int
-#
-#var current_move_state = PcMoveStaEnum.E.IDLE #We make a new var to describe the basic state...Idle.
-#var current_anim_state = PcAnimEnum.E.PAIDLE
-
-
-
+#PcMoveStaEnum.E.IDLE
+#PcAnimEnum.E.PAIDLE
 var health : int = PCMAX_HEALTH #We make a new variable based on the Health-constant.
 
 
@@ -57,6 +53,7 @@ var fist_time : Timer
 var fist_point : Marker2D
 var dead_time : Timer
 var player_cam : Camera2D
+
 
 #Ability Vars -- they decide if the player can access their abilities.
 var charge_jump : bool = false

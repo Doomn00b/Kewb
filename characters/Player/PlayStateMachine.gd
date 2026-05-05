@@ -14,8 +14,8 @@ func _ready() -> void:
 	state_dict["Hurt"] = %PlayHurtState #Hurt-anim and i-Frames. Can lead to Death-state.
 	state_dict["Jumping"] = %PlayJumpState #Should falling and Jumping be different states?
 	state_dict["Attacking"] = %PlayAtkState #Attack-animation, give-damage.
-	state_dict["Punch-charging"] #= 
-	state_dict["Jump-charging"] #=
+	state_dict["Punch-charging"] = %PlayPchargeState #Power-Punch charge-animation
+	state_dict["Jump-charging"] = %PlayJchargeState #Charge-Jump animation
 	
 	
 	#actor.enemy_died.connect(change_state.bind("Death")) #We connect the signal for when enemy goes into death-state.
