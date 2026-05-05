@@ -1,6 +1,8 @@
 class_name PlayHurtState
 extends State
 
+#signal player_health_zero
+
 @export_category("Put Actor, aka Player-prefab here")
 @export var actor: NewPlayer #We put our "Actor" here, in this case, our Player-kewb.
 
@@ -16,6 +18,7 @@ func update_state(delta : float) -> void:
 
 func _hurting():
 	actor.animator.play("player_hurt") #We play the walking-animation, using the Actors animator.
+	#Prevent attacking
 
 func exit_state() -> void:
 	print_debug("Player exit Idling")

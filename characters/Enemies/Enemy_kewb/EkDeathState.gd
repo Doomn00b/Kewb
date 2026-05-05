@@ -8,8 +8,9 @@ func _ready() -> void:
 	pass
 	
 func enter_state() -> void:
+	print_debug("Enemy-Kewb entered death-state!")
 	actor.animator.play("ek_dead")
-	await get_tree().process_frame #Wait for one frame before...
+	await actor.animator.animation_finished #Wait for one frame before...
 	actor.queue_free() #...we remove Enemy from memory, destroying it.
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

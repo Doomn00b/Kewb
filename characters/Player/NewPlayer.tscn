@@ -208,49 +208,58 @@ metadata/_edit_group_ = true
 script = ExtResource("3_l0iki")
 metadata/_custom_type_script = "uid://cwi583q3pgfui"
 
-[node name="PlayIdlingState" type="Node" parent="PlayStateMachine" unique_id=1003881991]
+[node name="PlayIdlingState" type="Node" parent="PlayStateMachine" unique_id=1003881991 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("4_inp6w")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://bhnom76gwyubm"
 
-[node name="PlayWalkState" type="Node" parent="PlayStateMachine" unique_id=2107411835]
+[node name="PlayWalkState" type="Node" parent="PlayStateMachine" unique_id=2107411835 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("4_scanv")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://dt0a6lw2abpgy"
 
-[node name="PlayRunState" type="Node" parent="PlayStateMachine" unique_id=1646419014]
+[node name="PlayRunState" type="Node" parent="PlayStateMachine" unique_id=1646419014 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("5_2ghj0")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://bgl64yjgku1p"
 
-[node name="PlayDeadState" type="Node" parent="PlayStateMachine" unique_id=1197071454]
+[node name="PlayDeadState" type="Node" parent="PlayStateMachine" unique_id=1197071454 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("6_l0iki")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://dc55ittb413f5"
 
-[node name="PlayHurtState" type="Node" parent="PlayStateMachine" unique_id=1690242655]
+[node name="PlayHurtState" type="Node" parent="PlayStateMachine" unique_id=1690242655 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("7_inp6w")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://c1i8re786y80t"
 
-[node name="PlayJumpState" type="Node" parent="PlayStateMachine" unique_id=185902735]
+[node name="PlayJumpState" type="Node" parent="PlayStateMachine" unique_id=185902735 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("8_yj61r")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://bu1egbiojvl64"
 
-[node name="PlayAtkState" type="Node" parent="PlayStateMachine" unique_id=450305686]
+[node name="PlayAtkState" type="Node" parent="PlayStateMachine" unique_id=450305686 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("9_8wb0y")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://cmdxop0iar8ee"
 
-[node name="PlayJchargeState" type="Node" parent="PlayStateMachine" unique_id=1924719775]
+[node name="PlayJchargeState" type="Node" parent="PlayStateMachine" unique_id=1924719775 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("11_gej2m")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://d2xqjc5tcgng"
 
-[node name="PlayPchargeState" type="Node" parent="PlayStateMachine" unique_id=1792045316]
+[node name="PlayPchargeState" type="Node" parent="PlayStateMachine" unique_id=1792045316 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 script = ExtResource("12_4ae0u")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://ck17c0rxt4bp4"
 
 [node name="Flip" type="Marker2D" parent="." unique_id=1603198284]

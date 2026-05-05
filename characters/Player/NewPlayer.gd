@@ -6,10 +6,15 @@ extends CharacterBody2D
 	#RDCAMLIM, #Right-Direction Camera-Limits 
 	#LDCAMLIM #Left-Direction Camera-Limits
 #}
+signal health_updated(new_health : int) #A signal that says our health has changed.
+@warning_ignore("unused_signal")
+signal player_died #This signal will be emitted when health is too low.
+
 const MAX_JUMP_HELD_TIME : float = 1.0
 const MAX_PUNCH_HELD_TIME : float = 1.0
 const PCMAX_HEALTH : int = 16 #We make a new constant that defines the player has health.
-signal health_updated(new_health : int) #A signal that says our health has changed.
+
+
 @export var fist_tscn: PackedScene #We make sure that the editor knows the fist-scene/prefab is a scene/prefab.
 #@export var walking_speed: int = 150
 #@export var running_speed: int = 300
@@ -270,25 +275,13 @@ func lock_movement():
 func free_movement():
 	move_locked = false #Turn on movement.
 	print_debug("Turned ON movement.")
-
-
 	
 func take_damage(damage : int):
 	health -= damage #Player's health decreases according to variable, per punch that connects.
 	print("Player Took Damage!")
 	health_updated.emit(health)
 	if health <= 0: #If you run out of health, or if it goes negative, then...
-		lock_movement() #We lock the player, so it doesn't move around.
-		dead_time.start() #We start a timer that's supposed to let our DEATH-ANIMATION play.
-		print_debug("running dead-timer")
-		while !dead_time.is_stopped(): #For as long as the back-off-timer is running...
-			#Make the enemy back off after damaging the player.
-			#current_anim_state = PcAnimEnum.E.PADEAD #We set the current animation-state to DEAD. ( we play the death-animation)
-			await get_tree().process_frame
-		print_debug("Player died.")
-		GameManager.instance.is_game_over = true
-		GameManager.instance.change_gui_scene("GameOverScreen", false, false, true) #Run the game-over screen
-		self.queue_free() #...destroy the Player by removing from memory.
+		player_died.emit()
 		
 #Code to flip the character when walking.
 func flip():
@@ -334,13 +327,3 @@ func enable_uppercut():
 	print_debug("Player got the Upper-Cut!")
 
 #endregion
-
-	#Pseudo-code: 
-	#Constant acceleration
-	#pos += velocity * delta-time + 1/2 acceleration * delta-time * delta-time
-	#Simplified, almost as good:
-	#delta-acceleration * delta-time * delta-time
-	#A curve to apply it?
-#func _jump(delta):
-	#self.position += (velocity * delta) + ((0.5 * ACCELERATION) * delta * delta)
-	#velocity += ACCELERATION * delta

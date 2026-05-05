@@ -17,7 +17,6 @@ func _ready() -> void:
 	state_dict["Punch-charging"] = %PlayPchargeState #Power-Punch charge-animation
 	state_dict["Jump-charging"] = %PlayJchargeState #Charge-Jump animation
 	
-	
-	#actor.enemy_died.connect(change_state.bind("Death")) #We connect the signal for when enemy goes into death-state.
-	#actor.b_damaged_player.connect(change_state.bind("Backing"))
+	actor.player_died.connect(change_state.bind("Death")) #We connect the signal for when enemy goes into death-state.
+	actor.health_updated.connect(change_state.bind("Hurt")) #If the player emits that health has been changed, it goes into hurt-state.
 	super() #Run same code as in overriden function

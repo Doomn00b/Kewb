@@ -6,16 +6,25 @@ extends State
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void: #Start
-	var sm : FiniteStateMachine = get_parent()
-	#b_found_player.connect(sm.change_state.bind("Aggroed")) #We connect the found player signal to activate the rush state
-	
+	pass
+
 func enter_state() -> void:
 	print_debug("Player entered Death!")
 	actor.animator.play("player_dead") #We play the walking-animation, using the Actors animator.
 	if actor.animator.is_playing():
 		return
 	else:
-		NewPlayer.instance.queue_free()
+		actor.lock_movement() #We lock the player, so it doesn't move around.
+		actor.dead_time.start() #We start a timer that's supposed to let our DEATH-ANIMATION play.
+		print_debug("running dead-timer")
+		while !actor.dead_time.is_stopped(): #For as long as the back-off-timer is running...
+			#Make the enemy back off after damaging the player.
+			await get_tree().process_frame
+		print_debug("Player died.")
+		GameManager.instance.is_game_over = true
+		GameManager.instance.change_gui_scene("GameOverScreen", false, false, true) #Run the game-over screen
+		actor.instance.queue_free() #...destroy the Player by removing from memory.
+
 		
 func update_state(_delta : float) -> void:
 	pass
