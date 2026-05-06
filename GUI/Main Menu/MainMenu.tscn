@@ -27,7 +27,6 @@ theme = ExtResource("1_kf0uv")
 
 [node name="MainMenu" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=547291516]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
@@ -103,6 +102,7 @@ text = "Audio"
 
 [node name="ControlsMenu" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1668407943]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 

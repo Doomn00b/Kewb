@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bpbw0w5k0vgu8"]
+
+[ext_resource type="Script" uid="uid://c0lkhla0rcehy" path="res://audio_system/AudioManager.gd" id="1_yxgtx"]
+[ext_resource type="AudioStream" uid="uid://cdfraorb6eabd" path="res://external_assets/ui_audio_external/JDWasabi_16bit_ui/Confirm 1.wav" id="2_3mfic"]
+[ext_resource type="AudioStream" uid="uid://dnbhdh0mxqfx8" path="res://external_assets/ui_audio_external/JDWasabi_16bit_ui/Select 1.wav" id="3_2v3tk"]
+[ext_resource type="AudioStream" uid="uid://dq8to4wde10d3" path="res://external_assets/ui_audio_external/JDWasabi_16bit_ui/Cancel 1.wav" id="4_m1e6j"]
+[ext_resource type="AudioStream" uid="uid://d2og0wbkl5xxs" path="res://external_assets/ui_audio_external/nategibs_uni_ui_audio/Retro10_success.ogg" id="5_xr526"]
+[ext_resource type="AudioStream" uid="uid://dbv2vbuxfjfvl" path="res://external_assets/ui_audio_external/nategibs_uni_ui_audio/Retro11_error.ogg" id="6_2x0my"]
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_3rssk"]
+polyphony = 16
+
+[node name="Audio" type="Node" unique_id=912525953]
+script = ExtResource("1_yxgtx")
+ui_focus_audio = ExtResource("2_3mfic")
+ui_select_audio = ExtResource("3_2v3tk")
+ui_cancel_audio = ExtResource("4_m1e6j")
+ui_success_audio = ExtResource("5_xr526")
+ui_error_audio = ExtResource("6_2x0my")
+
+[node name="Music1" type="AudioStreamPlayer" parent="." unique_id=1509996149]
+unique_name_in_owner = true
+bus = &"Music"
+
+[node name="Music2" type="AudioStreamPlayer" parent="." unique_id=1157865298]
+unique_name_in_owner = true
+bus = &"Music"
+
+[node name="UI" type="AudioStreamPlayer" parent="." unique_id=179782730]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamPolyphonic_3rssk")
+bus = &"UI"
