@@ -20,7 +20,7 @@ var ui_audio_player : AudioStreamPlaybackPolyphonic
 static var instance : AudioManager
 
 func _init() -> void:
-	self = instance
+	instance = self
 
 func _ready() -> void:
 	ui.play()
