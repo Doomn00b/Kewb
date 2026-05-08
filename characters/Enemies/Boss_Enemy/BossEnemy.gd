@@ -38,12 +38,6 @@ func apply_gravity(delta : float):
 
 #func reset_hit_player(): #This function is used by the states to keep track of if the player was hit.
 	#hit_player = false 
-
-#func _on_pbody_ent_dmg(node: Node2D) -> void:
-	#if node is Player:
-		#node.take_damage(base_damage)
-		#hit_player = true
-		#b_damaged_player.emit()
 		
 func take_damage(damage : int):
 	health -= damage #Boss's health decreases by 5, per punch that connects.

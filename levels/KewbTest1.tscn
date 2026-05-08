@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://catv4gbu1rp2n"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_prie1"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_prie1"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="4_3brdd"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="5_j8rsw"]
@@ -390,10 +390,10 @@ position = Vector2(-299, 167)
 position = Vector2(-320, 168)
 upgrade_type = 2
 
-[node name="height-test" type="Sprite2D" parent="." unique_id=1100571674]
+[node name="height-test_chart" type="Sprite2D" parent="." unique_id=1100571674]
 z_index = -1
 y_sort_enabled = true
-position = Vector2(-56, 88)
+position = Vector2(-384, 88)
 texture = ExtResource("11_3brdd")
 
 [editable path="EnemySpawner"]

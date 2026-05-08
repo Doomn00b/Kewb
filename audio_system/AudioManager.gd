@@ -41,9 +41,29 @@ func _ready() -> void:
 	#endregion
 	
 func play_music( audio : AudioStream) -> void:
-	pass
+	#Get or determine current music playing.
+	var current_player : AudioStreamPlayer = get_music_player( current_track )
+	if current_player.stream == audio: #If we're already playing an Audiostream, then...
+		return #...don't do anything.
+	#Determine which the next music-track is.
+	var next_track : int = wrapi( current_track + 1, 0, 2 ) #Variable to determine the next track to play.
+	var next_audplayer : AudioStreamPlayer = get_music_player( next_track )
+	#Set the audio on the next music-player.
+	next_audplayer.stream = audio
+	next_audplayer.play()
+	#Handle audio-fades.
 	
-func set_reverb():
+	#Store/Set current music track
+	current_track = next_track
+	
+func get_music_player( i : int) -> AudioStreamPlayer: #TODO: this function should probably use a dictionary and a switch...
+	if i == 0 :#If i is 0, then it's the first music-player, so...
+		return music_1
+	else:
+		return music_2
+	
+	
+func set_reverb( type : ReverbTypeE.E ): #Sets the type of reverb to the sound being played.
 	pass
 	
 func play_ui_audio( audio : AudioStream) -> void:
