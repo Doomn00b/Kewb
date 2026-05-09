@@ -20,7 +20,7 @@ func _ready() -> void:
 	menu_dict["Settings"] = settings_menu
 	menu_dict["Controls"] = controls_menu
 	
-	Audio.
+	#Audio.
 	
 	_hide_menus() #First we turn everything off...
 	current_menu = main_menu #We make main menu the current menu we want.

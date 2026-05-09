@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://c43x0cd85xsal" path="res://Tilesets/kewb-tiles_vert.png" id="8_ttewl"]
 [ext_resource type="PackedScene" uid="uid://3jmguuhnft7s" path="res://interactables/Pickups/AbilityUpgrade.tscn" id="10_k1vye"]
 [ext_resource type="Texture2D" uid="uid://datlkatrp2fsb" path="res://levels/Jumping test-chart.png" id="11_3brdd"]
+[ext_resource type="Script" uid="uid://b0mjpra4m4d2x" path="res://audio_system/music/MusicAutoTrigger.gd" id="12_4rd1o"]
+[ext_resource type="AudioStream" uid="uid://dof36a2fp7vpn" path="res://external_assets/poopie_pack_ogg/start_.ogg" id="13_ttewl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
 
@@ -395,5 +397,11 @@ z_index = -1
 y_sort_enabled = true
 position = Vector2(-384, 88)
 texture = ExtResource("11_3brdd")
+
+[node name="MusicAutoTrigger" type="Node" parent="." unique_id=1970525170]
+editor_description = "Automatically starts playing music when the parent-node is loaded."
+script = ExtResource("12_4rd1o")
+music_track = ExtResource("13_ttewl")
+metadata/_custom_type_script = "uid://b0mjpra4m4d2x"
 
 [editable path="EnemySpawner"]

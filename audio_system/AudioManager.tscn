@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://dq8to4wde10d3" path="res://external_assets/ui_audio_external/JDWasabi_16bit_ui/Cancel 1.wav" id="4_m1e6j"]
 [ext_resource type="AudioStream" uid="uid://d2og0wbkl5xxs" path="res://external_assets/ui_audio_external/nategibs_uni_ui_audio/Retro10_success.ogg" id="5_xr526"]
 [ext_resource type="AudioStream" uid="uid://dbv2vbuxfjfvl" path="res://external_assets/ui_audio_external/nategibs_uni_ui_audio/Retro11_error.ogg" id="6_2x0my"]
+[ext_resource type="AudioStream" uid="uid://dof36a2fp7vpn" path="res://external_assets/poopie_pack_ogg/start_.ogg" id="7_8qmjv"]
+[ext_resource type="AudioStream" uid="uid://cp7xcittmfght" path="res://external_assets/poopie_pack_ogg/town_.ogg" id="8_myl5f"]
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_3rssk"]
 polyphony = 16
@@ -20,10 +22,12 @@ ui_error_audio = ExtResource("6_2x0my")
 
 [node name="Music1" type="AudioStreamPlayer" parent="." unique_id=1509996149]
 unique_name_in_owner = true
+stream = ExtResource("7_8qmjv")
 bus = &"Music"
 
 [node name="Music2" type="AudioStreamPlayer" parent="." unique_id=1157865298]
 unique_name_in_owner = true
+stream = ExtResource("8_myl5f")
 bus = &"Music"
 
 [node name="UI" type="AudioStreamPlayer" parent="." unique_id=179782730]

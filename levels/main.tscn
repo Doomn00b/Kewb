@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bxgpyf6pshwbn" path="res://game_management/World.gd" id="11_xdh4e"]
 [ext_resource type="Script" uid="uid://bou707capy3nf" path="res://game_management/remove_save.gd" id="15_4fc0e"]
 [ext_resource type="PackedScene" uid="uid://bpbw0w5k0vgu8" path="res://audio_system/AudioManager.tscn" id="16_21ko3"]
+[ext_resource type="Script" uid="uid://caujr6bvkgc02" path="res://audio_system/AudioBuss.gd" id="17_s07ge"]
 
 [node name="Main" type="Node2D" unique_id=518110699]
 
@@ -23,6 +24,53 @@
 script = ExtResource("1_qy63d")
 level_2D = NodePath("../World/LevelTest1")
 gui = NodePath("../GuiCanvas/GUI")
+
+[node name="AudioManager" parent="." unique_id=912525953 instance=ExtResource("16_21ko3")]
+
+[node name="AudioBus" type="Node" parent="." unique_id=202177968]
+script = ExtResource("17_s07ge")
+metadata/_custom_type_script = "uid://caujr6bvkgc02"
+
+[node name="SaveManager" type="Node" parent="." unique_id=542018000 node_paths=PackedStringArray("player_char")]
+script = ExtResource("7_qy63d")
+player_char = NodePath("../World/Player")
+
+[node name="LevelPackUser" type="Node" parent="." unique_id=619941219]
+script = ExtResource("8_6et1j")
+
+[node name="MessageBus" type="Node" parent="." unique_id=1375714332]
+script = ExtResource("9_etqu2")
+
+[node name="GuiCanvas" type="CanvasLayer" parent="." unique_id=1438152076]
+unique_name_in_owner = true
+
+[node name="GUI" parent="GuiCanvas" unique_id=2074600678 instance=ExtResource("3_m1504")]
+unique_name_in_owner = true
+
+[node name="MainMenu" parent="GuiCanvas/GUI" unique_id=1758113947 instance=ExtResource("9_1fput")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+
+[node name="PauseMenu" type="Control" parent="GuiCanvas/GUI" unique_id=389244657]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GameOverScreen" parent="GuiCanvas/GUI" unique_id=1900945847 instance=ExtResource("8_c7dyn")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="TransitionController" parent="GuiCanvas" unique_id=1899625543 instance=ExtResource("4_m1504")]
+offset_top = 0.0
+offset_bottom = 0.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="World" type="Node" parent="." unique_id=61738201 groups=["World"]]
 unique_name_in_owner = true
@@ -32,6 +80,10 @@ metadata/_custom_type_script = "uid://bxgpyf6pshwbn"
 [node name="Player" parent="World" unique_id=1236161566 groups=["World"] instance=ExtResource("2_5k4jt")]
 unique_name_in_owner = true
 position = Vector2(-336, 200)
+
+[node name="PlayerHud" parent="World" unique_id=1532401522 groups=["World"] instance=ExtResource("7_jw1n3")]
+unique_name_in_owner = true
+visible = false
 
 [node name="LevelTest1" parent="World" unique_id=2143603366 node_paths=PackedStringArray("entry_dict") groups=["World"] instance=ExtResource("2_jyhfs")]
 unique_name_in_owner = true
@@ -56,52 +108,5 @@ entry_dict = {
 0: NodePath("EPleftLvl3")
 }
 
-[node name="PlayerHud" parent="World" unique_id=1532401522 groups=["World"] instance=ExtResource("7_jw1n3")]
-unique_name_in_owner = true
-visible = false
-
-[node name="GuiCanvas" type="CanvasLayer" parent="." unique_id=1438152076]
-unique_name_in_owner = true
-
-[node name="GUI" parent="GuiCanvas" unique_id=2074600678 instance=ExtResource("3_m1504")]
-unique_name_in_owner = true
-
-[node name="PauseMenu" type="Control" parent="GuiCanvas/GUI" unique_id=389244657]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="GameOverScreen" parent="GuiCanvas/GUI" unique_id=1900945847 instance=ExtResource("8_c7dyn")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-
-[node name="MainMenu" parent="GuiCanvas/GUI" unique_id=1758113947 instance=ExtResource("9_1fput")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 0
-
-[node name="TransitionController" parent="GuiCanvas" unique_id=1899625543 instance=ExtResource("4_m1504")]
-offset_top = 0.0
-offset_bottom = 0.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="SaveManager" type="Node" parent="." unique_id=542018000 node_paths=PackedStringArray("player_char")]
-script = ExtResource("7_qy63d")
-player_char = NodePath("../World/Player")
-
-[node name="LevelPackUser" type="Node" parent="." unique_id=619941219]
-script = ExtResource("8_6et1j")
-
-[node name="MessageBus" type="Node" parent="." unique_id=1375714332]
-script = ExtResource("9_etqu2")
-
 [node name="RemoveSaveGame" type="Node" parent="." unique_id=1047160673]
 script = ExtResource("15_4fc0e")
-
-[node name="AudioManager" parent="." unique_id=912525953 instance=ExtResource("16_21ko3")]
