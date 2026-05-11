@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="7_ndik7"]
 [ext_resource type="Texture2D" uid="uid://c43x0cd85xsal" path="res://Tilesets/kewb-tiles_vert.png" id="8_bcrt1"]
 [ext_resource type="PackedScene" uid="uid://3jmguuhnft7s" path="res://interactables/Pickups/AbilityUpgrade.tscn" id="10_d7tiv"]
+[ext_resource type="Script" uid="uid://b0mjpra4m4d2x" path="res://audio_system/music/MusicAutoTrigger.gd" id="10_jo1nw"]
 [ext_resource type="PackedScene" uid="uid://ctpljjy4g34v1" path="res://interactables/save_point.tscn" id="11_jo1nw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
@@ -481,6 +482,11 @@ upgrade_type = 2
 
 [node name="SavePoint" parent="." unique_id=1020067152 instance=ExtResource("11_jo1nw")]
 position = Vector2(144, 196)
+
+[node name="MusicAutoTrigger" type="Node" parent="." unique_id=432827611]
+script = ExtResource("10_jo1nw")
+_music_id = 1
+metadata/_custom_type_script = "uid://b0mjpra4m4d2x"
 
 [editable path="EnemySpawner2"]
 [editable path="DoorFrontLeft"]

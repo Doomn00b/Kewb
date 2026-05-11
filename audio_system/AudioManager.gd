@@ -9,14 +9,18 @@ extends Node
 @export var ui_success_audio : AudioStream
 @export var ui_error_audio : AudioStream
 
-var current_track : int = 0
+var current_track : int = -1
 var music_tweens : Array [Tween]
 var ui_audio_player : AudioStreamPlaybackPolyphonic
 
 @onready var music_1: AudioStreamPlayer = %Music1
 @onready var music_2: AudioStreamPlayer = %Music2
 @onready var ui: AudioStreamPlayer = %UI
-
+@onready var music_dict : Dictionary[int, AudioStreamPlayer] = {
+	0 : music_1,
+	1  : music_2,
+	2 : ui,
+}
 var ab : AudioBus
 
 static var instance : AudioManager
@@ -41,27 +45,36 @@ func _ready() -> void:
 	print_debug("Got Ui Audio.")
 	#endregion
 	
-func play_music( audio : AudioStream) -> void:
-	var current_audplayer : AudioStreamPlayer = get_music_player( current_track ) 	#Get or determine current music playing.
-	print_debug("We got this for current music-track:", current_track )
+func play_music_id(id : int):
+	#STOP PREVIOUS HERE (-1 means there is no previous)
+	if current_track != -1:
+		music_dict[current_track].stop()
+	#SET NEW TRACK ID
+	current_track = id
+	#PLAY NEW TRACK
+	music_dict[current_track].play()
 	
-	if current_audplayer.stream == audio: #If we're already playing an Audiostream, then...
-		return #...don't do anything.
-	else:
-		print_debug("Play music reaches the valid point.")
-	var next_track : int = wrapi( current_track + 1, 0, 2 ) #Variable to determine the next track to play.
-	var next_audplayer : AudioStreamPlayer = get_music_player( next_track )
-	#Set the audio on the next music-player.
-	next_audplayer.stream = audio
-	next_audplayer.play()
-	#Handle audio-fades.
-		#Kill tweens
-	fade_track_out( current_audplayer )
-	fade_track_in( next_audplayer )
-	
-	#Store/Set current music track
-	current_track = next_track
-	
+#func play_music( audio : AudioStream) -> void:
+	#var current_audplayer : AudioStreamPlayer = get_music_player( current_track ) 	#Get or determine current music playing.
+	#print_debug("We got this for current music-track:", current_track )
+	#
+	#if current_audplayer.stream == audio: #If we're already playing an Audiostream, then...
+		#return #...don't do anything.
+	#else:
+		#print_debug("Play music reaches the valid point.")
+	#var next_track : int = wrapi( current_track + 1, 0, 2 ) #Variable to determine the next track to play.
+	#var next_audplayer : AudioStreamPlayer = get_music_player( next_track )
+	##Set the audio on the next music-player.
+	#next_audplayer.stream = audio
+	#next_audplayer.play()
+	##Handle audio-fades.
+		##Kill tweens
+	#fade_track_out( current_audplayer )
+	#fade_track_in( next_audplayer )
+	#
+	##Store/Set current music track
+	#current_track = next_track
+	#
 func get_music_player( i : int) -> AudioStreamPlayer: #TODO: this function should probably use a dictionary and a switch...
 	if i == 0 :#If i is 0, then it's the first music-player, so...
 		print_debug("Gave Music1")
@@ -80,7 +93,7 @@ func fade_track_out( track_player: AudioStreamPlayer ) -> void:
 func fade_track_in( track_player: AudioStreamPlayer ) -> void:
 	var tween_in : Tween = create_tween() #We create new tween between tracks
 	music_tweens.append( tween_in ) #Then we store the tween in our tween-array.
-	tween_in.tween_property( track_player, "volume_linear", 1.0, 1.0)
+	tween_in.tween_property( track_player, "volume_linear", 1.0, 1.0) #We turn the volume from nonlinear decibel to a linear scale.
 	
 func set_reverb( type : ReverbTypeE.E ): #Sets the type of reverb to the sound being played.
 	pass

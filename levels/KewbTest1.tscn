@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://catv4gbu1rp2n"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_prie1"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_prie1"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="4_3brdd"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="5_j8rsw"]
@@ -402,6 +402,7 @@ texture = ExtResource("11_3brdd")
 editor_description = "Automatically starts playing music when the parent-node is loaded."
 script = ExtResource("12_4rd1o")
 music_track = ExtResource("13_ttewl")
+_music_id = [0]
 metadata/_custom_type_script = "uid://b0mjpra4m4d2x"
 
 [editable path="EnemySpawner"]
