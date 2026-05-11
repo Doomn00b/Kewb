@@ -6,7 +6,7 @@ extends Node
 @export var reverb : ReverbTypeE.E = ReverbTypeE.E.NONE
 
 @export_category("Choose which music to play in the scene, by inputing the dictionary # here:")
-@export var _music_id : int = 0
+@export var _music_id : int #= 0
 
 var am : AudioManager
 
@@ -18,7 +18,6 @@ func _ready() -> void:
 	am.play_music_id(_music_id)
 	am.set_reverb( reverb )
 	print_debug("Played Auto-trig-music:", music_track )
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
