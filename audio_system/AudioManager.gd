@@ -15,11 +15,14 @@ var ui_audio_player : AudioStreamPlaybackPolyphonic
 
 @onready var music_1: AudioStreamPlayer = %Music1
 @onready var music_2: AudioStreamPlayer = %Music2
+@onready var music_3: AudioStreamPlayer = %Music3
+
 @onready var ui: AudioStreamPlayer = %UI
 @onready var music_dict : Dictionary[int, AudioStreamPlayer] = {
 	0 : music_1,
 	1  : music_2,
-	2 : ui,
+	2 : music_3,
+	3 : ui
 }
 var ab : AudioBus
 
@@ -49,8 +52,10 @@ func play_music_id(id : int):
 	#STOP PREVIOUS HERE (-1 means there is no previous)
 	if current_track != -1:
 		music_dict[current_track].stop()
+		print_debug("Stopped the previous track:" , current_track)
 	#SET NEW TRACK ID
 	current_track = id
+	print_debug("This is the current track-ID in A.M:" , id)
 	#PLAY NEW TRACK
 	music_dict[current_track].play()
 	
@@ -100,8 +105,8 @@ func set_reverb( type : ReverbTypeE.E ): #Sets the type of reverb to the sound b
 	
 func play_ui_audio( audio : AudioStream) -> void:
 	#Guard-clause
-	if ui_audio_player:
-		ui_audio_player.play_stream( audio )
+	if ui_audio_player: #If we have a ui_audio_player, then...
+		ui_audio_player.play_stream( audio ) #...play its audio-stream.
 	else:
 		return
 

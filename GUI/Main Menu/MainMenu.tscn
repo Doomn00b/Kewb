@@ -4,7 +4,6 @@
 [ext_resource type="Theme" uid="uid://pt8vsbdh07pr" path="res://GUI/Main Menu/MainMenuResources/kewb_menu_theme.tres" id="1_kf0uv"]
 [ext_resource type="PackedScene" uid="uid://46bhsroc6ppa" path="res://GUI/Main Menu/HotkeyRebindButton.tscn" id="3_82pry"]
 [ext_resource type="Script" uid="uid://b0mjpra4m4d2x" path="res://audio_system/music/MusicAutoTrigger.gd" id="4_msonn"]
-[ext_resource type="AudioStream" uid="uid://dof36a2fp7vpn" path="res://external_assets/poopie_pack_ogg/start_.ogg" id="5_pr7vw"]
 
 [node name="MainMenu" type="Control" unique_id=396991790]
 layout_mode = 3
@@ -163,7 +162,7 @@ text = "Insert cool background with sprite-rotation and or parallax-scrolling he
 
 [node name="MusicAutoTrigger" type="Node" parent="." unique_id=784745608]
 script = ExtResource("4_msonn")
-music_track = ExtResource("5_pr7vw")
+play_anyway = true
 metadata/_custom_type_script = "uid://b0mjpra4m4d2x"
 
 [connection signal="pressed" from="CenterContainer/PanelContainer/MainMenu/NewGameButton" to="." method="_on_new_game_pressed"]

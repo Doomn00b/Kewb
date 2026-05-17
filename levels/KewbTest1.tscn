@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://catv4gbu1rp2n"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_prie1"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_prie1"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="4_3brdd"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="5_j8rsw"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://3jmguuhnft7s" path="res://interactables/Pickups/AbilityUpgrade.tscn" id="10_k1vye"]
 [ext_resource type="Texture2D" uid="uid://datlkatrp2fsb" path="res://levels/Jumping test-chart.png" id="11_3brdd"]
 [ext_resource type="Script" uid="uid://b0mjpra4m4d2x" path="res://audio_system/music/MusicAutoTrigger.gd" id="12_4rd1o"]
-[ext_resource type="AudioStream" uid="uid://dof36a2fp7vpn" path="res://external_assets/poopie_pack_ogg/start_.ogg" id="13_ttewl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
 
@@ -401,8 +400,7 @@ texture = ExtResource("11_3brdd")
 [node name="MusicAutoTrigger" type="Node" parent="." unique_id=1970525170]
 editor_description = "Automatically starts playing music when the parent-node is loaded."
 script = ExtResource("12_4rd1o")
-music_track = ExtResource("13_ttewl")
-_music_id = [0]
+_music_id = 1
 metadata/_custom_type_script = "uid://b0mjpra4m4d2x"
 
 [editable path="EnemySpawner"]

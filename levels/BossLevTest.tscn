@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://7fcyoo4g7o4k"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_wte1x"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_wte1x"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="2_2lamh"]
 [ext_resource type="PackedScene" uid="uid://c5858a2o7dwsx" path="res://characters/Enemies/Boss_Enemy/BossEnemy.tscn" id="3_wte1x"]
 [ext_resource type="Texture2D" uid="uid://b5nkwflr4ryos" path="res://Tilesets/kewb-tiles_blue.png" id="4_6ip4h"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ditqfpyx1o7rr" path="res://Tilesets/kewb-tiles_blue_setoftwo.png" id="5_p5nx4"]
 [ext_resource type="PackedScene" uid="uid://cgsnaw31uqbsn" path="res://levels/LevelTransition.tscn" id="6_te63e"]
 [ext_resource type="Texture2D" uid="uid://c43x0cd85xsal" path="res://Tilesets/kewb-tiles_vert.png" id="7_2lamh"]
+[ext_resource type="Script" uid="uid://b0mjpra4m4d2x" path="res://audio_system/music/MusicAutoTrigger.gd" id="9_6ip4h"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
 
@@ -313,6 +314,11 @@ tile_map_data = PackedByteArray("AADj/w8AAAABAAcAAADi/w8AAAAAAAcAAADj/w4AAAABAAY
 tile_set = SubResource("TileSet_te63e")
 collision_visibility_mode = 1
 navigation_enabled = false
+
+[node name="MusicAutoTrigger" type="Node" parent="." unique_id=823116914]
+script = ExtResource("9_6ip4h")
+_music_id = 3
+metadata/_custom_type_script = "uid://b0mjpra4m4d2x"
 
 [editable path="EnemySpawner3"]
 [editable path="Door"]

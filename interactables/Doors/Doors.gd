@@ -32,8 +32,6 @@ func _ready():
 func _on_button_activated() -> void:
 	#Play sound-effect punch button.
 	#Play sound-effect door opening. (through GLOBAL system)
-	#Play button getting pressed animation.
-	#Play door opening animation.
 	animation_player.play("opening") #Play the opening door animation.
 	await animation_player.animation_finished
 	if level_transition != null: #If we have a level-transition, then...
