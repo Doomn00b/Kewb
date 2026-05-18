@@ -1,6 +1,7 @@
 class_name Level
 extends Node2D
 
+signal level_entered
 @export_category("Put Entry-points, Name & Marker, here")
 @export var entry_dict : Dictionary[int, Node2D]
 @export_category("Toggle this to test individual level")

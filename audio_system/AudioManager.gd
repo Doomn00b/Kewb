@@ -42,10 +42,12 @@ func _ready() -> void:
 	print_debug("Connected ui audio-signals.")
 	#endregion
 	
+	play_music_id(0)
+	
 	#region To play UI-audio
-	ui.play()
-	ui_audio_player = ui.get_stream_playback()
-	print_debug("Got Ui Audio.")
+	#ui.play()
+	#ui_audio_player = ui.get_stream_playback()
+	#print_debug("Got Ui Audio.")
 	#endregion
 	
 func play_music_id(id : int):

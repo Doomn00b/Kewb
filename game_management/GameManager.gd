@@ -8,7 +8,7 @@ var save_game : SaveGame
 @export var level_2D : Node2D #We set up a variable for the levels.
 @export var gui : Control #A variable for the various Graphical User Interface.
 
-var current_level2d : Node2D
+var current_level2d : Level
 var current_level_name : String :
 	get():
 		return level_dict.find_key(current_level2d)
@@ -128,7 +128,7 @@ func change_level2D(new_level : String,
 	current_level2d.place_player(Player.instance, entry_point) #We run the place-player function from the Level-script, using the string that references an Entry-point.
 	current_level2d.visible = true
 	current_level2d.process_mode = Node.PROCESS_MODE_INHERIT
-	
+	current_level2d.level_entered.emit()
 	if transition == true:
 		TransitionController.instance.transition_in(seconds) #Now we run the fade in transition as well.
 		Player.instance.free_movement() #We unlock the player again once we've transitioned.
@@ -156,7 +156,7 @@ func load_level2D(
 	#current_level2d.visible = false
 	#current_level2d.process_mode = Node.PROCESS_MODE_DISABLED
 	current_level2d = level_dict[save_game.current_level]
-	
+	current_level2d.level_entered.emit()
 	#NEW LEVEL TURN ON
 	var player : Player = Player.instance
 	enable_tileset()
