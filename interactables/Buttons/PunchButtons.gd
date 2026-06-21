@@ -17,7 +17,6 @@ func _ready() -> void:
 	#if SaveManager.instance.save_game != null : #If there's a save,then...
 		#is_open = true
 		#set_open() # run set to open function, if there's save-data.
-	#
 	#connect to signals
 	butt_area.body_entered.connect(_on_player_entered) #Used for tool-tip
 	butt_area.body_exited.connect(_on_player_exited) #Used for turning off tool-tip.
@@ -41,7 +40,11 @@ func _on_player_punched(area: Area2D) -> void: #This is what happens if you punc
 func _on_player_interacted() -> void:
 	print_debug("Player Interacted.")
 	#if SaveManager.instance.save_game != null : #Check our persistent data if the player has already interacted/opened the door.
+	
 	#Add audio playback
+	AudioManager.instance.play_spatial_sound( DOOR_BUTTON_AUDIO, global_position) #Tell AM to play our punch-button sound, using the buttons position.
+	
+	
 	button_activated.emit() #If the player has interacted (PUNCHED) the button, then this signal emits.
 	butt_anim.play("pressing") #We play the pressing-animation.
 	set_open()

@@ -104,7 +104,23 @@ func fade_track_in( track_player: AudioStreamPlayer ) -> void:
 	
 func set_reverb( type : ReverbTypeE.E ): #Sets the type of reverb to the sound being played.
 	pass
+
+#The below function plays SoundFX and environmental sounds in a level. It uses code to spawn in new sounds dynamically, since it would be tricky to do it manually.
+func play_spatial_sound( audiosfx: AudioStream, pos : Vector2) -> void:
+	var sfxp: AudioStreamPlayer2D = AudioStreamPlayer2D.new() #We crete a new audiostreamplayer called SFXP (soundFX-player)
+	add_child( sfxp ) #We add it as a child to the AudioManager
+	sfxp.bus = "SFX" #We assign the child-contents to the SFX-unit on the Audio-Bus.
+	sfxp.global_position = pos #We make the sfxplayer's global pos the same as the functions Pos-variable.
+	sfxp.stream = audiosfx #The sfx-player's stream becomes the same as this functions audiosfx-variable.
+	#region guard-clause so we can hear the sounds...
+	if sfxp.playing == true:
+		await get_tree().process_frame
 	
+	#endregion 
+	sfxp.finished.connect( sfxp.queue_free ) #Finally, we send a signal once the sfx has been played, to remove the sfx from memory.
+	print_debug( "Removed SFX-child.")
+#TODO: The above function is a bit questionable... it instantiates sounds all the time... performance will be impacted in some scenarios.	
+
 func play_ui_audio( audio : AudioStream) -> void:
 	#Guard-clause
 	if ui_audio_player: #If we have a ui_audio_player, then...

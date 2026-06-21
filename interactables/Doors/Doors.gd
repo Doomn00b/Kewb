@@ -29,9 +29,9 @@ func _ready():
 	elif preset_open == true: #If we have set the door via the editor to be open, then...
 		_on_button_remain()
 
-func _on_button_activated() -> void:
-	#Play sound-effect punch button.
-	#Play sound-effect door opening. (through GLOBAL system)
+func _on_button_activated() -> void:	
+	AudioManager.instance.play_spatial_sound( DOOR_CRASH_AUDIO, global_position) #Tell AM to play the door-crash sound, at the door's position.
+	
 	animation_player.play("opening") #Play the opening door animation.
 	await animation_player.animation_finished
 	if level_transition != null: #If we have a level-transition, then...
