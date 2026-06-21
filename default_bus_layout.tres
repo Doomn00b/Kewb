@@ -4,6 +4,7 @@
 resource_name = "Reverb"
 
 [resource]
+bus/0/volume_db = -10.0691595
 bus/1/name = &"EffectPass"
 bus/1/solo = false
 bus/1/mute = false

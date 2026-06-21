@@ -75,4 +75,4 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 mouse_filter = 1
 mouse_behavior_recursive = 2
-text = "Restart game"
+text = "New game"

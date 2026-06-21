@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://catv4gbu1rp2n"]
 
-[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/Level.gd" id="1_prie1"]
+[ext_resource type="Script" uid="uid://deekrqvtki7tj" path="res://levels/level.gd" id="1_prie1"]
 [ext_resource type="PackedScene" uid="uid://d2kxrorooo8fd" path="res://characters/Enemies/enemy_spawner.tscn" id="3_78frg"]
 [ext_resource type="PackedScene" uid="uid://s3fiqrbtsdwi" path="res://characters/Enemies/Enemy_kewb/enemy_kewb.tscn" id="4_3brdd"]
 [ext_resource type="PackedScene" uid="uid://des8idf8hwabd" path="res://interactables/Doors/DoorSideways.tscn" id="5_j8rsw"]
@@ -355,7 +355,7 @@ collision_visibility_mode = 1
 navigation_enabled = false
 
 [node name="BrownTilesEnd-right" type="TileMapLayer" parent="." unique_id=633128645 groups=["Walls"]]
-z_index = -2
+z_index = -3
 y_sort_enabled = true
 position = Vector2(896, -8)
 tile_map_data = PackedByteArray("AADj/w8AAAABAAcAAADi/w8AAAAAAAcAAADj/w4AAAABAAYAAADi/w4AAAAAAAYAAADj/w0AAAABAAUAAADi/w0AAAAAAAUAAADj/wwAAAABAAQAAADi/wwAAAAAAAQAAADj/wsAAAABAAMAAADi/wsAAAAAAAMAAADj/woAAAABAAIAAADi/woAAAAAAAIAAADj/wkAAAABAAEAAADi/wkAAAAAAAEAAADj/wgAAAABAAMAAADi/wgAAAAAAAMAAADj/wcAAAABAAIAAADi/wcAAAAAAAIAAADj/wYAAAABAAQAAADi/wYAAAAAAAQAAADj/wUAAAABAAMAAADi/wUAAAAAAAMAAADj/wQAAAABAAIAAADi/wQAAAAAAAIAAADj/wMAAAABAAEAAADi/wMAAAAAAAEAAADj/wIAAAABAAAAAADi/wIAAAAAAAAAAAA=")
@@ -386,10 +386,6 @@ target_level = "Level2"
 
 [node name="PowerPunchUpgrade" parent="." unique_id=947636966 instance=ExtResource("10_k1vye")]
 position = Vector2(-299, 167)
-
-[node name="ChargeJumpUpgrade2" parent="." unique_id=693034218 instance=ExtResource("10_k1vye")]
-position = Vector2(-320, 168)
-upgrade_type = 2
 
 [node name="height-test_chart" type="Sprite2D" parent="." unique_id=1100571674]
 z_index = -1
