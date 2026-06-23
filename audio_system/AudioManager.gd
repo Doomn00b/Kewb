@@ -112,6 +112,7 @@ func play_spatial_sound( audiosfx: AudioStream, pos : Vector2) -> void:
 	sfxp.bus = "SFX" #We assign the child-contents to the SFX-unit on the Audio-Bus.
 	sfxp.global_position = pos #We make the sfxplayer's global pos the same as the functions Pos-variable.
 	sfxp.stream = audiosfx #The sfx-player's stream becomes the same as this functions audiosfx-variable.
+	sfxp.play() #And finally play the sound.
 	#region guard-clause so we can hear the sounds...
 	if sfxp.playing == true:
 		await get_tree().process_frame

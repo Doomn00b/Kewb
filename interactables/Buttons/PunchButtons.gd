@@ -5,7 +5,7 @@ extends Node2D
 
 signal button_activated
 
-const DOOR_BUTTON_AUDIO = preload("res://interactables/Buttons/block_hit.ogg")
+const PUNCH_BUTTON_AUDIO = preload("res://interactables/Buttons/block_hit.ogg")
 @onready var butt_anim: AnimationPlayer = %BAnimPlayer
 @onready var butt_area: Area2D = %ButtonArea2D
 var is_open : bool = false
@@ -34,17 +34,14 @@ func _on_player_exited(_node: Node2D) -> void: #Maybe ON-FIST-EXITED?
 func _on_player_punched(area: Area2D) -> void: #This is what happens if you punch the button.
 	if area == get_tree().get_first_node_in_group("playerDmgGroup"): #If the area that enters is the FIST
 		print_debug("Player punched button.")
+		AudioManager.instance.play_spatial_sound( PUNCH_BUTTON_AUDIO, global_position) #Tell AM to play our punch-button sound, using the buttons position.
+		
 		MessageBus.instance.player_interacted.emit() #After punching we send a signal that we have interacted.
 		_on_player_interacted()
 
 func _on_player_interacted() -> void:
 	print_debug("Player Interacted.")
-	#if SaveManager.instance.save_game != null : #Check our persistent data if the player has already interacted/opened the door.
-	
-	#Add audio playback
-	AudioManager.instance.play_spatial_sound( DOOR_BUTTON_AUDIO, global_position) #Tell AM to play our punch-button sound, using the buttons position.
-	
-	
+	#if SaveManager.instance.save_game != null : #Check our persistent data if the player has already interacted/opened the door.	
 	button_activated.emit() #If the player has interacted (PUNCHED) the button, then this signal emits.
 	butt_anim.play("pressing") #We play the pressing-animation.
 	set_open()
