@@ -13,6 +13,7 @@ func _ready() -> void:
 	
 func _on_player_entered(_player: Player) -> void:
 	if _player.is_in_group("playerGroup"):
+		AudioBus.instance.run_ui_focus_change_aud.emit()#Send a signal to play the focus-change sound.
 		MessageBus.instance.input_hint_changed.emit(HintMsgEnum.E.INTERACTMSG) #We show the hint to press interact.
 		label_anim.play("sp_save_game")
 		print_debug("Player entered save-point.")
@@ -21,6 +22,7 @@ func _on_player_entered(_player: Player) -> void:
 		
 func _on_player_exited(_player: Player) -> void:
 	if _player.is_in_group("playerGroup"):
+		AudioBus.instance.run_ui_focus_change_aud.emit()#Send a signal to play the focus-change sound.
 		MessageBus.instance.input_hint_changed.emit(HintMsgEnum.E.NO_HINT)
 		label_anim.play_backwards("sp_save_game")
 		print_debug("Player exited save-point.")
@@ -37,3 +39,4 @@ func _on_player_interacted(_player: Player) -> void:
 	label_anim.play("sp_game_saved") #Run the game saved animation.
 	label_anim.seek( 0 ) #In case the player hits interact-button multiple times, we go back to the beginning of the animation.
 	#Audio feedback (jingle)
+	AudioBus.instance.run_ui_success_aud.emit()

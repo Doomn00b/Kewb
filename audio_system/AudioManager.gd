@@ -22,7 +22,7 @@ var ui_audio_player : AudioStreamPlaybackPolyphonic
 	0 : music_1,
 	1  : music_2,
 	2 : music_3,
-	3 : ui
+	#3 : ui
 }
 var ab : AudioBus
 
@@ -45,9 +45,9 @@ func _ready() -> void:
 	play_music_id(0)
 	
 	#region To play UI-audio
-	#ui.play()
-	#ui_audio_player = ui.get_stream_playback()
-	#print_debug("Got Ui Audio.")
+	ui.play() #we tell it to run play so we can get the stream below, and assign it sounds later.
+	ui_audio_player = ui.get_stream_playback() #Grab the tree-object UI (an audiostreamPlayer)'s polyphonic stream & store it in thia variable.
+	print_debug("Got Ui Audio.")
 	#endregion
 	
 func play_music_id(id : int):
@@ -82,13 +82,13 @@ func play_music_id(id : int):
 	##Store/Set current music track
 	#current_track = next_track
 	#
-func get_music_player( i : int) -> AudioStreamPlayer: #TODO: this function should probably use a dictionary and a switch...
-	if i == 0 :#If i is 0, then it's the first music-player, so...
-		print_debug("Gave Music1")
-		return music_1
-	else:
-		print_debug("Gave Music2")
-		return music_2
+#func get_music_player( i : int) -> AudioStreamPlayer: #TODO: this function should probably use a dictionary and a switch...
+	#if i == 0 :#If i is 0, then it's the first music-player, so...
+		#print_debug("Gave Music1")
+		#return music_1
+	#else:
+		#print_debug("Gave Music2")
+		#return music_2
 		
 	
 func fade_track_out( track_player: AudioStreamPlayer ) -> void:
@@ -103,7 +103,27 @@ func fade_track_in( track_player: AudioStreamPlayer ) -> void:
 	tween_in.tween_property( track_player, "volume_linear", 1.0, 1.0) #We turn the volume from nonlinear decibel to a linear scale.
 	
 func set_reverb( type : ReverbTypeE.E ): #Sets the type of reverb to the sound being played.
-	pass
+	#Below we define a reverb-variable, out of the AudioServer and get the second channel (EffectPass) and it's first effect (0, aka reverb)
+	var reverb_fx : AudioEffectReverb = AudioServer.get_bus_effect(1, 0)
+	
+	#Guard-clause
+	if not reverb_fx: #If we don't have a reverb-effect, then...
+		return #...go back, don't do anything.
+		
+	AudioServer.set_bus_effect_enabled( 1, 0, false) #We preset it so the second channels (aka 1), first effect (aka 0, reverb) is disabled by default.
+	match type:
+		ReverbTypeE.E.NONE:
+			AudioServer.set_bus_effect_enabled( 1, 0, false) #If we choose no reverb-effect, then we disable the check-box for reverb.
+		ReverbTypeE.E.SMALL:
+			AudioServer.set_bus_effect_enabled( 1, 0, true)
+			reverb_fx.room_size = 0.2 #we change the room-size to a small one, which will propagate less sound. (we can do a crap-ton more here, if we knew sound...)
+		ReverbTypeE.E.MEDIUM:
+			AudioServer.set_bus_effect_enabled( 1, 0, true)
+			reverb_fx.room_size = 0.4
+		ReverbTypeE.E.LARGE:
+			AudioServer.set_bus_effect_enabled( 1, 0, true)
+			reverb_fx.room_size = 0.8
+	
 
 #The below function plays SoundFX and environmental sounds in a level. It uses code to spawn in new sounds dynamically, since it would be tricky to do it manually.
 func play_spatial_sound( audiosfx: AudioStream, pos : Vector2) -> void:
@@ -123,10 +143,13 @@ func play_spatial_sound( audiosfx: AudioStream, pos : Vector2) -> void:
 #TODO: The above function is a bit questionable... it instantiates sounds all the time... performance will be impacted in some scenarios.	
 
 func play_ui_audio( audio : AudioStream) -> void:
+	#TODO: Why do we not have a UI-audio-stream(player)?
 	#Guard-clause
-	if ui_audio_player: #If we have a ui_audio_player, then...
+	if ui_audio_player != null: #If we have a ui_audio_player, then...
 		ui_audio_player.play_stream( audio ) #...play its audio-stream.
+		print_debug("Played a UI-audio.")
 	else:
+		print_debug("Uh-oh,we're going back instead of playing UI-audio!")
 		return
 
 #This function is run from other scripts to assign sounds to button-objects.
@@ -137,7 +160,8 @@ func setup_button_audio( node : Node) -> void: #Grabs all UI-buttons and assigns
 		
 #region Functions for playing UI-sounds via other scripts.
 func ui_focus_change_aud() -> void:
-	play_ui_audio( ui_focus_audio )
+	play_ui_audio( ui_focus_audio ) #Load the play_ui_audio function with the Ui-focus-sound.
+	print_debug("Gave ui-FOCUS to play_ui")
 
 func ui_select_aud() -> void:
 	play_ui_audio( ui_select_audio )

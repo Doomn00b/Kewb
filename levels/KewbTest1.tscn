@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://3jmguuhnft7s" path="res://interactables/Pickups/AbilityUpgrade.tscn" id="10_k1vye"]
 [ext_resource type="Texture2D" uid="uid://datlkatrp2fsb" path="res://levels/Jumping test-chart.png" id="11_3brdd"]
 [ext_resource type="Script" uid="uid://b0mjpra4m4d2x" path="res://audio_system/music/MusicAutoTrigger.gd" id="12_4rd1o"]
+[ext_resource type="PackedScene" uid="uid://ctpljjy4g34v1" path="res://interactables/save_point.tscn" id="13_ttewl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78frg"]
 
@@ -398,5 +399,8 @@ editor_description = "Automatically starts playing music when the parent-node is
 script = ExtResource("12_4rd1o")
 _music_id = 1
 metadata/_custom_type_script = "uid://b0mjpra4m4d2x"
+
+[node name="SavePoint" parent="." unique_id=1020067152 instance=ExtResource("13_ttewl")]
+position = Vector2(-424, 192)
 
 [editable path="EnemySpawner"]

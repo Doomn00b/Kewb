@@ -2,7 +2,7 @@
 class_name MusicAutoTrigger
 extends Node
 
-@export var music_track : AudioStream
+#@export var music_track : AudioStream #Previously used for setting which music we want - but we just use the dictionary instead.
 @export var reverb : ReverbTypeE.E = ReverbTypeE.E.NONE
 
 @export_category("Choose which music to play in the scene, by inputing the dictionary # here:")

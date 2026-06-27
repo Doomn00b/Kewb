@@ -50,6 +50,7 @@ func _on_continue_pressed() -> void:
 	# Replace with load_level2d from GameManager
 
 func _on_settings_pressed() -> void:
+	#TODO: Insert confirm audio
 	_hide_menus()
 	previous_menu = current_menu
 	current_menu = settings_menu
@@ -57,7 +58,7 @@ func _on_settings_pressed() -> void:
 	print_debug("Pressed settings.") 
 
 func _on_quit_pressed() -> void:
-	#Put in something to make a box pop up that double-checks if you want to quit.
+	#TODO: Put in something to make a box pop up that double-checks if you want to quit.
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST) #Tell the rest of Godot that we want to close the game.
 	get_tree().quit() #Close the game.
 #endregion
@@ -94,7 +95,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_cancel"):
 		if previous_menu == null:
 			return
-		#Audio-cue.
+		AudioBus.instance.run_ui_canc_aud.emit() # Send a signal to run ui-cancel-audio. #TODO: Why doesn't this run any hearable audio??
 		_hide_menus() #First we turn everything off...
 		current_menu = previous_menu
 		_show_menu() #Then we show the menu we want to see.
